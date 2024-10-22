@@ -78,6 +78,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalHeaderUnitDependencies>
+      </AdditionalHeaderUnitDependencies>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -107,6 +109,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalHeaderUnitDependencies>
+      </AdditionalHeaderUnitDependencies>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -122,17 +126,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LoginForm.cpp" />
+    <ClInclude Include="LoginForm.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LoginForm.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="LoginForm.resx">
-      <DependentUpon>LoginForm.h</DependentUpon>
-    </EmbeddedResource>
+    <ClCompile Include="Program.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

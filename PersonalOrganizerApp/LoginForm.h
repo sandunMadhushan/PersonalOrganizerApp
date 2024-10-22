@@ -1,4 +1,5 @@
 #pragma once
+#include "User.h"
 
 namespace PersonalOrganizerApp {
 
@@ -8,6 +9,7 @@ namespace PersonalOrganizerApp {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Data::SqlClient;
 
 	/// <summary>
 	/// Summary for LoginForm
@@ -49,7 +51,7 @@ namespace PersonalOrganizerApp {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -99,7 +101,7 @@ namespace PersonalOrganizerApp {
 			this->label3->AutoSize = true;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label3->ForeColor = System::Drawing::SystemColors::Control;
+			this->label3->ForeColor = System::Drawing::Color::Black;
 			this->label3->Location = System::Drawing::Point(70, 219);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(120, 29);
@@ -111,7 +113,8 @@ namespace PersonalOrganizerApp {
 			this->tbEmail->Location = System::Drawing::Point(223, 148);
 			this->tbEmail->Name = L"tbEmail";
 			this->tbEmail->Size = System::Drawing::Size(196, 38);
-			this->tbEmail->TabIndex = 3;
+			this->tbEmail->TabIndex = 0;
+			this->tbEmail->TextChanged += gcnew System::EventHandler(this, &LoginForm::tbEmail_TextChanged);
 			// 
 			// tbPassword
 			// 
@@ -119,7 +122,7 @@ namespace PersonalOrganizerApp {
 			this->tbPassword->Name = L"tbPassword";
 			this->tbPassword->PasswordChar = '*';
 			this->tbPassword->Size = System::Drawing::Size(196, 38);
-			this->tbPassword->TabIndex = 3;
+			this->tbPassword->TabIndex = 1;
 			// 
 			// btnOK
 			// 
@@ -132,6 +135,7 @@ namespace PersonalOrganizerApp {
 			this->btnOK->TabIndex = 4;
 			this->btnOK->Text = L"OK";
 			this->btnOK->UseVisualStyleBackColor = true;
+			this->btnOK->Click += gcnew System::EventHandler(this, &LoginForm::btnOK_Click);
 			// 
 			// btnCancel
 			// 
@@ -180,5 +184,61 @@ namespace PersonalOrganizerApp {
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
-};
+
+	public: User^ user = nullptr;
+
+	private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ email = this->tbEmail->Text;
+		String^ password = this->tbPassword->Text;
+
+		if (email->Length == 0 || password->Length == 0) {
+			MessageBox::Show("Please enter email and password", "Email or Password Empty", MessageBoxButtons::OK);
+			return;
+
+		}
+
+		try
+		{
+			String^ connString = "Data Source=DESKTOP-MDO4CSL;Initial Catalog=personalOrganizerDBNew;Integrated Security=True;Trust Server Certificate=True";
+			SqlConnection sqlConn(connString);
+			sqlConn.Open();
+
+			String^ sqlQuery = "SELECT * FROM users WHERE email = @email AND password=@password;";
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@email", email);
+			command.Parameters->AddWithValue("@password", password);
+
+			SqlDataReader^ reader = command.ExecuteReader();
+			if (reader->Read()) {
+
+				user = gcnew User;
+				user->id = reader->GetInt32(0);
+				user->name = reader->GetString(1);
+				user->email = reader->GetString(2);
+				user->phone = reader->GetString(3);
+				user->address = reader->GetString(4);
+				user->password = reader->GetString(5);
+
+				this->Close();
+			}
+			else
+			{
+				MessageBox::Show("Email or Password is incorrect", "Email or Password Error", MessageBoxButtons::OK);
+			}
+
+		}
+		catch (Exception^ e) {
+			MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+		{
+
+		}
+
+	}
+	private: System::Void tbEmail_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		this->tbEmail->Focus();
+	}
+	};
 }
+#pragma once
