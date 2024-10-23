@@ -199,7 +199,7 @@ namespace PersonalOrganizerApp {
 
 		try
 		{
-			String^ connString = "Data Source=DESKTOP-MDO4CSL;Initial Catalog=personalOrganizerDBNew;Integrated Security=True;Trust Server Certificate=True";
+			String^ connString = "Data Source=DESKTOP-MDO4CSL\\sqlexpress;Initial Catalog=personalOrganizerDB;Integrated Security=True;TrustServerCertificate=True";
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
 
