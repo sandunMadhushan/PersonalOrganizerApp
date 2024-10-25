@@ -1,4 +1,5 @@
 #include "LoginForm.h"
+#include "MainForm.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -12,7 +13,8 @@ void main(array<String^>^ args) {
 	User^ user = loginForm.user;
 
 	if (user != nullptr) {
-		MessageBox::Show("Successfull Authentication of " + user->name, "Program.cpp", MessageBoxButtons::OK);
+		PersonalOrganizerApp::MainForm mainForm(user);
+		Application::Run(% mainForm);
 	}
 	else
 	{
