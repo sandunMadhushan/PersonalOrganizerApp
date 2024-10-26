@@ -1,5 +1,6 @@
 #include "LoginForm.h"
 #include "MainForm.h"
+#include "RegisterForm.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -7,10 +8,23 @@ using namespace System::Windows::Forms;
 void main(array<String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	PersonalOrganizerApp::LoginForm loginForm;
 
-	loginForm.ShowDialog();
-	User^ user = loginForm.user;
+	User^ user = nullptr;
+	while (true) {
+		PersonalOrganizerApp::LoginForm loginForm;
+		loginForm.ShowDialog();
+
+		if (loginForm.switchToRegister)
+		{
+			PersonalOrganizerApp::RegisterForm registerForm;
+			registerForm.ShowDialog();
+		}
+		else
+		{
+			user = loginForm.user;
+			break;
+		}
+	}
 
 	if (user != nullptr) {
 		PersonalOrganizerApp::MainForm mainForm(user);

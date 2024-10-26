@@ -43,6 +43,9 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::TextBox^ tbPassword;
 	private: System::Windows::Forms::Button^ btnOK;
 	private: System::Windows::Forms::Button^ btnCancel;
+	private: System::Windows::Forms::LinkLabel^ llRegister;
+
+	private: System::Windows::Forms::Label^ label4;
 
 
 	protected:
@@ -67,6 +70,8 @@ namespace PersonalOrganizerApp {
 			this->tbPassword = (gcnew System::Windows::Forms::TextBox());
 			this->btnOK = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
+			this->llRegister = (gcnew System::Windows::Forms::LinkLabel());
+			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -150,12 +155,38 @@ namespace PersonalOrganizerApp {
 			this->btnCancel->UseVisualStyleBackColor = true;
 			this->btnCancel->Click += gcnew System::EventHandler(this, &LoginForm::button2_Click);
 			// 
+			// llRegister
+			// 
+			this->llRegister->AutoSize = true;
+			this->llRegister->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->llRegister->Location = System::Drawing::Point(315, 423);
+			this->llRegister->Name = L"llRegister";
+			this->llRegister->Size = System::Drawing::Size(104, 29);
+			this->llRegister->TabIndex = 6;
+			this->llRegister->TabStop = true;
+			this->llRegister->Text = L"Register";
+			this->llRegister->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &LoginForm::llRegister_LinkClicked);
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label4->Location = System::Drawing::Point(50, 423);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(257, 29);
+			this->label4->TabIndex = 7;
+			this->label4->Text = L"Don\'t have an account\?";
+			// 
 			// LoginForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(16, 31);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Turquoise;
-			this->ClientSize = System::Drawing::Size(512, 395);
+			this->ClientSize = System::Drawing::Size(512, 503);
+			this->Controls->Add(this->label4);
+			this->Controls->Add(this->llRegister);
 			this->Controls->Add(this->btnCancel);
 			this->Controls->Add(this->btnOK);
 			this->Controls->Add(this->tbPassword);
@@ -239,6 +270,12 @@ namespace PersonalOrganizerApp {
 	private: System::Void tbEmail_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		this->tbEmail->Focus();
 	}
-	};
+
+public: bool switchToRegister = false;
+private: System::Void llRegister_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+	switchToRegister = true;
+	this->Close();
+}
+};
 }
 #pragma once
