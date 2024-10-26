@@ -23,6 +23,7 @@ namespace PersonalOrganizerApp {
 			//
 			//TODO: Add the constructor code here
 			//
+			this->CenterToScreen();
 		}
 
 	protected:
@@ -120,6 +121,7 @@ namespace PersonalOrganizerApp {
 			this->tbEmail->Size = System::Drawing::Size(196, 38);
 			this->tbEmail->TabIndex = 0;
 			this->tbEmail->TextChanged += gcnew System::EventHandler(this, &LoginForm::tbEmail_TextChanged);
+			this->tbEmail->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &LoginForm::tbEmail_KeyDown);
 			// 
 			// tbPassword
 			// 
@@ -278,6 +280,10 @@ private: System::Void llRegister_LinkClicked(System::Object^ sender, System::Win
 	switchToRegister = true;
 	this->Close();
 }
+private: System::Void tbEmail_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+	if (e->KeyCode == Keys::Enter) {
+		this->tbPassword->Focus();
+	}
+}
 };
 }
-#pragma once
