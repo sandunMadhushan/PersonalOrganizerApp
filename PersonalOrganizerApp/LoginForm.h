@@ -23,6 +23,7 @@ namespace PersonalOrganizerApp {
 			//
 			//TODO: Add the constructor code here
 			//
+			this->CenterToScreen();
 		}
 
 	protected:
@@ -120,6 +121,7 @@ namespace PersonalOrganizerApp {
 			this->tbEmail->Size = System::Drawing::Size(196, 38);
 			this->tbEmail->TabIndex = 0;
 			this->tbEmail->TextChanged += gcnew System::EventHandler(this, &LoginForm::tbEmail_TextChanged);
+			this->tbEmail->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &LoginForm::tbEmail_KeyDown);
 			// 
 			// tbPassword
 			// 
@@ -131,6 +133,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// btnOK
 			// 
+			this->btnOK->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnOK->ForeColor = System::Drawing::Color::Black;
@@ -144,6 +147,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// btnCancel
 			// 
+			this->btnCancel->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnCancel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnCancel->ForeColor = System::Drawing::Color::Black;
@@ -175,7 +179,7 @@ namespace PersonalOrganizerApp {
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label4->ForeColor = System::Drawing::Color::Black;
-			this->label4->Location = System::Drawing::Point(50, 423);
+			this->label4->Location = System::Drawing::Point(61, 423);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(257, 29);
 			this->label4->TabIndex = 7;
@@ -199,7 +203,9 @@ namespace PersonalOrganizerApp {
 			this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Margin = System::Windows::Forms::Padding(6);
+			this->MaximizeBox = false;
 			this->Name = L"LoginForm";
 			this->Text = L"Login Form";
 			this->Load += gcnew System::EventHandler(this, &LoginForm::LoginForm_Load);
@@ -278,6 +284,10 @@ private: System::Void llRegister_LinkClicked(System::Object^ sender, System::Win
 	switchToRegister = true;
 	this->Close();
 }
+private: System::Void tbEmail_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+	if (e->KeyCode == Keys::Enter) {
+		this->tbPassword->Focus();
+	}
+}
 };
 }
-#pragma once
