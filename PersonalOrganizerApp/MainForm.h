@@ -1,5 +1,6 @@
 #pragma once
 #include "User.h"
+#include "IncomeExpenseForm.h"
 
 namespace PersonalOrganizerApp {
 
@@ -22,7 +23,7 @@ namespace PersonalOrganizerApp {
 			//
 			//TODO: Add the constructor code here
 			//
-			lblUserInfo->Text = "ID = " + user->id + ", Name = " + user->name + ", email= " + user->email + ", address = " + user->address;
+
 
 		}
 
@@ -38,7 +39,8 @@ namespace PersonalOrganizerApp {
 			}
 		}
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Label^ lblUserInfo;
+	private: System::Windows::Forms::Button^ button1;
+
 
 	protected:
 
@@ -55,8 +57,9 @@ namespace PersonalOrganizerApp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->lblUserInfo = (gcnew System::Windows::Forms::Label());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -67,35 +70,46 @@ namespace PersonalOrganizerApp {
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(22, 13);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(784, 59);
+			this->label1->Size = System::Drawing::Size(965, 59);
 			this->label1->TabIndex = 0;
-			this->label1->Text = L"Welcome to Dashborad";
+			this->label1->Text = L"Welcome";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
-			// lblUserInfo
+			// button1
 			// 
-			this->lblUserInfo->AutoSize = true;
-			this->lblUserInfo->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->button1->BackColor = System::Drawing::Color::Transparent;
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lblUserInfo->Location = System::Drawing::Point(31, 113);
-			this->lblUserInfo->Name = L"lblUserInfo";
-			this->lblUserInfo->Size = System::Drawing::Size(92, 32);
-			this->lblUserInfo->TabIndex = 1;
-			this->lblUserInfo->Text = L"label2";
+			this->button1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.Image")));
+			this->button1->Location = System::Drawing::Point(157, 189);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(221, 224);
+			this->button1->TabIndex = 1;
+			this->button1->Text = L"Income / Expenses";
+			this->button1->TextAlign = System::Drawing::ContentAlignment::BottomCenter;
+			this->button1->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageAboveText;
+			this->button1->UseVisualStyleBackColor = false;
+			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
 			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(818, 488);
-			this->Controls->Add(this->lblUserInfo);
+			this->ClientSize = System::Drawing::Size(999, 598);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label1);
+			this->MaximizeBox = false;
 			this->Name = L"MainForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"MainForm";
 			this->ResumeLayout(false);
-			this->PerformLayout();
 
 		}
 #pragma endregion
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		IncomeExpenseForm^ incomeExpenseForm = gcnew IncomeExpenseForm();
+		incomeExpenseForm->Show();
+		this->Hide();
+	}
 	};
 }
