@@ -60,9 +60,9 @@ namespace PersonalOrganizerApp {
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(466, 45);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(269, 29);
+			this->label1->Size = System::Drawing::Size(234, 29);
 			this->label1->TabIndex = 0;
-			this->label1->Text = L"Income and Expenses";
+			this->label1->Text = L"Income / Expenses";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// IncomeExpenseForm
