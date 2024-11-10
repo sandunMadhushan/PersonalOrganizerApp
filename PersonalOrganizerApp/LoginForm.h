@@ -1,7 +1,6 @@
 #pragma once
 #include "User.h"
 #include "DatabaseHelper.h"
-//#include "MainForm.h"
 
 
 
@@ -230,55 +229,6 @@ namespace PersonalOrganizerApp {
 
 	public: User^ user = nullptr;
 
-	/*private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ email = this->tbEmail->Text;
-		String^ password = this->tbPassword->Text;
-
-		if (email->Length == 0 || password->Length == 0) {
-			MessageBox::Show("Please enter email and password", "Email or Password Empty", MessageBoxButtons::OK);
-			return;
-
-		}
-
-		try
-		{
-			String^ connString = "Data Source=DESKTOP-MDO4CSL\\sqlexpress;Initial Catalog=personalOrganizerDB;Integrated Security=True;TrustServerCertificate=True";
-			SqlConnection sqlConn(connString);
-			sqlConn.Open();
-
-			String^ sqlQuery = "SELECT * FROM users WHERE email = @email AND password=@password;";
-			SqlCommand command(sqlQuery, % sqlConn);
-			command.Parameters->AddWithValue("@email", email);
-			command.Parameters->AddWithValue("@password", password);
-
-			SqlDataReader^ reader = command.ExecuteReader();
-			if (reader->Read()) {
-
-				user = gcnew User;
-				user->id = reader->GetInt32(0);
-				user->name = reader->GetString(1);
-				user->email = reader->GetString(2);
-				user->phone = reader->GetString(3);
-				user->address = reader->GetString(4);
-				user->password = reader->GetString(5);
-
-				this->Close();
-			}
-			else
-			{
-				MessageBox::Show("Email or Password is incorrect", "Email or Password Error", MessageBoxButtons::OK);
-			}
-
-		}
-		catch (Exception^ e) {
-			MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			return;
-		}
-		{
-
-		}
-
-	}*/
 
 		  private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
 			  String^ email = tbEmail->Text;

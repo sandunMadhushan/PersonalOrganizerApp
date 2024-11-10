@@ -26,18 +26,6 @@ void main(array<String^>^ args) {
 		}
 	}
 
-	/*if (user != nullptr) {
-		PersonalOrganizerApp::MainForm mainForm(user);
-		Application::Run(% mainForm);
-	}
-	else
-	{
-		
-	}
-	{
-
-	}*/
-
 	PersonalOrganizerApp::MainForm mainForm(user);
 	Application::Run(% mainForm);
 
