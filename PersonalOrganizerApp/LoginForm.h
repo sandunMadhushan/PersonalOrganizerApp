@@ -252,12 +252,35 @@ namespace PersonalOrganizerApp {
 
 				  SqlDataReader^ reader = command->ExecuteReader();
 				  if (reader->Read()) {
-					  /*MessageBox::Show("Login successful!","Successfull login",MessageBoxButtons::OK, MessageBoxIcon::Information);*/
+					  user = gcnew User;
+					  user->id = reader->GetInt32(0);
+					  user->name = reader->GetString(1);
+					  user->email = reader->GetString(2);
+					  user->phone = reader->GetString(3);
+					  user->address = reader->GetString(4);
+					  user->password = reader->GetString(5);
+					  this->Close();
+				  }
+				  else
+				  {
+					  MessageBox::Show("Email or Password is incorrect", "Email or Password Error", MessageBoxButtons::OK);
+				  }
+				  
+				  
+				  /*SqlDataReader^ reader = command.ExecuteReader();
+				  if (reader->Read()) {
+					  user = gcnew User;
+					  user->id = reader->GetInt32(0);
+					  user->name = reader->GetString(1);
+					  user->email = reader->GetString(2);
+					  user->phone = reader->GetString(3);
+					  user->address = reader->GetString(4);
+					  user->password = reader->GetString(5);
 					  this->Close();
 				  }
 				  else {
 					  MessageBox::Show("Email or Password is incorrect", "Email or Password Error", MessageBoxButtons::OK);
-				  }
+				  }*/
 
 				  reader->Close();
 				  dbHelper->CloseConnection();
