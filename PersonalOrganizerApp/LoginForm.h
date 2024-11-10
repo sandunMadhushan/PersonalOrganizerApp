@@ -1,5 +1,9 @@
 #pragma once
 #include "User.h"
+#include "DatabaseHelper.h"
+//#include "MainForm.h"
+
+
 
 namespace PersonalOrganizerApp {
 
@@ -226,7 +230,7 @@ namespace PersonalOrganizerApp {
 
 	public: User^ user = nullptr;
 
-	private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
+	/*private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ email = this->tbEmail->Text;
 		String^ password = this->tbPassword->Text;
 
@@ -274,7 +278,49 @@ namespace PersonalOrganizerApp {
 
 		}
 
-	}
+	}*/
+
+		  private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
+			  String^ email = tbEmail->Text;
+			  String^ password = tbPassword->Text;
+
+			  if (email->Length == 0 || password->Length == 0) {
+				  MessageBox::Show("Please enter email and password", "Email or Password Empty", MessageBoxButtons::OK);
+				  return;
+
+			  }
+
+			  try
+			  {
+				  DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+				  dbHelper->OpenConnection();
+				  SqlConnection^ connection = dbHelper->GetConnection();
+
+				  SqlCommand^ command = gcnew SqlCommand("SELECT * FROM users WHERE email = @email AND password = @password", connection);
+				  command->Parameters->AddWithValue("@email", email);
+				  command->Parameters->AddWithValue("@password", password);
+
+				  SqlDataReader^ reader = command->ExecuteReader();
+				  if (reader->Read()) {
+					  /*MessageBox::Show("Login successful!","Successfull login",MessageBoxButtons::OK, MessageBoxIcon::Information);*/
+					  this->Close();
+				  }
+				  else {
+					  MessageBox::Show("Email or Password is incorrect", "Email or Password Error", MessageBoxButtons::OK);
+				  }
+
+				  reader->Close();
+				  dbHelper->CloseConnection();
+			  }
+			  catch (Exception^ e) {
+				  MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				  return;
+			  }
+
+			  
+		  }
+
+ 
 	private: System::Void tbEmail_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		this->tbEmail->Focus();
 	}

@@ -126,6 +126,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DatabaseHelper.h" />
     <ClInclude Include="IncomeExpenseForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
