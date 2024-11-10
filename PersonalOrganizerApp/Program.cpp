@@ -26,16 +26,19 @@ void main(array<String^>^ args) {
 		}
 	}
 
-	if (user != nullptr) {
+	/*if (user != nullptr) {
 		PersonalOrganizerApp::MainForm mainForm(user);
 		Application::Run(% mainForm);
 	}
 	else
 	{
-		MessageBox::Show("Authentication Canceled", "Program.cpp",MessageBoxButtons::OK);
+		
 	}
 	{
 
-	}
+	}*/
+
+	PersonalOrganizerApp::MainForm mainForm(user);
+	Application::Run(% mainForm);
 
 }
