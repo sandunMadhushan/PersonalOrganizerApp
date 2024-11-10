@@ -163,6 +163,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\hamburger.png" />
     <Image Include="Resources\IncomeExpenses.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

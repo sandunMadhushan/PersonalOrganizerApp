@@ -543,6 +543,12 @@
         BcHkAnanAoooprZeiPQjKVlq9/1gf//Z
 </value>
   </data>
+  <data name="toggleButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAC9JREFUOE9j
+        GBLgP5UxVkFK8CgYjABbTFGCsQpSgkfBYATYYooSjFWQEjyoAQMDAJ1vd4nW0kfCAAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="sidebarTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>44, 13</value>
   </metadata>

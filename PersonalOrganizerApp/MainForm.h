@@ -91,7 +91,7 @@ namespace PersonalOrganizerApp {
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.Image")));
-			this->button1->Location = System::Drawing::Point(12, 51);
+			this->button1->Location = System::Drawing::Point(12, 184);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(185, 195);
 			this->button1->TabIndex = 1;
@@ -113,12 +113,13 @@ namespace PersonalOrganizerApp {
 			// 
 			// toggleButton
 			// 
-			this->toggleButton->Dock = System::Windows::Forms::DockStyle::Top;
-			this->toggleButton->Location = System::Drawing::Point(0, 0);
+			this->toggleButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toggleButton.Image")));
+			this->toggleButton->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->toggleButton->Location = System::Drawing::Point(41, 100);
 			this->toggleButton->Name = L"toggleButton";
-			this->toggleButton->Size = System::Drawing::Size(208, 23);
+			this->toggleButton->Size = System::Drawing::Size(130, 45);
 			this->toggleButton->TabIndex = 2;
-			this->toggleButton->Text = L"toggleButton";
+			this->toggleButton->Text = L"Menu";
 			this->toggleButton->UseVisualStyleBackColor = true;
 			this->toggleButton->Click += gcnew System::EventHandler(this, &MainForm::toggleButton_Click);
 			// 
@@ -136,7 +137,7 @@ namespace PersonalOrganizerApp {
 			this->MaximizeBox = false;
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"MainForm";
+			this->Text = L"Dashoboard";
 			this->panel1->ResumeLayout(false);
 			this->ResumeLayout(false);
 
@@ -153,7 +154,7 @@ private: bool isExpanding = false;
 
 	private: System::Void toggleButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (panel1->Width == 208) {
-			panel1->Width = 50;
+			panel1->Width = 60;
 			isCollapsing = true;
 			isExpanding = false;
 		}
@@ -165,8 +166,8 @@ private: bool isExpanding = false;
 		sidebarTimer->Start();
 	}
 		   void ToggleSidebar() {
-			   int collapsedWidth = 50; // Width when collapsed
-			   int expandedWidth = 200; // Width when expanded
+			   int collapsedWidth = 60; // Width when collapsed
+			   int expandedWidth = 208; // Width when expanded
 			   int collapsedButtonSize = 40; // Button size when sidebar is collapsed
 			   int expandedButtonSize = 80;  // Button size when sidebar is expanded
 
@@ -208,7 +209,7 @@ private: bool isExpanding = false;
 
 private: System::Void sidebarTimer_Tick(System::Object^ sender, System::EventArgs^ e) {
 	if (isCollapsing) {
-		if (panel1->Width > 50) {
+		if (panel1->Width > 60) {
 			panel1->Width -= 10; // Adjust decrement for desired speed
 			// Optionally hide button text during collapse
 			button1->Text = "";
@@ -222,7 +223,7 @@ private: System::Void sidebarTimer_Tick(System::Object^ sender, System::EventArg
 		}
 	}
 	else if (isExpanding) {
-		if (panel1->Width < 200) {
+		if (panel1->Width < 208) {
 			panel1->Width += 10; // Adjust increment for desired speed
 			// Optionally show button text during expand
 			button1->Text = "Home";
