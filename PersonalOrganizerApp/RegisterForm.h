@@ -291,55 +291,6 @@ private: System::Void llLogin_LinkClicked(System::Object^ sender, System::Window
 }
 
 public: User^ user = nullptr;
-//private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
-//	String^ name = tbName->Text;
-//	String^ email = tbEmail->Text;
-//	String^ phone = tbPhone->Text;
-//	String^ address = tbAddress->Text;
-//	String^ password = tbPassword->Text;
-//	String^ confirmPassword = tbConfirmPassword->Text;
-//
-//	if (name->Length == 0 || email->Length == 0 || phone->Length == 0 || address->Length == 0 || password->Length == 0 || confirmPassword->Length == 0) {
-//		MessageBox::Show("Please fill all fields", "One or more empty fields", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-//		return;	
-//	}
-//
-//	if (password != confirmPassword) {
-//		MessageBox::Show("Password and Confirm Password do not match", "Password mismatch", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-//		return;
-//	}
-//	try
-//	{
-//		String^ connString = "Data Source=DESKTOP-MDO4CSL\\sqlexpress;Initial Catalog=personalOrganizerDB;Integrated Security=True;TrustServerCertificate=True";
-//		SqlConnection sqlConn(connString);
-//		sqlConn.Open();
-//
-//		String^ sqlQuery = "INSERT INTO users " + " (name, email, phone, address, password) VALUES " + " (@name, @email, @phone, @address, @password); ";
-//		SqlCommand command(sqlQuery, % sqlConn);
-//		command.Parameters->AddWithValue("@name", name);
-//		command.Parameters->AddWithValue("@email", email);
-//		command.Parameters->AddWithValue("@phone", phone);
-//		command.Parameters->AddWithValue("@address", address);
-//		command.Parameters->AddWithValue("@password", password);
-//
-//		command.ExecuteNonQuery();
-//		user = gcnew User;
-//		user->name = name;
-//		user->email = email;
-//		user->phone = phone;
-//		user->address = address;
-//		user->password = password;
-//
-//		this->Close();
-//
-//		MessageBox::Show("User registered successfully", "Register Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
-//
-//	}
-//	catch (Exception^ ex)
-//	{
-//		MessageBox::Show("Failed to register new user", "Register Failure", MessageBoxButtons::OK, MessageBoxIcon::Error);
-//	}
-//}
 
 	  private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
 			String^ name = tbName->Text;
@@ -352,12 +303,12 @@ public: User^ user = nullptr;
 			if (name->Length == 0 || email->Length == 0 || phone->Length == 0 || address->Length == 0 || password->Length == 0 || confirmPassword->Length == 0) {
 						MessageBox::Show("Please fill all fields", "One or more empty fields", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 						return;	
-					}
+			}
 				
-					if (password != confirmPassword) {
+			if (password != confirmPassword) {
 						MessageBox::Show("Password and Confirm Password do not match", "Password mismatch", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 						return;
-					}
+			}
 
 		  DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
 		  dbHelper->OpenConnection();
@@ -382,7 +333,7 @@ public: User^ user = nullptr;
 			  		user->password = password;
 
 					MessageBox::Show("User registered successfully", "Register Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			  this->Close(); // Close registration form on success
+			  this->Close(); 
 		  }
 		  else {
 			  MessageBox::Show("Error in registration. Please try again.");
