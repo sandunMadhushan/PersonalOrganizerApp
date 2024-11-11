@@ -57,11 +57,11 @@ namespace PersonalOrganizerApp {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(466, 45);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(234, 29);
+			this->label1->Size = System::Drawing::Size(217, 29);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Income / Expenses";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
