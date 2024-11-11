@@ -73,10 +73,11 @@ namespace PersonalOrganizerApp {
 			   // button1
 			   // 
 			   this->button1->BackColor = System::Drawing::Color::Transparent;
+			   this->button1->Enabled = false;
 			   this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(0)));
 			   this->button1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.Image")));
-			   this->button1->Location = System::Drawing::Point(384, 100);
+			   this->button1->Location = System::Drawing::Point(802, 30);
 			   this->button1->Name = L"button1";
 			   this->button1->Size = System::Drawing::Size(185, 195);
 			   this->button1->TabIndex = 1;
@@ -138,6 +139,7 @@ namespace PersonalOrganizerApp {
 			   this->Controls->Add(this->button1);
 			   this->Controls->Add(this->label1);
 			   this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			   this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			   this->MaximizeBox = false;
 			   this->Name = L"MainForm";
 			   this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
