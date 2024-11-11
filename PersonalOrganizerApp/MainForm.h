@@ -20,6 +20,10 @@ namespace PersonalOrganizerApp {
 		MainForm(User^ user)
 		{
 			InitializeComponent();
+			isSidebarCollapsed = true;
+			panel1->Width = 60; 
+			toggleButton->Text = "";  
+			btnIncomeExpenses->Text = ""; 
 		}
 
 	protected:
@@ -30,6 +34,7 @@ namespace PersonalOrganizerApp {
 				delete components;
 			}
 		}
+
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Panel^ panel1;
@@ -170,8 +175,8 @@ namespace PersonalOrganizerApp {
 				   else {
 					   sidebarTimer->Stop();
 					   panel1->Width = collapsedWidth;
-					   toggleButton->Text = "";
-					   btnIncomeExpenses->Text = "";
+					   toggleButton->Text = ""; 
+					   btnIncomeExpenses->Text = "";  
 				   }
 			   }
 			   else {
@@ -181,8 +186,8 @@ namespace PersonalOrganizerApp {
 				   else {
 					   sidebarTimer->Stop();
 					   panel1->Width = expandedWidth;
-					   toggleButton->Text = "Menu";
-					   btnIncomeExpenses->Text = "Income / Expenses";
+					   toggleButton->Text = "Menu"; 
+					   btnIncomeExpenses->Text = "Income / Expenses"; 
 				   }
 			   }
 		   }
