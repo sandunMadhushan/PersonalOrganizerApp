@@ -51,8 +51,9 @@ namespace PersonalOrganizerApp {
 			   this->sidebarTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->panel1->SuspendLayout();
 			   this->SuspendLayout();
-
+			   // 
 			   // label1
+			   // 
 			   this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				   | System::Windows::Forms::AnchorStyles::Right));
 			   this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 28.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
@@ -63,8 +64,9 @@ namespace PersonalOrganizerApp {
 			   this->label1->TabIndex = 0;
 			   this->label1->Text = L"Welcome";
 			   this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-
+			   // 
 			   // button1
+			   // 
 			   this->button1->BackColor = System::Drawing::Color::Transparent;
 			   this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(0)));
@@ -78,8 +80,10 @@ namespace PersonalOrganizerApp {
 			   this->button1->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageAboveText;
 			   this->button1->UseVisualStyleBackColor = false;
 			   this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
-
+			   // 
 			   // panel1
+			   // 
+			   this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			   this->panel1->Controls->Add(this->btnIncomeExpenses);
 			   this->panel1->Controls->Add(this->toggleButton);
 			   this->panel1->Dock = System::Windows::Forms::DockStyle::Left;
@@ -87,8 +91,9 @@ namespace PersonalOrganizerApp {
 			   this->panel1->Name = L"panel1";
 			   this->panel1->Size = System::Drawing::Size(232, 750);
 			   this->panel1->TabIndex = 2;
-
+			   // 
 			   // btnIncomeExpenses
+			   // 
 			   this->btnIncomeExpenses->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnIncomeExpenses.Image")));
 			   this->btnIncomeExpenses->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   this->btnIncomeExpenses->Location = System::Drawing::Point(41, 189);
@@ -98,8 +103,9 @@ namespace PersonalOrganizerApp {
 			   this->btnIncomeExpenses->Text = L"Income / Expenses";
 			   this->btnIncomeExpenses->UseVisualStyleBackColor = true;
 			   this->btnIncomeExpenses->Click += gcnew System::EventHandler(this, &MainForm::btnIncomeExpenses_Click);
-
+			   // 
 			   // toggleButton
+			   // 
 			   this->toggleButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toggleButton.Image")));
 			   this->toggleButton->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   this->toggleButton->Location = System::Drawing::Point(41, 100);
@@ -109,18 +115,21 @@ namespace PersonalOrganizerApp {
 			   this->toggleButton->Text = L"Menu";
 			   this->toggleButton->UseVisualStyleBackColor = true;
 			   this->toggleButton->Click += gcnew System::EventHandler(this, &MainForm::toggleButton_Click);
-
+			   // 
 			   // sidebarTimer
-			   this->sidebarTimer->Interval = 10; // Set to 10 ms for a faster refresh rate
+			   // 
+			   this->sidebarTimer->Interval = 10;
 			   this->sidebarTimer->Tick += gcnew System::EventHandler(this, &MainForm::sidebarTimer_Tick);
-
+			   // 
 			   // MainForm
+			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			   this->ClientSize = System::Drawing::Size(999, 750);
 			   this->Controls->Add(this->panel1);
 			   this->Controls->Add(this->button1);
 			   this->Controls->Add(this->label1);
+			   this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			   this->MaximizeBox = false;
 			   this->Name = L"MainForm";
 			   this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
