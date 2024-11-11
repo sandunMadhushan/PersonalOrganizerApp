@@ -20,6 +20,10 @@ namespace PersonalOrganizerApp {
 		MainForm(User^ user)
 		{
 			InitializeComponent();
+			isSidebarCollapsed = true;
+			panel1->Width = 60;
+			toggleButton->Text = "";
+			btnIncomeExpenses->Text = "";
 		}
 
 	protected:
@@ -30,6 +34,7 @@ namespace PersonalOrganizerApp {
 				delete components;
 			}
 		}
+
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Panel^ panel1;
@@ -83,6 +88,7 @@ namespace PersonalOrganizerApp {
 			   // 
 			   // panel1
 			   // 
+			   this->panel1->BackColor = System::Drawing::Color::DodgerBlue;
 			   this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			   this->panel1->Controls->Add(this->btnIncomeExpenses);
 			   this->panel1->Controls->Add(this->toggleButton);
@@ -94,6 +100,7 @@ namespace PersonalOrganizerApp {
 			   // 
 			   // btnIncomeExpenses
 			   // 
+			   this->btnIncomeExpenses->BackColor = System::Drawing::Color::WhiteSmoke;
 			   this->btnIncomeExpenses->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnIncomeExpenses.Image")));
 			   this->btnIncomeExpenses->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   this->btnIncomeExpenses->Location = System::Drawing::Point(41, 189);
@@ -101,11 +108,12 @@ namespace PersonalOrganizerApp {
 			   this->btnIncomeExpenses->Size = System::Drawing::Size(177, 45);
 			   this->btnIncomeExpenses->TabIndex = 3;
 			   this->btnIncomeExpenses->Text = L"Income / Expenses";
-			   this->btnIncomeExpenses->UseVisualStyleBackColor = true;
+			   this->btnIncomeExpenses->UseVisualStyleBackColor = false;
 			   this->btnIncomeExpenses->Click += gcnew System::EventHandler(this, &MainForm::btnIncomeExpenses_Click);
 			   // 
 			   // toggleButton
 			   // 
+			   this->toggleButton->BackColor = System::Drawing::Color::WhiteSmoke;
 			   this->toggleButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toggleButton.Image")));
 			   this->toggleButton->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   this->toggleButton->Location = System::Drawing::Point(41, 100);
@@ -113,7 +121,7 @@ namespace PersonalOrganizerApp {
 			   this->toggleButton->Size = System::Drawing::Size(177, 45);
 			   this->toggleButton->TabIndex = 2;
 			   this->toggleButton->Text = L"Menu";
-			   this->toggleButton->UseVisualStyleBackColor = true;
+			   this->toggleButton->UseVisualStyleBackColor = false;
 			   this->toggleButton->Click += gcnew System::EventHandler(this, &MainForm::toggleButton_Click);
 			   // 
 			   // sidebarTimer
