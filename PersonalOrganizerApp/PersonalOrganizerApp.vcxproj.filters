@@ -30,6 +30,9 @@
     <ClInclude Include="IncomeExpenseForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DatabaseHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -50,6 +53,18 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\IncomeExpenses.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\hamburger.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\IncomeExpensesIcon.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\logo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\logo.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
