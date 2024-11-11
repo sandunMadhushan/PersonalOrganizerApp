@@ -79,6 +79,7 @@ namespace PersonalOrganizerApp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(RegisterForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->tbName = (gcnew System::Windows::Forms::TextBox());
@@ -117,6 +118,7 @@ namespace PersonalOrganizerApp {
 			this->label2->Location = System::Drawing::Point(41, 149);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(89, 32);
+			this->label2->TabIndex = 13;
 			this->label2->Text = L"Name";
 			// 
 			// tbName
@@ -132,6 +134,7 @@ namespace PersonalOrganizerApp {
 			this->label3->Location = System::Drawing::Point(41, 204);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(86, 32);
+			this->label3->TabIndex = 12;
 			this->label3->Text = L"Email";
 			// 
 			// tbEmail
@@ -147,6 +150,7 @@ namespace PersonalOrganizerApp {
 			this->label4->Location = System::Drawing::Point(41, 261);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(97, 32);
+			this->label4->TabIndex = 11;
 			this->label4->Text = L"Phone";
 			// 
 			// tbPhone
@@ -162,6 +166,7 @@ namespace PersonalOrganizerApp {
 			this->label5->Location = System::Drawing::Point(41, 314);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(118, 32);
+			this->label5->TabIndex = 10;
 			this->label5->Text = L"Address";
 			// 
 			// tbAddress
@@ -177,6 +182,7 @@ namespace PersonalOrganizerApp {
 			this->label6->Location = System::Drawing::Point(41, 370);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(138, 32);
+			this->label6->TabIndex = 9;
 			this->label6->Text = L"Password";
 			// 
 			// tbPassword
@@ -193,6 +199,7 @@ namespace PersonalOrganizerApp {
 			this->label7->Location = System::Drawing::Point(41, 423);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(244, 32);
+			this->label7->TabIndex = 8;
 			this->label7->Text = L"Confirm Password";
 			// 
 			// tbConfirmPassword
@@ -209,6 +216,7 @@ namespace PersonalOrganizerApp {
 			this->btnOK->Location = System::Drawing::Point(163, 540);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(173, 54);
+			this->btnOK->TabIndex = 7;
 			this->btnOK->Text = L"Register";
 			this->btnOK->UseVisualStyleBackColor = true;
 			this->btnOK->Click += gcnew System::EventHandler(this, &RegisterForm::btnOK_Click);
@@ -219,6 +227,7 @@ namespace PersonalOrganizerApp {
 			this->btnCancel->Location = System::Drawing::Point(362, 540);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(173, 54);
+			this->btnCancel->TabIndex = 6;
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->UseVisualStyleBackColor = true;
 			this->btnCancel->Click += gcnew System::EventHandler(this, &RegisterForm::btnCancel_Click);
@@ -272,10 +281,11 @@ namespace PersonalOrganizerApp {
 			this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(6);
 			this->MaximizeBox = false;
 			this->Name = L"RegisterForm";
-			this->Text = L"Register Form";
+			this->Text = L"Register";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
