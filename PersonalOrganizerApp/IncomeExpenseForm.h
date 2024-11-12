@@ -71,6 +71,21 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::Button^ button4;
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Source;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Description;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Amount;
+	private: System::Windows::Forms::DataGridView^ dataGridView2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn3;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn4;
+
+
+
+
+
 
 	protected:
 
@@ -117,12 +132,24 @@ namespace PersonalOrganizerApp {
 			this->dateTimePicker2 = (gcnew System::Windows::Forms::DateTimePicker());
 			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Source = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Description = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Amount = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridViewTextBoxColumn1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->tabPage2->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -146,18 +173,19 @@ namespace PersonalOrganizerApp {
 			this->tabControl1->Multiline = true;
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(804, 639);
+			this->tabControl1->Size = System::Drawing::Size(804, 983);
 			this->tabControl1->TabIndex = 2;
 			this->tabControl1->SelectedIndexChanged += gcnew System::EventHandler(this, &IncomeExpenseForm::tabControl1_SelectedIndexChanged);
 			// 
 			// tabPage1
 			// 
+			this->tabPage1->Controls->Add(this->dataGridView1);
 			this->tabPage1->Controls->Add(this->groupBox2);
 			this->tabPage1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->tabPage1->Location = System::Drawing::Point(4, 25);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(6);
-			this->tabPage1->Size = System::Drawing::Size(796, 610);
+			this->tabPage1->Size = System::Drawing::Size(796, 954);
 			this->tabPage1->TabIndex = 1;
 			this->tabPage1->Text = L"Income";
 			this->tabPage1->UseVisualStyleBackColor = true;
@@ -285,12 +313,13 @@ namespace PersonalOrganizerApp {
 			// 
 			// tabPage2
 			// 
+			this->tabPage2->Controls->Add(this->dataGridView2);
 			this->tabPage2->Controls->Add(this->groupBox1);
 			this->tabPage2->Cursor = System::Windows::Forms::Cursors::Default;
 			this->tabPage2->Location = System::Drawing::Point(4, 25);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(6);
-			this->tabPage2->Size = System::Drawing::Size(796, 610);
+			this->tabPage2->Size = System::Drawing::Size(796, 954);
 			this->tabPage2->TabIndex = 0;
 			this->tabPage2->Text = L"Expenses";
 			this->tabPage2->UseVisualStyleBackColor = true;
@@ -426,11 +455,99 @@ namespace PersonalOrganizerApp {
 			this->pictureBox2->TabIndex = 1;
 			this->pictureBox2->TabStop = false;
 			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->Date, this->Source,
+					this->Description, this->Amount
+			});
+			this->dataGridView1->Location = System::Drawing::Point(29, 583);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->RowHeadersWidth = 51;
+			this->dataGridView1->RowTemplate->Height = 24;
+			this->dataGridView1->Size = System::Drawing::Size(734, 328);
+			this->dataGridView1->TabIndex = 3;
+			// 
+			// Date
+			// 
+			this->Date->HeaderText = L"Date";
+			this->Date->MinimumWidth = 6;
+			this->Date->Name = L"Date";
+			this->Date->Width = 125;
+			// 
+			// Source
+			// 
+			this->Source->HeaderText = L"Source";
+			this->Source->MinimumWidth = 6;
+			this->Source->Name = L"Source";
+			this->Source->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->Source->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
+			this->Source->Width = 125;
+			// 
+			// Description
+			// 
+			this->Description->HeaderText = L"Description";
+			this->Description->MinimumWidth = 6;
+			this->Description->Name = L"Description";
+			this->Description->Width = 125;
+			// 
+			// Amount
+			// 
+			this->Amount->HeaderText = L"Amount";
+			this->Amount->MinimumWidth = 6;
+			this->Amount->Name = L"Amount";
+			this->Amount->Width = 125;
+			// 
+			// dataGridView2
+			// 
+			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->dataGridViewTextBoxColumn1,
+					this->dataGridViewTextBoxColumn3, this->dataGridViewTextBoxColumn2, this->dataGridViewTextBoxColumn4
+			});
+			this->dataGridView2->Location = System::Drawing::Point(29, 583);
+			this->dataGridView2->Name = L"dataGridView2";
+			this->dataGridView2->RowHeadersWidth = 51;
+			this->dataGridView2->RowTemplate->Height = 24;
+			this->dataGridView2->Size = System::Drawing::Size(734, 328);
+			this->dataGridView2->TabIndex = 4;
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
+			this->dataGridViewTextBoxColumn1->HeaderText = L"Date";
+			this->dataGridViewTextBoxColumn1->MinimumWidth = 6;
+			this->dataGridViewTextBoxColumn1->Name = L"dataGridViewTextBoxColumn1";
+			this->dataGridViewTextBoxColumn1->Width = 125;
+			// 
+			// dataGridViewTextBoxColumn3
+			// 
+			this->dataGridViewTextBoxColumn3->HeaderText = L"Description";
+			this->dataGridViewTextBoxColumn3->MinimumWidth = 6;
+			this->dataGridViewTextBoxColumn3->Name = L"dataGridViewTextBoxColumn3";
+			this->dataGridViewTextBoxColumn3->Width = 125;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this->dataGridViewTextBoxColumn2->HeaderText = L"Category";
+			this->dataGridViewTextBoxColumn2->MinimumWidth = 6;
+			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
+			this->dataGridViewTextBoxColumn2->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->dataGridViewTextBoxColumn2->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
+			this->dataGridViewTextBoxColumn2->Width = 125;
+			// 
+			// dataGridViewTextBoxColumn4
+			// 
+			this->dataGridViewTextBoxColumn4->HeaderText = L"Amount";
+			this->dataGridViewTextBoxColumn4->MinimumWidth = 6;
+			this->dataGridViewTextBoxColumn4->Name = L"dataGridViewTextBoxColumn4";
+			this->dataGridViewTextBoxColumn4->Width = 125;
+			// 
 			// IncomeExpenseForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1146, 859);
+			this->ClientSize = System::Drawing::Size(1146, 1155);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->tabControl1);
 			this->Controls->Add(this->label1);
@@ -448,6 +565,8 @@ namespace PersonalOrganizerApp {
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
