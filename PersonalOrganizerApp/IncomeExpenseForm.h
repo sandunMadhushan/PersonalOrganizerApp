@@ -6,7 +6,7 @@
 
 
 namespace PersonalOrganizerApp {
-	ref class MainForm;
+	//ref class MainForm;
 
 	using namespace System;
 	using namespace System::ComponentModel;
