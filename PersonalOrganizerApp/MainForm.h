@@ -1,6 +1,7 @@
 #pragma once
 #include "User.h"
 #include "IncomeExpenseForm.h"
+#include "BudgetForm.h"
 
 namespace PersonalOrganizerApp {
 
@@ -43,6 +44,7 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Button^ toggleButton;
 	private: System::Windows::Forms::Timer^ sidebarTimer;
 	private: System::Windows::Forms::Button^ btnIncomeExpenses;
+	private: System::Windows::Forms::Button^ button2;
 	private: System::ComponentModel::IContainer^ components;
 
 #pragma region Windows Form Designer generated code
@@ -56,6 +58,7 @@ namespace PersonalOrganizerApp {
 			   this->btnIncomeExpenses = (gcnew System::Windows::Forms::Button());
 			   this->toggleButton = (gcnew System::Windows::Forms::Button());
 			   this->sidebarTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->button2 = (gcnew System::Windows::Forms::Button());
 			   this->panel1->SuspendLayout();
 			   this->SuspendLayout();
 			   // 
@@ -93,6 +96,7 @@ namespace PersonalOrganizerApp {
 			   // 
 			   this->panel1->BackColor = System::Drawing::Color::DodgerBlue;
 			   this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			   this->panel1->Controls->Add(this->button2);
 			   this->panel1->Controls->Add(this->btnIncomeExpenses);
 			   this->panel1->Controls->Add(this->toggleButton);
 			   this->panel1->Dock = System::Windows::Forms::DockStyle::Left;
@@ -131,6 +135,19 @@ namespace PersonalOrganizerApp {
 			   // 
 			   this->sidebarTimer->Interval = 10;
 			   this->sidebarTimer->Tick += gcnew System::EventHandler(this, &MainForm::sidebarTimer_Tick);
+			   // 
+			   // button2
+			   // 
+			   this->button2->BackColor = System::Drawing::Color::WhiteSmoke;
+			   this->button2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.Image")));
+			   this->button2->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			   this->button2->Location = System::Drawing::Point(41, 272);
+			   this->button2->Name = L"button2";
+			   this->button2->Size = System::Drawing::Size(177, 45);
+			   this->button2->TabIndex = 3;
+			   this->button2->Text = L"Budget";
+			   this->button2->UseVisualStyleBackColor = false;
+			   this->button2->Click += gcnew System::EventHandler(this, &MainForm::btnBudget_Click);
 			   // 
 			   // MainForm
 			   // 
@@ -204,5 +221,10 @@ namespace PersonalOrganizerApp {
 		incomeExpenseForm->Show();
 		this->Hide();
 	}
-	};
+	private: System::Void btnBudget_Click(System::Object^ sender, System::EventArgs^ e) {
+		BudgetForm^ budgetForm = gcnew BudgetForm(currentUser);
+		budgetForm->Show();
+		this->Hide();
+	}
+};
 }
