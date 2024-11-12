@@ -168,6 +168,7 @@
     <Image Include="Resources\hamburger.png" />
     <Image Include="Resources\IncomeExpenses.jpg" />
     <Image Include="Resources\IncomeExpensesIcon.jpg" />
+    <Image Include="Resources\left-arrow.png" />
     <Image Include="Resources\logo.ico" />
     <Image Include="Resources\logo.png" />
   </ItemGroup>
