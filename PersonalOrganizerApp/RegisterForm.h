@@ -12,6 +12,9 @@ namespace PersonalOrganizerApp {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
+	using namespace System::Security::Cryptography; // For hashing
+	using namespace System::Text; // For encoding
+
 
 	/// <summary>
 	/// Summary for RegisterForm
@@ -302,6 +305,20 @@ private: System::Void llLogin_LinkClicked(System::Object^ sender, System::Window
 
 public: User^ user = nullptr;
 
+	  // Hash the password
+			private: String^ HashPassword(String^ password) {
+				using namespace System::Security::Cryptography;
+				using namespace System::Text;
+
+				SHA256^ sha256 = SHA256::Create();
+				array<Byte>^ bytes = sha256->ComputeHash(Encoding::UTF8->GetBytes(password));
+				StringBuilder^ builder = gcnew StringBuilder();
+				for (int i = 0; i < bytes->Length; i++) {
+					builder->Append(bytes[i].ToString("x2"));
+				}
+				return builder->ToString();
+			}
+
 	  private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
 			String^ name = tbName->Text;
 		  	String^ email = tbEmail->Text;
@@ -324,13 +341,15 @@ public: User^ user = nullptr;
 		  dbHelper->OpenConnection();
 		  SqlConnection^ connection = dbHelper->GetConnection();
 
-		  SqlCommand^ command = gcnew SqlCommand("INSERT INTO users " + " (name, email, phone, address, password) VALUES " + " (@name, @email, @phone, @address, @password); ", connection);
+		  String^ hashedPassword = HashPassword(password);
+
+		  SqlCommand^ command = gcnew SqlCommand("INSERT INTO users " + " (name, email, phone, address, password) VALUES " + " (@name, @email, @phone, @address, @hashedPassword); ", connection);
 
 				command->Parameters->AddWithValue("@name", name);
 		  		command->Parameters->AddWithValue("@email", email);
 		  		command->Parameters->AddWithValue("@phone", phone);
 		  		command->Parameters->AddWithValue("@address", address);
-		  		command->Parameters->AddWithValue("@password", password);
+		  		command->Parameters->AddWithValue("@hashedPassword", hashedPassword);
 
 		  int result = command->ExecuteNonQuery();
 		  if (result > 0) {
