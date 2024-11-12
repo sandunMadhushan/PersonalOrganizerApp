@@ -1,8 +1,12 @@
 #pragma once
 
 #include "DatabaseHelper.h"
+#include "User.h"
+//#include "MainForm.h"
+
 
 namespace PersonalOrganizerApp {
+	ref class MainForm;
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -15,10 +19,14 @@ namespace PersonalOrganizerApp {
 	/// <summary>
 	/// Summary for IncomeExpenseForm
 	/// </summary>
+	/// 
+	 
 	public ref class IncomeExpenseForm : public System::Windows::Forms::Form
 	{
+	private:
+		User^ user;
 	public:
-		IncomeExpenseForm(void)
+		IncomeExpenseForm(User^ currentUser)
 		{
 			InitializeComponent();
 			//
@@ -26,6 +34,7 @@ namespace PersonalOrganizerApp {
 			//
 			incomeDataGridView->Visible = false;
 			expenseDataGridView->Visible = false;
+			this->user = currentUser;
 		}
 
 	protected:
@@ -86,6 +95,7 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Button^ ShowDatabtn1;
 	private: System::Windows::Forms::Button^ HideDatabtn2;
 	private: System::Windows::Forms::Button^ HideDatabtn1;
+	private: System::Windows::Forms::PictureBox^ backArrow;
 
 
 
@@ -144,6 +154,7 @@ namespace PersonalOrganizerApp {
 			this->dateTimePicker2 = (gcnew System::Windows::Forms::DateTimePicker());
 			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incomeDataGridView))->BeginInit();
@@ -152,6 +163,7 @@ namespace PersonalOrganizerApp {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->expenseDataGridView))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -534,11 +546,23 @@ namespace PersonalOrganizerApp {
 			this->pictureBox2->TabIndex = 1;
 			this->pictureBox2->TabStop = false;
 			// 
+			// backArrow
+			// 
+			this->backArrow->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"backArrow.Image")));
+			this->backArrow->Location = System::Drawing::Point(57, 56);
+			this->backArrow->Name = L"backArrow";
+			this->backArrow->Size = System::Drawing::Size(45, 38);
+			this->backArrow->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->backArrow->TabIndex = 3;
+			this->backArrow->TabStop = false;
+			this->backArrow->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::backArrow_Click);
+			// 
 			// IncomeExpenseForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1146, 940);
+			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->tabControl1);
 			this->Controls->Add(this->label1);
@@ -558,6 +582,7 @@ namespace PersonalOrganizerApp {
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -680,5 +705,6 @@ private: System::Void AddButton2_Click(System::Object^ sender, System::EventArgs
 	private: System::Void HideDatabtn2_Click(System::Object^ sender, System::EventArgs^ e) {
 			incomeDataGridView->Visible = false;
 	}
+	private: System::Void backArrow_Click(System::Object^ sender, System::EventArgs^ e);
 };
-}
+};

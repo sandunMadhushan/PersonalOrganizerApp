@@ -17,6 +17,7 @@ namespace PersonalOrganizerApp {
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
 	public:
+		User^ currentUser;
 		MainForm(User^ user)
 		{
 			InitializeComponent();
@@ -24,6 +25,7 @@ namespace PersonalOrganizerApp {
 			panel1->Width = 60;
 			toggleButton->Text = "";
 			btnIncomeExpenses->Text = "";
+			currentUser = user;
 		}
 
 	protected:
@@ -151,7 +153,7 @@ namespace PersonalOrganizerApp {
 #pragma endregion
 
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		IncomeExpenseForm^ incomeExpenseForm = gcnew IncomeExpenseForm();
+		IncomeExpenseForm^ incomeExpenseForm = gcnew IncomeExpenseForm(currentUser);
 		incomeExpenseForm->Show();
 		this->Hide();
 	}
@@ -198,7 +200,7 @@ namespace PersonalOrganizerApp {
 		   }
 
 	private: System::Void btnIncomeExpenses_Click(System::Object^ sender, System::EventArgs^ e) {
-		IncomeExpenseForm^ incomeExpenseForm = gcnew IncomeExpenseForm();
+		IncomeExpenseForm^ incomeExpenseForm = gcnew IncomeExpenseForm(currentUser);
 		incomeExpenseForm->Show();
 		this->Hide();
 	}
