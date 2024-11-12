@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DatabaseHelper.h"
+
 namespace PersonalOrganizerApp {
 
 	using namespace System;
@@ -8,6 +10,7 @@ namespace PersonalOrganizerApp {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Data::SqlClient;
 
 	/// <summary>
 	/// Summary for IncomeExpenseForm
@@ -21,6 +24,8 @@ namespace PersonalOrganizerApp {
 			//
 			//TODO: Add the constructor code here
 			//
+			incomeDataGridView->Visible = false;
+			expenseDataGridView->Visible = false;
 		}
 
 	protected:
@@ -57,7 +62,9 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::ComboBox^ comboBox1;
 	private: System::Windows::Forms::TextBox^ textBox1;
-	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ AddButton1;
+
+
 	private: System::Windows::Forms::GroupBox^ groupBox1;
 	private: System::Windows::Forms::TextBox^ textBox3;
 	private: System::Windows::Forms::ComboBox^ comboBox2;
@@ -68,19 +75,18 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::DateTimePicker^ dateTimePicker2;
 	private: System::Windows::Forms::Label^ label11;
-	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ AddButton2;
+
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::Button^ button4;
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Source;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Description;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Amount;
-	private: System::Windows::Forms::DataGridView^ dataGridView2;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn3;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn4;
+	private: System::Windows::Forms::DataGridView^ incomeDataGridView;
+	private: System::Windows::Forms::DataGridView^ expenseDataGridView;
+
+	private: System::Windows::Forms::Button^ ShowDatabtn2;
+	private: System::Windows::Forms::Button^ ShowDatabtn1;
+	private: System::Windows::Forms::Button^ HideDatabtn2;
+	private: System::Windows::Forms::Button^ HideDatabtn1;
+
 
 
 
@@ -106,9 +112,12 @@ namespace PersonalOrganizerApp {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->HideDatabtn2 = (gcnew System::Windows::Forms::Button());
+			this->ShowDatabtn2 = (gcnew System::Windows::Forms::Button());
+			this->incomeDataGridView = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->AddButton1 = (gcnew System::Windows::Forms::Button());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -119,9 +128,12 @@ namespace PersonalOrganizerApp {
 			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+			this->HideDatabtn1 = (gcnew System::Windows::Forms::Button());
+			this->expenseDataGridView = (gcnew System::Windows::Forms::DataGridView());
+			this->ShowDatabtn1 = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->AddButton2 = (gcnew System::Windows::Forms::Button());
 			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
@@ -132,24 +144,14 @@ namespace PersonalOrganizerApp {
 			this->dateTimePicker2 = (gcnew System::Windows::Forms::DateTimePicker());
 			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Source = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Description = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Amount = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
-			this->dataGridViewTextBoxColumn1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incomeDataGridView))->BeginInit();
 			this->groupBox2->SuspendLayout();
 			this->tabPage2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->expenseDataGridView))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -173,27 +175,65 @@ namespace PersonalOrganizerApp {
 			this->tabControl1->Multiline = true;
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(804, 983);
+			this->tabControl1->Size = System::Drawing::Size(804, 805);
 			this->tabControl1->TabIndex = 2;
 			this->tabControl1->SelectedIndexChanged += gcnew System::EventHandler(this, &IncomeExpenseForm::tabControl1_SelectedIndexChanged);
 			// 
 			// tabPage1
 			// 
-			this->tabPage1->Controls->Add(this->dataGridView1);
+			this->tabPage1->Controls->Add(this->HideDatabtn2);
+			this->tabPage1->Controls->Add(this->ShowDatabtn2);
+			this->tabPage1->Controls->Add(this->incomeDataGridView);
 			this->tabPage1->Controls->Add(this->groupBox2);
-			this->tabPage1->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->tabPage1->Cursor = System::Windows::Forms::Cursors::Default;
 			this->tabPage1->Location = System::Drawing::Point(4, 25);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(6);
-			this->tabPage1->Size = System::Drawing::Size(796, 954);
+			this->tabPage1->Size = System::Drawing::Size(796, 776);
 			this->tabPage1->TabIndex = 1;
 			this->tabPage1->Text = L"Income";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			// 
+			// HideDatabtn2
+			// 
+			this->HideDatabtn2->BackColor = System::Drawing::Color::SkyBlue;
+			this->HideDatabtn2->Location = System::Drawing::Point(136, 527);
+			this->HideDatabtn2->Name = L"HideDatabtn2";
+			this->HideDatabtn2->Padding = System::Windows::Forms::Padding(5);
+			this->HideDatabtn2->Size = System::Drawing::Size(90, 34);
+			this->HideDatabtn2->TabIndex = 8;
+			this->HideDatabtn2->Text = L"Hide Data";
+			this->HideDatabtn2->UseVisualStyleBackColor = false;
+			this->HideDatabtn2->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::HideDatabtn2_Click);
+			// 
+			// ShowDatabtn2
+			// 
+			this->ShowDatabtn2->BackColor = System::Drawing::Color::SkyBlue;
+			this->ShowDatabtn2->Location = System::Drawing::Point(29, 527);
+			this->ShowDatabtn2->Name = L"ShowDatabtn2";
+			this->ShowDatabtn2->Padding = System::Windows::Forms::Padding(5);
+			this->ShowDatabtn2->Size = System::Drawing::Size(90, 34);
+			this->ShowDatabtn2->TabIndex = 8;
+			this->ShowDatabtn2->Text = L"Show Data";
+			this->ShowDatabtn2->UseVisualStyleBackColor = false;
+			this->ShowDatabtn2->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::ShowDatabtn2_Click);
+			// 
+			// incomeDataGridView
+			// 
+			this->incomeDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->incomeDataGridView->Enabled = false;
+			this->incomeDataGridView->Location = System::Drawing::Point(29, 583);
+			this->incomeDataGridView->Name = L"incomeDataGridView";
+			this->incomeDataGridView->ReadOnly = true;
+			this->incomeDataGridView->RowHeadersWidth = 51;
+			this->incomeDataGridView->RowTemplate->Height = 24;
+			this->incomeDataGridView->Size = System::Drawing::Size(734, 174);
+			this->incomeDataGridView->TabIndex = 3;
+			// 
 			// groupBox2
 			// 
 			this->groupBox2->Controls->Add(this->button3);
-			this->groupBox2->Controls->Add(this->button1);
+			this->groupBox2->Controls->Add(this->AddButton1);
 			this->groupBox2->Controls->Add(this->textBox2);
 			this->groupBox2->Controls->Add(this->comboBox1);
 			this->groupBox2->Controls->Add(this->textBox1);
@@ -220,16 +260,17 @@ namespace PersonalOrganizerApp {
 			this->button3->Text = L"CLEAR";
 			this->button3->UseVisualStyleBackColor = false;
 			// 
-			// button1
+			// AddButton1
 			// 
-			this->button1->BackColor = System::Drawing::Color::SkyBlue;
-			this->button1->Location = System::Drawing::Point(240, 344);
-			this->button1->Name = L"button1";
-			this->button1->Padding = System::Windows::Forms::Padding(5);
-			this->button1->Size = System::Drawing::Size(90, 34);
-			this->button1->TabIndex = 6;
-			this->button1->Text = L"ADD";
-			this->button1->UseVisualStyleBackColor = false;
+			this->AddButton1->BackColor = System::Drawing::Color::SkyBlue;
+			this->AddButton1->Location = System::Drawing::Point(240, 344);
+			this->AddButton1->Name = L"AddButton1";
+			this->AddButton1->Padding = System::Windows::Forms::Padding(5);
+			this->AddButton1->Size = System::Drawing::Size(90, 34);
+			this->AddButton1->TabIndex = 6;
+			this->AddButton1->Text = L"ADD";
+			this->AddButton1->UseVisualStyleBackColor = false;
+			this->AddButton1->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::AddButton1_Click);
 			// 
 			// textBox2
 			// 
@@ -313,21 +354,58 @@ namespace PersonalOrganizerApp {
 			// 
 			// tabPage2
 			// 
-			this->tabPage2->Controls->Add(this->dataGridView2);
+			this->tabPage2->Controls->Add(this->HideDatabtn1);
+			this->tabPage2->Controls->Add(this->expenseDataGridView);
+			this->tabPage2->Controls->Add(this->ShowDatabtn1);
 			this->tabPage2->Controls->Add(this->groupBox1);
 			this->tabPage2->Cursor = System::Windows::Forms::Cursors::Default;
 			this->tabPage2->Location = System::Drawing::Point(4, 25);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(6);
-			this->tabPage2->Size = System::Drawing::Size(796, 954);
+			this->tabPage2->Size = System::Drawing::Size(796, 776);
 			this->tabPage2->TabIndex = 0;
 			this->tabPage2->Text = L"Expenses";
 			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
+			// HideDatabtn1
+			// 
+			this->HideDatabtn1->BackColor = System::Drawing::Color::SkyBlue;
+			this->HideDatabtn1->Location = System::Drawing::Point(136, 527);
+			this->HideDatabtn1->Name = L"HideDatabtn1";
+			this->HideDatabtn1->Padding = System::Windows::Forms::Padding(5);
+			this->HideDatabtn1->Size = System::Drawing::Size(90, 34);
+			this->HideDatabtn1->TabIndex = 9;
+			this->HideDatabtn1->Text = L"Hide Data";
+			this->HideDatabtn1->UseVisualStyleBackColor = false;
+			this->HideDatabtn1->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::HideDatabtn1_Click);
+			// 
+			// expenseDataGridView
+			// 
+			this->expenseDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->expenseDataGridView->Location = System::Drawing::Point(29, 583);
+			this->expenseDataGridView->Name = L"expenseDataGridView";
+			this->expenseDataGridView->ReadOnly = true;
+			this->expenseDataGridView->RowHeadersWidth = 51;
+			this->expenseDataGridView->RowTemplate->Height = 24;
+			this->expenseDataGridView->Size = System::Drawing::Size(734, 174);
+			this->expenseDataGridView->TabIndex = 4;
+			// 
+			// ShowDatabtn1
+			// 
+			this->ShowDatabtn1->BackColor = System::Drawing::Color::SkyBlue;
+			this->ShowDatabtn1->Location = System::Drawing::Point(29, 527);
+			this->ShowDatabtn1->Name = L"ShowDatabtn1";
+			this->ShowDatabtn1->Padding = System::Windows::Forms::Padding(5);
+			this->ShowDatabtn1->Size = System::Drawing::Size(90, 34);
+			this->ShowDatabtn1->TabIndex = 7;
+			this->ShowDatabtn1->Text = L"Show Data";
+			this->ShowDatabtn1->UseVisualStyleBackColor = false;
+			this->ShowDatabtn1->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::ShowDatabtn1_Click);
+			// 
 			// groupBox1
 			// 
 			this->groupBox1->Controls->Add(this->button4);
-			this->groupBox1->Controls->Add(this->button2);
+			this->groupBox1->Controls->Add(this->AddButton2);
 			this->groupBox1->Controls->Add(this->textBox3);
 			this->groupBox1->Controls->Add(this->comboBox2);
 			this->groupBox1->Controls->Add(this->textBox4);
@@ -354,16 +432,17 @@ namespace PersonalOrganizerApp {
 			this->button4->Text = L"CLEAR";
 			this->button4->UseVisualStyleBackColor = false;
 			// 
-			// button2
+			// AddButton2
 			// 
-			this->button2->BackColor = System::Drawing::Color::SkyBlue;
-			this->button2->Location = System::Drawing::Point(240, 344);
-			this->button2->Name = L"button2";
-			this->button2->Padding = System::Windows::Forms::Padding(5);
-			this->button2->Size = System::Drawing::Size(90, 34);
-			this->button2->TabIndex = 7;
-			this->button2->Text = L"ADD";
-			this->button2->UseVisualStyleBackColor = false;
+			this->AddButton2->BackColor = System::Drawing::Color::SkyBlue;
+			this->AddButton2->Location = System::Drawing::Point(240, 344);
+			this->AddButton2->Name = L"AddButton2";
+			this->AddButton2->Padding = System::Windows::Forms::Padding(5);
+			this->AddButton2->Size = System::Drawing::Size(90, 34);
+			this->AddButton2->TabIndex = 7;
+			this->AddButton2->Text = L"ADD";
+			this->AddButton2->UseVisualStyleBackColor = false;
+			this->AddButton2->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::AddButton2_Click);
 			// 
 			// textBox3
 			// 
@@ -455,99 +534,11 @@ namespace PersonalOrganizerApp {
 			this->pictureBox2->TabIndex = 1;
 			this->pictureBox2->TabStop = false;
 			// 
-			// dataGridView1
-			// 
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
-				this->Date, this->Source,
-					this->Description, this->Amount
-			});
-			this->dataGridView1->Location = System::Drawing::Point(29, 583);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->RowHeadersWidth = 51;
-			this->dataGridView1->RowTemplate->Height = 24;
-			this->dataGridView1->Size = System::Drawing::Size(734, 328);
-			this->dataGridView1->TabIndex = 3;
-			// 
-			// Date
-			// 
-			this->Date->HeaderText = L"Date";
-			this->Date->MinimumWidth = 6;
-			this->Date->Name = L"Date";
-			this->Date->Width = 125;
-			// 
-			// Source
-			// 
-			this->Source->HeaderText = L"Source";
-			this->Source->MinimumWidth = 6;
-			this->Source->Name = L"Source";
-			this->Source->Resizable = System::Windows::Forms::DataGridViewTriState::True;
-			this->Source->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
-			this->Source->Width = 125;
-			// 
-			// Description
-			// 
-			this->Description->HeaderText = L"Description";
-			this->Description->MinimumWidth = 6;
-			this->Description->Name = L"Description";
-			this->Description->Width = 125;
-			// 
-			// Amount
-			// 
-			this->Amount->HeaderText = L"Amount";
-			this->Amount->MinimumWidth = 6;
-			this->Amount->Name = L"Amount";
-			this->Amount->Width = 125;
-			// 
-			// dataGridView2
-			// 
-			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
-				this->dataGridViewTextBoxColumn1,
-					this->dataGridViewTextBoxColumn3, this->dataGridViewTextBoxColumn2, this->dataGridViewTextBoxColumn4
-			});
-			this->dataGridView2->Location = System::Drawing::Point(29, 583);
-			this->dataGridView2->Name = L"dataGridView2";
-			this->dataGridView2->RowHeadersWidth = 51;
-			this->dataGridView2->RowTemplate->Height = 24;
-			this->dataGridView2->Size = System::Drawing::Size(734, 328);
-			this->dataGridView2->TabIndex = 4;
-			// 
-			// dataGridViewTextBoxColumn1
-			// 
-			this->dataGridViewTextBoxColumn1->HeaderText = L"Date";
-			this->dataGridViewTextBoxColumn1->MinimumWidth = 6;
-			this->dataGridViewTextBoxColumn1->Name = L"dataGridViewTextBoxColumn1";
-			this->dataGridViewTextBoxColumn1->Width = 125;
-			// 
-			// dataGridViewTextBoxColumn3
-			// 
-			this->dataGridViewTextBoxColumn3->HeaderText = L"Description";
-			this->dataGridViewTextBoxColumn3->MinimumWidth = 6;
-			this->dataGridViewTextBoxColumn3->Name = L"dataGridViewTextBoxColumn3";
-			this->dataGridViewTextBoxColumn3->Width = 125;
-			// 
-			// dataGridViewTextBoxColumn2
-			// 
-			this->dataGridViewTextBoxColumn2->HeaderText = L"Category";
-			this->dataGridViewTextBoxColumn2->MinimumWidth = 6;
-			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
-			this->dataGridViewTextBoxColumn2->Resizable = System::Windows::Forms::DataGridViewTriState::True;
-			this->dataGridViewTextBoxColumn2->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
-			this->dataGridViewTextBoxColumn2->Width = 125;
-			// 
-			// dataGridViewTextBoxColumn4
-			// 
-			this->dataGridViewTextBoxColumn4->HeaderText = L"Amount";
-			this->dataGridViewTextBoxColumn4->MinimumWidth = 6;
-			this->dataGridViewTextBoxColumn4->Name = L"dataGridViewTextBoxColumn4";
-			this->dataGridViewTextBoxColumn4->Width = 125;
-			// 
 			// IncomeExpenseForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1146, 1155);
+			this->ClientSize = System::Drawing::Size(1146, 940);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->tabControl1);
 			this->Controls->Add(this->label1);
@@ -559,14 +550,14 @@ namespace PersonalOrganizerApp {
 			this->Text = L"Income / Expenses";
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incomeDataGridView))->EndInit();
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
 			this->tabPage2->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->expenseDataGridView))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -587,7 +578,107 @@ private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, S
 		textBox1->Clear(); // Clear Description
 		textBox2->Clear(); // Clear Amount
 		comboBox1->SelectedIndex = -1; // Reset combo box selection
+		incomeDataGridView->Visible = false;
+		expenseDataGridView->Visible = false;
 	}
 }
+	   // Method to load Income data into DataGridView
+	   void LoadIncomeData() {
+		   String^ query = "SELECT * FROM Income";
+		   DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+
+		   // Fetch data using DatabaseHelper's ExecuteQuery method
+		   DataTable^ dataTable = dbHelper->ExecuteQuery(query);
+
+		   // Set the DataGridView's DataSource to the DataTable
+		   incomeDataGridView->DataSource = dataTable;
+	   }
+
+	   // Method to load Expense data into DataGridView
+	   void LoadExpenseData() {
+		   String^ query = "SELECT * FROM Expense";
+		   DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+
+		   // Fetch data using DatabaseHelper's ExecuteQuery method
+		   DataTable^ dataTable = dbHelper->ExecuteQuery(query);
+
+		   // Set the DataGridView's DataSource to the DataTable
+		   expenseDataGridView->DataSource = dataTable;
+	   }
+
+private: System::Void ShowDatabtn2_Click(System::Object^ sender, System::EventArgs^ e) {
+		incomeDataGridView->Visible = true;
+		LoadIncomeData();
+}
+private: System::Void ShowDatabtn1_Click(System::Object^ sender, System::EventArgs^ e) {
+		expenseDataGridView->Visible = true;
+		LoadExpenseData();
+}
+private: System::Void AddButton1_Click(System::Object^ sender, System::EventArgs^ e) {
+
+			// Get the values from the controls
+			String^ date = dateTimePicker1->Value.ToString("yyyy-MM-dd");
+			String^ source = comboBox1->Text;
+			String^ description = textBox1->Text;
+			String^ amount = textBox2->Text;
+
+			// Check if any of the fields are empty
+			if (date == "" || source == "" || description == "" || amount == "") {
+				MessageBox::Show("Please fill in all fields", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+
+			// Create the query
+			String^ query = "INSERT INTO Income (Date, Source, Description, Amount) VALUES ('" + date + "', '" + source + "', '" + description + "', '" + amount + "')";
+			DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+
+			// Execute the query
+			dbHelper->ExecuteQuery(query);
+
+			// Show success message
+			MessageBox::Show("Income added successfully", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			// Clear the controls
+			dateTimePicker1->Value = DateTime::Now;
+			comboBox1->SelectedIndex = -1;
+			textBox1->Clear();
+			textBox2->Clear();
+	}
+private: System::Void AddButton2_Click(System::Object^ sender, System::EventArgs^ e) {
+			// Get the values from the controls
+			String^ date = dateTimePicker2->Value.ToString("yyyy-MM-dd");
+			String^ category = comboBox2->Text;
+			String^ description = textBox4->Text;
+			String^ amount = textBox3->Text;
+
+			// Check if any of the fields are empty
+			if (date == "" || category == "" || description == "" || amount == "") {
+				MessageBox::Show("Please fill in all fields", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+
+			// Create the query
+			String^ query = "INSERT INTO Expense (Date, Category, Description, Amount) VALUES ('" + date + "', '" + category + "', '" + description + "', '" + amount + "')";
+			DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+
+			// Execute the query
+			dbHelper->ExecuteQuery(query);
+
+			// Show success message
+			MessageBox::Show("Expense added successfully", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			// Clear the controls
+			dateTimePicker2->Value = DateTime::Now;
+			comboBox2->SelectedIndex = -1;
+			textBox4->Clear();
+			textBox3->Clear();
+		}
+
+	private: System::Void HideDatabtn1_Click(System::Object^ sender, System::EventArgs^ e) {
+			expenseDataGridView->Visible = false;
+	}
+	private: System::Void HideDatabtn2_Click(System::Object^ sender, System::EventArgs^ e) {
+			incomeDataGridView->Visible = false;
+	}
 };
 }
