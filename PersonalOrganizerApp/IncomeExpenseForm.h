@@ -3,6 +3,7 @@
 #include "DatabaseHelper.h"
 #include "User.h"
 //#include "MainForm.h"
+#include "BudgetForm.h"
 
 
 namespace PersonalOrganizerApp {
@@ -691,6 +692,10 @@ private: System::Void AddButton2_Click(System::Object^ sender, System::EventArgs
 
 			// Show success message
 			MessageBox::Show("Expense added successfully", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			// Check if budget is exceeded
+			BudgetForm^ budgetForm = gcnew BudgetForm(user);
+			budgetForm->CheckBudgets();  // Call CheckBudgets to verify if the new expense exceeds any budget
 
 			// Clear the controls
 			dateTimePicker2->Value = DateTime::Now;
