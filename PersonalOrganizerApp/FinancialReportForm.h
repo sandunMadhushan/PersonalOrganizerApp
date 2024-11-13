@@ -25,6 +25,9 @@ namespace PersonalOrganizerApp {
 		FinancialReportForm(void)
 		{
 			InitializeComponent();
+			int currentMonth = DateTime::Now.Month;
+			int currentYear = DateTime::Now.Year;
+			GenerateMonthlyReport(currentMonth, currentYear);
 		}
 
 	protected:
@@ -46,7 +49,7 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Label^ lblSavings;
 	private: System::Windows::Forms::DataGridView^ dataGridViewReport;
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
-	private: System::Windows::Forms::Button^ loadData;
+
 
 	private:
 		System::ComponentModel::Container^ components;
@@ -69,7 +72,6 @@ namespace PersonalOrganizerApp {
 			this->lblSavings = (gcnew System::Windows::Forms::Label());
 			this->dataGridViewReport = (gcnew System::Windows::Forms::DataGridView());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
-			this->loadData = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewReport))->BeginInit();
@@ -188,22 +190,11 @@ namespace PersonalOrganizerApp {
 			this->chart1->Size = System::Drawing::Size(500, 300);
 			this->chart1->TabIndex = 10;
 			// 
-			// loadData
-			// 
-			this->loadData->Location = System::Drawing::Point(989, 254);
-			this->loadData->Name = L"loadData";
-			this->loadData->Size = System::Drawing::Size(75, 23);
-			this->loadData->TabIndex = 11;
-			this->loadData->Text = L"Load";
-			this->loadData->UseVisualStyleBackColor = true;
-			this->loadData->Click += gcnew System::EventHandler(this, &FinancialReportForm::loadData_Click);
-			// 
 			// FinancialReportForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1148, 981);
-			this->Controls->Add(this->loadData);
 			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label1);
