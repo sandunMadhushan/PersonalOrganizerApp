@@ -12,6 +12,7 @@ namespace PersonalOrganizerApp {
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
 	using namespace System::Windows::Forms::DataVisualization::Charting;
+	using namespace System::Globalization;
 
 	/// <summary>
 	/// Summary for FinancialReportForm
@@ -280,6 +281,17 @@ namespace PersonalOrganizerApp {
 			   //Decimal savings = totalIncome - totalExpenses;
 			   Decimal savings = Decimal::Subtract(totalIncome, totalExpenses);
 
+			   NumberFormatInfo^ lkrFormat = gcnew NumberFormatInfo();
+			   lkrFormat->CurrencySymbol = "LKR ";
+			   lkrFormat->CurrencyNegativePattern = 1;  // This controls the negative format, e.g., "-LKR 1000"
+			   lkrFormat->CurrencyPositivePattern = 0;  // Optional, controls the positive format
+			   lkrFormat->NumberNegativePattern = 1;  // Explicitly set negative number format to use the minus symbol
+
+			   // For culture settings
+			   CultureInfo^ culture = gcnew CultureInfo("en-US");
+			   culture->NumberFormat = lkrFormat;
+
+
 			   // Populate DataGridView
 			   dataGridViewReport->Rows->Clear();
 			   dataGridViewReport->ColumnCount = 3;
@@ -287,14 +299,14 @@ namespace PersonalOrganizerApp {
 			   dataGridViewReport->Columns[1]->Name = "Amount";
 			   dataGridViewReport->Columns[2]->Name = "Description";
 
-			   dataGridViewReport->Rows->Add("Total Income", totalIncome.ToString("C"), "Income for the month");
-			   dataGridViewReport->Rows->Add("Total Expenses", totalExpenses.ToString("C"), "Expenses for the month");
-			   dataGridViewReport->Rows->Add("Savings", savings.ToString("C"), "Remaining balance");
+			   dataGridViewReport->Rows->Add("Total Income", totalIncome.ToString("C", culture), "Income for the month");
+			   dataGridViewReport->Rows->Add("Total Expenses", totalExpenses.ToString("C", culture), "Expenses for the month");
+			   dataGridViewReport->Rows->Add("Savings", savings.ToString("C", culture), "Remaining balance");
 
 			   // Display the results
-			   lblTotalIncome->Text = totalIncome.ToString("C");
-			   lblTotalExpenses->Text = totalExpenses.ToString("C");
-			   lblSavings->Text = savings.ToString("C");
+			   lblTotalIncome->Text = totalIncome.ToString("C", culture);
+			   lblTotalExpenses->Text = totalExpenses.ToString("C", culture);
+			   lblSavings->Text = savings.ToString("C", culture);
 
 			   // Generate chart
 			   GenerateChartForExpensesByCategory(month, year);
@@ -325,8 +337,7 @@ namespace PersonalOrganizerApp {
 
 				   chart1->Series[0]->Points->AddXY(category, totalAmount);
 
-				   reader->Close();
-				   conn->Close();
+				   
 
 				   // Add chart to the form in a new form or panel
 				   Form^ chartForm = gcnew Form();
@@ -337,6 +348,7 @@ namespace PersonalOrganizerApp {
 				   chartForm->Controls->Add(chart1);
 				   chartForm->Show();
 			   }
+			   conn->Close();
 		   }
 
 	private: System::Void loadData_Click(System::Object^ sender, System::EventArgs^ e) {
