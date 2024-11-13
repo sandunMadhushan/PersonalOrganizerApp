@@ -26,6 +26,7 @@ namespace PersonalOrganizerApp {
 			//
 			//TODO: Add the constructor code here
 			//
+			DisplaySchedule();
 		}
 
 	protected:
@@ -49,6 +50,7 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::PictureBox^ backArrow;
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ label2;
 
 
 	private:
@@ -73,6 +75,7 @@ namespace PersonalOrganizerApp {
 			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
@@ -80,23 +83,25 @@ namespace PersonalOrganizerApp {
 			// 
 			// monthCalendar1
 			// 
-			this->monthCalendar1->Location = System::Drawing::Point(178, 193);
+			this->monthCalendar1->Location = System::Drawing::Point(558, 157);
 			this->monthCalendar1->Name = L"monthCalendar1";
 			this->monthCalendar1->TabIndex = 0;
 			// 
 			// dataGridView
 			// 
+			this->dataGridView->BackgroundColor = System::Drawing::SystemColors::Control;
+			this->dataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->dataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView->Location = System::Drawing::Point(496, 193);
+			this->dataGridView->Location = System::Drawing::Point(189, 399);
 			this->dataGridView->Name = L"dataGridView";
 			this->dataGridView->RowHeadersWidth = 51;
 			this->dataGridView->RowTemplate->Height = 24;
-			this->dataGridView->Size = System::Drawing::Size(449, 207);
+			this->dataGridView->Size = System::Drawing::Size(872, 207);
 			this->dataGridView->TabIndex = 1;
 			// 
 			// lectureBtn
 			// 
-			this->lectureBtn->Location = System::Drawing::Point(290, 517);
+			this->lectureBtn->Location = System::Drawing::Point(299, 660);
 			this->lectureBtn->Name = L"lectureBtn";
 			this->lectureBtn->Size = System::Drawing::Size(111, 41);
 			this->lectureBtn->TabIndex = 2;
@@ -106,7 +111,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// importantDateBtn
 			// 
-			this->importantDateBtn->Location = System::Drawing::Point(469, 517);
+			this->importantDateBtn->Location = System::Drawing::Point(478, 660);
 			this->importantDateBtn->Name = L"importantDateBtn";
 			this->importantDateBtn->Size = System::Drawing::Size(136, 41);
 			this->importantDateBtn->TabIndex = 2;
@@ -115,7 +120,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// saveScheduleBtn
 			// 
-			this->saveScheduleBtn->Location = System::Drawing::Point(682, 517);
+			this->saveScheduleBtn->Location = System::Drawing::Point(691, 660);
 			this->saveScheduleBtn->Name = L"saveScheduleBtn";
 			this->saveScheduleBtn->Size = System::Drawing::Size(136, 41);
 			this->saveScheduleBtn->TabIndex = 2;
@@ -155,11 +160,21 @@ namespace PersonalOrganizerApp {
 			this->label1->Text = L"Income / Expenses";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(248, 232);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(199, 16);
+			this->label2->TabIndex = 7;
+			this->label2->Text = L"Pick a Date to view the schedule";
+			// 
 			// AcademicScheduleForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1195, 787);
+			this->Controls->Add(this->label2);
 			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label1);
@@ -192,19 +207,12 @@ namespace PersonalOrganizerApp {
 				// Open the database connection using DatabaseHelper
 				if (dbHelper->OpenConnection())
 				{
-					// Define the SQL query
 					String^ query = "SELECT * FROM AcademicSchedule";
 
-					// Create SqlCommand with the query and connection
 					SqlCommand^ cmd = gcnew SqlCommand(query, dbHelper->GetConnection());
+					DataTable^ dataTable = dbHelper->ExecuteQuery(query);
+					dataGridView->DataSource = dataTable;
 
-					SqlDataReader^ reader = cmd->ExecuteReader();
-
-					while (reader->Read()) {
-						dataGridView->Rows->Add(reader["Title"]->ToString(), reader["Date"]->ToString(),
-							reader["StartTime"]->ToString(), reader["EndTime"]->ToString(),
-							reader["Type"]->ToString(), reader["Description"]->ToString());
-					}
 					dbHelper->CloseConnection();
 				}
 				else
