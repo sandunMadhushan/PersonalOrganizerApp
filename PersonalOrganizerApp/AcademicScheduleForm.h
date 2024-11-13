@@ -11,6 +11,7 @@ namespace PersonalOrganizerApp {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Data::SqlClient;
 
 	/// <summary>
 	/// Summary for AcademicScheduleForm
@@ -26,6 +27,7 @@ namespace PersonalOrganizerApp {
 			//
 			//TODO: Add the constructor code here
 			//
+			DateTime currentDate = DateTime::Now;
 			DisplaySchedule();
 		}
 
@@ -40,7 +42,9 @@ namespace PersonalOrganizerApp {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::MonthCalendar^ monthCalendar1;
+	private: System::Windows::Forms::MonthCalendar^ monthCalendar;
+	protected:
+
 	private: System::Windows::Forms::DataGridView^ dataGridView;
 	protected:
 
@@ -67,7 +71,7 @@ namespace PersonalOrganizerApp {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(AcademicScheduleForm::typeid));
-			this->monthCalendar1 = (gcnew System::Windows::Forms::MonthCalendar());
+			this->monthCalendar = (gcnew System::Windows::Forms::MonthCalendar());
 			this->dataGridView = (gcnew System::Windows::Forms::DataGridView());
 			this->lectureBtn = (gcnew System::Windows::Forms::Button());
 			this->importantDateBtn = (gcnew System::Windows::Forms::Button());
@@ -81,11 +85,12 @@ namespace PersonalOrganizerApp {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// monthCalendar1
+			// monthCalendar
 			// 
-			this->monthCalendar1->Location = System::Drawing::Point(558, 157);
-			this->monthCalendar1->Name = L"monthCalendar1";
-			this->monthCalendar1->TabIndex = 0;
+			this->monthCalendar->Location = System::Drawing::Point(558, 157);
+			this->monthCalendar->Name = L"monthCalendar";
+			this->monthCalendar->TabIndex = 0;
+			this->monthCalendar->DateSelected += gcnew System::Windows::Forms::DateRangeEventHandler(this, &AcademicScheduleForm::monthCalendar_DateSelected);
 			// 
 			// dataGridView
 			// 
@@ -182,7 +187,7 @@ namespace PersonalOrganizerApp {
 			this->Controls->Add(this->importantDateBtn);
 			this->Controls->Add(this->lectureBtn);
 			this->Controls->Add(this->dataGridView);
-			this->Controls->Add(this->monthCalendar1);
+			this->Controls->Add(this->monthCalendar);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
@@ -207,10 +212,16 @@ namespace PersonalOrganizerApp {
 				// Open the database connection using DatabaseHelper
 				if (dbHelper->OpenConnection())
 				{
-					String^ query = "SELECT * FROM AcademicSchedule";
+					DateTime currentDate = DateTime::Now;
+					String^ query = "SELECT * FROM AcademicSchedule WHERE Date = @currentDate";
 
 					SqlCommand^ cmd = gcnew SqlCommand(query, dbHelper->GetConnection());
-					DataTable^ dataTable = dbHelper->ExecuteQuery(query);
+					cmd->Parameters->AddWithValue("@currentDate", currentDate);
+
+					SqlDataAdapter^ adapter = gcnew SqlDataAdapter(cmd);
+					DataTable^ dataTable = gcnew DataTable();
+					adapter->Fill(dataTable);
+
 					dataGridView->DataSource = dataTable;
 
 					dbHelper->CloseConnection();
@@ -232,6 +243,42 @@ namespace PersonalOrganizerApp {
 private: System::Void lectureBtn_Click(System::Object^ sender, System::EventArgs^ e) {
 	AddEventForm^ addEventForm = gcnew AddEventForm();
 	addEventForm->ShowDialog();
+}
+private: System::Void monthCalendar_DateSelected(System::Object^ sender, System::Windows::Forms::DateRangeEventArgs^ e) {
+	DateTime selectedDate = monthCalendar->SelectionRange->Start;
+
+	DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+
+	try
+	{
+		if (dbHelper->OpenConnection())
+		{
+			String^ query = "SELECT * FROM AcademicSchedule WHERE Date = @selectedDate";
+
+			SqlCommand^ cmd = gcnew SqlCommand(query, dbHelper->GetConnection());
+			cmd->Parameters->AddWithValue("@selectedDate", selectedDate);
+
+			// Execute the query and get the data
+			SqlDataAdapter^ adapter = gcnew SqlDataAdapter(cmd);
+			DataTable^ dt = gcnew DataTable();
+			adapter->Fill(dt);
+
+			// Bind the filtered data to the DataGridView
+			dataGridView->DataSource = dt;
+
+			dbHelper->CloseConnection();
+		}
+		else
+		{
+			MessageBox::Show("Failed to connect to the database.", "Connection Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+	catch (Exception^ ex)
+	{
+		// Handle any errors
+		MessageBox::Show("Error loading data: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+
 }
 };
 }
