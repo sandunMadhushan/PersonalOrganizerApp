@@ -33,6 +33,18 @@
     <ClInclude Include="DatabaseHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AcademicScheduleForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AddEventForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BudgetForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FinancialReportForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -50,6 +62,18 @@
     <ClCompile Include="IncomeExpenseForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AcademicScheduleForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddEventForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BudgetForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FinancialReportForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\IncomeExpenses.jpg">
@@ -65,6 +89,30 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\logo.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\budget.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\contract.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\incomeexpense.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\left-arrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\logout.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\report.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\schedule.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\printer.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

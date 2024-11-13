@@ -204,6 +204,7 @@
     <Image Include="Resources\logo.ico" />
     <Image Include="Resources\logo.png" />
     <Image Include="Resources\logout.png" />
+    <Image Include="Resources\printer.png" />
     <Image Include="Resources\report.png" />
     <Image Include="Resources\schedule.png" />
   </ItemGroup>
