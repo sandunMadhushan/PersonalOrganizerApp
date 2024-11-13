@@ -195,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\budget.png" />
+    <Image Include="Resources\contract.png" />
     <Image Include="Resources\hamburger.png" />
     <Image Include="Resources\incomeexpense.png" />
     <Image Include="Resources\IncomeExpenses.jpg" />
