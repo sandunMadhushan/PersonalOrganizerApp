@@ -211,6 +211,7 @@
     <Image Include="Resources\mail.png" />
     <Image Include="Resources\padlock.png" />
     <Image Include="Resources\printer.png" />
+    <Image Include="Resources\registerFormBG.png" />
     <Image Include="Resources\report.png" />
     <Image Include="Resources\schedule.png" />
   </ItemGroup>

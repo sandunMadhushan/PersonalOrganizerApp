@@ -164,7 +164,7 @@ namespace PersonalOrganizerApp {
 			this->llRegister->AutoSize = true;
 			this->llRegister->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->llRegister->Location = System::Drawing::Point(916, 580);
+			this->llRegister->Location = System::Drawing::Point(944, 580);
 			this->llRegister->Name = L"llRegister";
 			this->llRegister->Size = System::Drawing::Size(68, 20);
 			this->llRegister->TabIndex = 6;
@@ -179,7 +179,7 @@ namespace PersonalOrganizerApp {
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label4->ForeColor = System::Drawing::Color::DimGray;
-			this->label4->Location = System::Drawing::Point(703, 580);
+			this->label4->Location = System::Drawing::Point(744, 580);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(185, 20);
 			this->label4->TabIndex = 7;
@@ -216,7 +216,7 @@ namespace PersonalOrganizerApp {
 				static_cast<System::Byte>(0)));
 			this->label5->Location = System::Drawing::Point(691, 107);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(262, 39);
+			this->label5->Size = System::Drawing::Size(254, 38);
 			this->label5->TabIndex = 10;
 			this->label5->Text = L"Welcome Back !";
 			// 
