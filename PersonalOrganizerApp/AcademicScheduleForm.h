@@ -29,6 +29,11 @@ namespace PersonalOrganizerApp {
 			//
 			DateTime currentDate = DateTime::Now;
 			DisplaySchedule();
+
+			this->deadlineTimer = gcnew System::Windows::Forms::Timer();
+			this->deadlineTimer->Interval = 86400000; // Run once per day
+			this->deadlineTimer->Tick += gcnew System::EventHandler(this, &AcademicScheduleForm::deadlineTimer_Tick);
+			this->deadlineTimer->Start();
 		}
 
 	protected:
@@ -49,19 +54,21 @@ namespace PersonalOrganizerApp {
 	protected:
 
 	private: System::Windows::Forms::Button^ lectureBtn;
-	private: System::Windows::Forms::Button^ importantDateBtn;
-	private: System::Windows::Forms::Button^ saveScheduleBtn;
+
+
 	private: System::Windows::Forms::PictureBox^ backArrow;
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Timer^ deadlineTimer;
+	private: System::ComponentModel::IContainer^ components;
 
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -70,16 +77,16 @@ namespace PersonalOrganizerApp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(AcademicScheduleForm::typeid));
 			this->monthCalendar = (gcnew System::Windows::Forms::MonthCalendar());
 			this->dataGridView = (gcnew System::Windows::Forms::DataGridView());
 			this->lectureBtn = (gcnew System::Windows::Forms::Button());
-			this->importantDateBtn = (gcnew System::Windows::Forms::Button());
-			this->saveScheduleBtn = (gcnew System::Windows::Forms::Button());
 			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->deadlineTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
@@ -106,34 +113,17 @@ namespace PersonalOrganizerApp {
 			// 
 			// lectureBtn
 			// 
-			this->lectureBtn->Location = System::Drawing::Point(299, 660);
+			this->lectureBtn->Location = System::Drawing::Point(461, 652);
 			this->lectureBtn->Name = L"lectureBtn";
-			this->lectureBtn->Size = System::Drawing::Size(111, 41);
+			this->lectureBtn->Size = System::Drawing::Size(297, 41);
 			this->lectureBtn->TabIndex = 2;
-			this->lectureBtn->Text = L"Add Lecture";
+			this->lectureBtn->Text = L"Add Lecture / Deadline";
 			this->lectureBtn->UseVisualStyleBackColor = true;
 			this->lectureBtn->Click += gcnew System::EventHandler(this, &AcademicScheduleForm::lectureBtn_Click);
 			// 
-			// importantDateBtn
-			// 
-			this->importantDateBtn->Location = System::Drawing::Point(478, 660);
-			this->importantDateBtn->Name = L"importantDateBtn";
-			this->importantDateBtn->Size = System::Drawing::Size(136, 41);
-			this->importantDateBtn->TabIndex = 2;
-			this->importantDateBtn->Text = L"Add Important Date";
-			this->importantDateBtn->UseVisualStyleBackColor = true;
-			// 
-			// saveScheduleBtn
-			// 
-			this->saveScheduleBtn->Location = System::Drawing::Point(691, 660);
-			this->saveScheduleBtn->Name = L"saveScheduleBtn";
-			this->saveScheduleBtn->Size = System::Drawing::Size(136, 41);
-			this->saveScheduleBtn->TabIndex = 2;
-			this->saveScheduleBtn->Text = L"Save Schedule";
-			this->saveScheduleBtn->UseVisualStyleBackColor = true;
-			// 
 			// backArrow
 			// 
+			this->backArrow->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->backArrow->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"backArrow.Image")));
 			this->backArrow->Location = System::Drawing::Point(81, 60);
 			this->backArrow->Name = L"backArrow";
@@ -174,6 +164,11 @@ namespace PersonalOrganizerApp {
 			this->label2->TabIndex = 7;
 			this->label2->Text = L"Pick a Date to view the schedule";
 			// 
+			// deadlineTimer
+			// 
+			this->deadlineTimer->Enabled = true;
+			this->deadlineTimer->Interval = 5000;
+			// 
 			// AcademicScheduleForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -183,8 +178,6 @@ namespace PersonalOrganizerApp {
 			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->saveScheduleBtn);
-			this->Controls->Add(this->importantDateBtn);
 			this->Controls->Add(this->lectureBtn);
 			this->Controls->Add(this->dataGridView);
 			this->Controls->Add(this->monthCalendar);
@@ -280,5 +273,34 @@ private: System::Void monthCalendar_DateSelected(System::Object^ sender, System:
 	}
 
 }
+	   // Timer Tick Event to check for upcoming deadlines
+private: System::Void deadlineTimer_Tick(System::Object^ sender, System::EventArgs^ e) {
+	DateTime today = DateTime::Now;
+	DateTime alertDate = today.AddDays(3); // Modify if you want a different alert range
+
+	DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+
+	try {
+		if (dbHelper->OpenConnection()) {
+			String^ alertQuery = "SELECT Title FROM AcademicSchedule WHERE Type = 'Deadline' "
+				"AND Date <= @AlertDate AND Date >= @Today";
+			SqlCommand^ cmd = gcnew SqlCommand(alertQuery, dbHelper->GetConnection());
+			cmd->Parameters->AddWithValue("@AlertDate", alertDate);
+			cmd->Parameters->AddWithValue("@Today", today);
+
+			SqlDataReader^ reader = cmd->ExecuteReader();
+			while (reader->Read()) {
+				String^ title = reader["Title"]->ToString();
+				MessageBox::Show("Upcoming deadline: " + title, "Alert",MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+
+			dbHelper->CloseConnection();
+		}
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show("Error checking deadlines: " + ex->Message);
+	}
+}
+
 };
 }
