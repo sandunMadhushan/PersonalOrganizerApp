@@ -54,8 +54,8 @@ namespace PersonalOrganizerApp {
 	protected:
 
 	private: System::Windows::Forms::Button^ lectureBtn;
-	private: System::Windows::Forms::Button^ importantDateBtn;
-	private: System::Windows::Forms::Button^ saveScheduleBtn;
+
+
 	private: System::Windows::Forms::PictureBox^ backArrow;
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: System::Windows::Forms::Label^ label1;
@@ -82,8 +82,6 @@ namespace PersonalOrganizerApp {
 			this->monthCalendar = (gcnew System::Windows::Forms::MonthCalendar());
 			this->dataGridView = (gcnew System::Windows::Forms::DataGridView());
 			this->lectureBtn = (gcnew System::Windows::Forms::Button());
-			this->importantDateBtn = (gcnew System::Windows::Forms::Button());
-			this->saveScheduleBtn = (gcnew System::Windows::Forms::Button());
 			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -115,31 +113,13 @@ namespace PersonalOrganizerApp {
 			// 
 			// lectureBtn
 			// 
-			this->lectureBtn->Location = System::Drawing::Point(299, 660);
+			this->lectureBtn->Location = System::Drawing::Point(461, 652);
 			this->lectureBtn->Name = L"lectureBtn";
-			this->lectureBtn->Size = System::Drawing::Size(111, 41);
+			this->lectureBtn->Size = System::Drawing::Size(297, 41);
 			this->lectureBtn->TabIndex = 2;
-			this->lectureBtn->Text = L"Add Lecture";
+			this->lectureBtn->Text = L"Add Lecture / Deadline";
 			this->lectureBtn->UseVisualStyleBackColor = true;
 			this->lectureBtn->Click += gcnew System::EventHandler(this, &AcademicScheduleForm::lectureBtn_Click);
-			// 
-			// importantDateBtn
-			// 
-			this->importantDateBtn->Location = System::Drawing::Point(478, 660);
-			this->importantDateBtn->Name = L"importantDateBtn";
-			this->importantDateBtn->Size = System::Drawing::Size(136, 41);
-			this->importantDateBtn->TabIndex = 2;
-			this->importantDateBtn->Text = L"Add Important Date";
-			this->importantDateBtn->UseVisualStyleBackColor = true;
-			// 
-			// saveScheduleBtn
-			// 
-			this->saveScheduleBtn->Location = System::Drawing::Point(691, 660);
-			this->saveScheduleBtn->Name = L"saveScheduleBtn";
-			this->saveScheduleBtn->Size = System::Drawing::Size(136, 41);
-			this->saveScheduleBtn->TabIndex = 2;
-			this->saveScheduleBtn->Text = L"Save Schedule";
-			this->saveScheduleBtn->UseVisualStyleBackColor = true;
 			// 
 			// backArrow
 			// 
@@ -198,8 +178,6 @@ namespace PersonalOrganizerApp {
 			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->saveScheduleBtn);
-			this->Controls->Add(this->importantDateBtn);
 			this->Controls->Add(this->lectureBtn);
 			this->Controls->Add(this->dataGridView);
 			this->Controls->Add(this->monthCalendar);
