@@ -194,12 +194,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\budget.png" />
     <Image Include="Resources\hamburger.png" />
+    <Image Include="Resources\incomeexpense.png" />
     <Image Include="Resources\IncomeExpenses.jpg" />
     <Image Include="Resources\IncomeExpensesIcon.jpg" />
     <Image Include="Resources\left-arrow.png" />
     <Image Include="Resources\logo.ico" />
     <Image Include="Resources\logo.png" />
+    <Image Include="Resources\logout.png" />
+    <Image Include="Resources\report.png" />
+    <Image Include="Resources\schedule.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
