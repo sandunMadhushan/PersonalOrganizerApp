@@ -201,9 +201,15 @@
     <Image Include="Resources\IncomeExpenses.jpg" />
     <Image Include="Resources\IncomeExpensesIcon.jpg" />
     <Image Include="Resources\left-arrow.png" />
+    <Image Include="Resources\loginCardImage.png" />
+    <Image Include="Resources\logo-rounded.png" />
+    <Image Include="Resources\logo-withoutbg.ico" />
+    <Image Include="Resources\logo-withoutbg.png" />
     <Image Include="Resources\logo.ico" />
     <Image Include="Resources\logo.png" />
     <Image Include="Resources\logout.png" />
+    <Image Include="Resources\mail.png" />
+    <Image Include="Resources\padlock.png" />
     <Image Include="Resources\printer.png" />
     <Image Include="Resources\report.png" />
     <Image Include="Resources\schedule.png" />
