@@ -48,10 +48,14 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Button^ toggleButton;
 	private: System::Windows::Forms::Timer^ sidebarTimer;
 	private: System::Windows::Forms::Button^ btnIncomeExpenses;
-	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ button3;
-	private: System::Windows::Forms::Button^ button4;
-	private: System::Windows::Forms::Button^ button5;
+	private: System::Windows::Forms::Button^ btnBudget;
+	private: System::Windows::Forms::Button^ btnReport;
+	private: System::Windows::Forms::Button^ btnSchedule;
+	private: System::Windows::Forms::Button^ btnLgOut;
+
+
+
+
 	private: System::ComponentModel::IContainer^ components;
 
 #pragma region Windows Form Designer generated code
@@ -62,10 +66,10 @@ namespace PersonalOrganizerApp {
 			   this->label1 = (gcnew System::Windows::Forms::Label());
 			   this->button1 = (gcnew System::Windows::Forms::Button());
 			   this->panel1 = (gcnew System::Windows::Forms::Panel());
-			   this->button5 = (gcnew System::Windows::Forms::Button());
-			   this->button4 = (gcnew System::Windows::Forms::Button());
-			   this->button3 = (gcnew System::Windows::Forms::Button());
-			   this->button2 = (gcnew System::Windows::Forms::Button());
+			   this->btnLgOut = (gcnew System::Windows::Forms::Button());
+			   this->btnSchedule = (gcnew System::Windows::Forms::Button());
+			   this->btnReport = (gcnew System::Windows::Forms::Button());
+			   this->btnBudget = (gcnew System::Windows::Forms::Button());
 			   this->btnIncomeExpenses = (gcnew System::Windows::Forms::Button());
 			   this->toggleButton = (gcnew System::Windows::Forms::Button());
 			   this->sidebarTimer = (gcnew System::Windows::Forms::Timer(this->components));
@@ -106,10 +110,10 @@ namespace PersonalOrganizerApp {
 			   // 
 			   this->panel1->BackColor = System::Drawing::Color::DodgerBlue;
 			   this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			   this->panel1->Controls->Add(this->button5);
-			   this->panel1->Controls->Add(this->button4);
-			   this->panel1->Controls->Add(this->button3);
-			   this->panel1->Controls->Add(this->button2);
+			   this->panel1->Controls->Add(this->btnLgOut);
+			   this->panel1->Controls->Add(this->btnSchedule);
+			   this->panel1->Controls->Add(this->btnReport);
+			   this->panel1->Controls->Add(this->btnBudget);
 			   this->panel1->Controls->Add(this->btnIncomeExpenses);
 			   this->panel1->Controls->Add(this->toggleButton);
 			   this->panel1->Dock = System::Windows::Forms::DockStyle::Left;
@@ -118,57 +122,57 @@ namespace PersonalOrganizerApp {
 			   this->panel1->Size = System::Drawing::Size(232, 750);
 			   this->panel1->TabIndex = 2;
 			   // 
-			   // button5
+			   // btnLgOut
 			   // 
-			   this->button5->BackColor = System::Drawing::Color::WhiteSmoke;
-			   this->button5->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button5.Image")));
-			   this->button5->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			   this->button5->Location = System::Drawing::Point(41, 672);
-			   this->button5->Name = L"button5";
-			   this->button5->Size = System::Drawing::Size(177, 45);
-			   this->button5->TabIndex = 3;
-			   this->button5->Text = L"Log Out";
-			   this->button5->UseVisualStyleBackColor = false;
-			   this->button5->Click += gcnew System::EventHandler(this, &MainForm::btnLogout);
+			   this->btnLgOut->BackColor = System::Drawing::Color::WhiteSmoke;
+			   this->btnLgOut->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnLgOut.Image")));
+			   this->btnLgOut->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			   this->btnLgOut->Location = System::Drawing::Point(41, 666);
+			   this->btnLgOut->Name = L"btnLgOut";
+			   this->btnLgOut->Size = System::Drawing::Size(177, 45);
+			   this->btnLgOut->TabIndex = 3;
+			   this->btnLgOut->Text = L"Log Out";
+			   this->btnLgOut->UseVisualStyleBackColor = false;
+			   this->btnLgOut->Click += gcnew System::EventHandler(this, &MainForm::btnLogout);
 			   // 
-			   // button4
+			   // btnSchedule
 			   // 
-			   this->button4->BackColor = System::Drawing::Color::WhiteSmoke;
-			   this->button4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button4.Image")));
-			   this->button4->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			   this->button4->Location = System::Drawing::Point(41, 432);
-			   this->button4->Name = L"button4";
-			   this->button4->Size = System::Drawing::Size(177, 45);
-			   this->button4->TabIndex = 3;
-			   this->button4->Text = L"Academic Schedule";
-			   this->button4->UseVisualStyleBackColor = false;
-			   this->button4->Click += gcnew System::EventHandler(this, &MainForm::btnAcademicSchedule);
+			   this->btnSchedule->BackColor = System::Drawing::Color::WhiteSmoke;
+			   this->btnSchedule->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSchedule.Image")));
+			   this->btnSchedule->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			   this->btnSchedule->Location = System::Drawing::Point(41, 432);
+			   this->btnSchedule->Name = L"btnSchedule";
+			   this->btnSchedule->Size = System::Drawing::Size(177, 45);
+			   this->btnSchedule->TabIndex = 3;
+			   this->btnSchedule->Text = L"Academic Schedule";
+			   this->btnSchedule->UseVisualStyleBackColor = false;
+			   this->btnSchedule->Click += gcnew System::EventHandler(this, &MainForm::btnAcademicSchedule);
 			   // 
-			   // button3
+			   // btnReport
 			   // 
-			   this->button3->BackColor = System::Drawing::Color::WhiteSmoke;
-			   this->button3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button3.Image")));
-			   this->button3->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			   this->button3->Location = System::Drawing::Point(41, 353);
-			   this->button3->Name = L"button3";
-			   this->button3->Size = System::Drawing::Size(177, 45);
-			   this->button3->TabIndex = 3;
-			   this->button3->Text = L"Financial Report";
-			   this->button3->UseVisualStyleBackColor = false;
-			   this->button3->Click += gcnew System::EventHandler(this, &MainForm::btnFinancialReport);
+			   this->btnReport->BackColor = System::Drawing::Color::WhiteSmoke;
+			   this->btnReport->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnReport.Image")));
+			   this->btnReport->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			   this->btnReport->Location = System::Drawing::Point(41, 353);
+			   this->btnReport->Name = L"btnReport";
+			   this->btnReport->Size = System::Drawing::Size(177, 45);
+			   this->btnReport->TabIndex = 3;
+			   this->btnReport->Text = L"Financial Report";
+			   this->btnReport->UseVisualStyleBackColor = false;
+			   this->btnReport->Click += gcnew System::EventHandler(this, &MainForm::btnFinancialReport);
 			   // 
-			   // button2
+			   // btnBudget
 			   // 
-			   this->button2->BackColor = System::Drawing::Color::WhiteSmoke;
-			   this->button2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.Image")));
-			   this->button2->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			   this->button2->Location = System::Drawing::Point(41, 272);
-			   this->button2->Name = L"button2";
-			   this->button2->Size = System::Drawing::Size(177, 45);
-			   this->button2->TabIndex = 3;
-			   this->button2->Text = L"Budget";
-			   this->button2->UseVisualStyleBackColor = false;
-			   this->button2->Click += gcnew System::EventHandler(this, &MainForm::btnBudget_Click);
+			   this->btnBudget->BackColor = System::Drawing::Color::WhiteSmoke;
+			   this->btnBudget->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnBudget.Image")));
+			   this->btnBudget->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			   this->btnBudget->Location = System::Drawing::Point(41, 272);
+			   this->btnBudget->Name = L"btnBudget";
+			   this->btnBudget->Size = System::Drawing::Size(177, 45);
+			   this->btnBudget->TabIndex = 3;
+			   this->btnBudget->Text = L"Budget";
+			   this->btnBudget->UseVisualStyleBackColor = false;
+			   this->btnBudget->Click += gcnew System::EventHandler(this, &MainForm::btnBudget_Click);
 			   // 
 			   // btnIncomeExpenses
 			   // 
@@ -253,6 +257,10 @@ namespace PersonalOrganizerApp {
 					   panel1->Width = collapsedWidth;
 					   toggleButton->Text = "";
 					   btnIncomeExpenses->Text = "";
+					   btnBudget->Text = "";
+					   btnReport->Text = "";
+					   btnSchedule->Text = "";
+					   btnLgOut->Text = "";
 				   }
 			   }
 			   else {
@@ -264,6 +272,10 @@ namespace PersonalOrganizerApp {
 					   panel1->Width = expandedWidth;
 					   toggleButton->Text = "Menu";
 					   btnIncomeExpenses->Text = "Income / Expenses";
+					   btnBudget->Text = "Budget";
+					   btnReport->Text = "Financial Report";
+					   btnSchedule->Text = "Academic Schedule";
+					   btnLgOut->Text = "Log Out";
 				   }
 			   }
 		   }
