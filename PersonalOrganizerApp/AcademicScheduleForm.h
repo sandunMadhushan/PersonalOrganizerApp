@@ -29,6 +29,11 @@ namespace PersonalOrganizerApp {
 			//
 			DateTime currentDate = DateTime::Now;
 			DisplaySchedule();
+
+			this->deadlineTimer = gcnew System::Windows::Forms::Timer();
+			this->deadlineTimer->Interval = 86400000; // Run once per day
+			this->deadlineTimer->Tick += gcnew System::EventHandler(this, &AcademicScheduleForm::deadlineTimer_Tick);
+			this->deadlineTimer->Start();
 		}
 
 	protected:
@@ -55,13 +60,15 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Timer^ deadlineTimer;
+	private: System::ComponentModel::IContainer^ components;
 
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -70,6 +77,7 @@ namespace PersonalOrganizerApp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(AcademicScheduleForm::typeid));
 			this->monthCalendar = (gcnew System::Windows::Forms::MonthCalendar());
 			this->dataGridView = (gcnew System::Windows::Forms::DataGridView());
@@ -80,6 +88,7 @@ namespace PersonalOrganizerApp {
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->deadlineTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
@@ -134,6 +143,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// backArrow
 			// 
+			this->backArrow->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->backArrow->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"backArrow.Image")));
 			this->backArrow->Location = System::Drawing::Point(81, 60);
 			this->backArrow->Name = L"backArrow";
@@ -173,6 +183,11 @@ namespace PersonalOrganizerApp {
 			this->label2->Size = System::Drawing::Size(199, 16);
 			this->label2->TabIndex = 7;
 			this->label2->Text = L"Pick a Date to view the schedule";
+			// 
+			// deadlineTimer
+			// 
+			this->deadlineTimer->Enabled = true;
+			this->deadlineTimer->Interval = 5000;
 			// 
 			// AcademicScheduleForm
 			// 
@@ -280,5 +295,34 @@ private: System::Void monthCalendar_DateSelected(System::Object^ sender, System:
 	}
 
 }
+	   // Timer Tick Event to check for upcoming deadlines
+private: System::Void deadlineTimer_Tick(System::Object^ sender, System::EventArgs^ e) {
+	DateTime today = DateTime::Now;
+	DateTime alertDate = today.AddDays(3); // Modify if you want a different alert range
+
+	DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+
+	try {
+		if (dbHelper->OpenConnection()) {
+			String^ alertQuery = "SELECT Title FROM AcademicSchedule WHERE Type = 'Deadline' "
+				"AND Date <= @AlertDate AND Date >= @Today";
+			SqlCommand^ cmd = gcnew SqlCommand(alertQuery, dbHelper->GetConnection());
+			cmd->Parameters->AddWithValue("@AlertDate", alertDate);
+			cmd->Parameters->AddWithValue("@Today", today);
+
+			SqlDataReader^ reader = cmd->ExecuteReader();
+			while (reader->Read()) {
+				String^ title = reader["Title"]->ToString();
+				MessageBox::Show("Upcoming deadline: " + title, "Alert",MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+
+			dbHelper->CloseConnection();
+		}
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show("Error checking deadlines: " + ex->Message);
+	}
+}
+
 };
 }
