@@ -128,6 +128,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AcademicScheduleForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="AddEventForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="BudgetForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -150,6 +156,8 @@
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AcademicScheduleForm.cpp" />
+    <ClCompile Include="AddEventForm.cpp" />
     <ClCompile Include="BudgetForm.cpp" />
     <ClCompile Include="FinancialReportForm.cpp" />
     <ClCompile Include="IncomeExpenseForm.cpp" />
@@ -159,6 +167,12 @@
     <ClCompile Include="RegisterForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AcademicScheduleForm.resx">
+      <DependentUpon>AcademicScheduleForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEventForm.resx">
+      <DependentUpon>AddEventForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BudgetForm.resx">
       <DependentUpon>BudgetForm.h</DependentUpon>
     </EmbeddedResource>
