@@ -11,17 +11,16 @@ void main(array<String^>^ args) {
 
 	User^ user = nullptr;
 	while (true) {
-		PersonalOrganizerApp::LoginForm loginForm;
-		loginForm.ShowDialog();
+		PersonalOrganizerApp::LoginForm^ loginForm = gcnew PersonalOrganizerApp::LoginForm();
+		loginForm->ShowDialog();
 
-		if (loginForm.switchToRegister)
-		{
-			PersonalOrganizerApp::RegisterForm registerForm;
-			registerForm.ShowDialog();
+		if (loginForm->switchToRegister) {
+			PersonalOrganizerApp::RegisterForm^ registerForm = gcnew PersonalOrganizerApp::RegisterForm();
+			registerForm->ShowDialog();
 		}
-		else
-		{
-			user = loginForm.user;
+		else {
+			user = loginForm->user;
+			loginForm->Close(); 
 			break;
 		}
 	}
@@ -30,5 +29,4 @@ void main(array<String^>^ args) {
 		PersonalOrganizerApp::MainForm mainForm(user);
 		Application::Run(% mainForm);
 	}
-
 }
