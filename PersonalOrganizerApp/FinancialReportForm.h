@@ -167,23 +167,30 @@ namespace PersonalOrganizerApp {
 			// 
 			// dataGridViewReport
 			// 
+			this->dataGridViewReport->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dataGridViewReport->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
+			this->dataGridViewReport->BackgroundColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->dataGridViewReport->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->dataGridViewReport->ColumnHeadersHeight = 29;
-			this->dataGridViewReport->Location = System::Drawing::Point(58, 400);
+			this->dataGridViewReport->Location = System::Drawing::Point(229, 374);
 			this->dataGridViewReport->Name = L"dataGridViewReport";
 			this->dataGridViewReport->RowHeadersWidth = 51;
-			this->dataGridViewReport->Size = System::Drawing::Size(900, 250);
+			this->dataGridViewReport->Size = System::Drawing::Size(641, 158);
 			this->dataGridViewReport->TabIndex = 9;
 			// 
 			// chart1
 			// 
+			chartArea1->AxisX->Title = L"Caregory";
+			chartArea1->AxisY->Title = L"Amount";
 			chartArea1->Name = L"ChartArea1";
 			this->chart1->ChartAreas->Add(chartArea1);
 			legend1->Name = L"Legend1";
 			this->chart1->Legends->Add(legend1);
-			this->chart1->Location = System::Drawing::Point(343, 669);
+			this->chart1->Location = System::Drawing::Point(314, 578);
 			this->chart1->Name = L"chart1";
 			series1->ChartArea = L"ChartArea1";
 			series1->IsValueShownAsLabel = true;
+			series1->IsVisibleInLegend = false;
 			series1->Legend = L"Legend1";
 			series1->Name = L"series1";
 			this->chart1->Series->Add(series1);
@@ -194,7 +201,7 @@ namespace PersonalOrganizerApp {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1148, 981);
+			this->ClientSize = System::Drawing::Size(1148, 920);
 			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label1);
@@ -324,20 +331,20 @@ namespace PersonalOrganizerApp {
 				   String^ category = reader["Category"]->ToString();
 				   Decimal totalAmount = Convert::ToDecimal(reader["TotalAmount"]);
 
-				   chart1->Series["series1"]->Points->Clear(); // Clear previous data
+				   //chart1->Series["series1"]->Points->Clear(); // Clear previous data
 
 				   chart1->Series[0]->Points->AddXY(category, totalAmount);
 
-				   
+				   chart1->Text = "Expense Breakdown by Category";
 
-				   // Add chart to the form in a new form or panel
-				   Form^ chartForm = gcnew Form();
-				   chartForm->Text = "Expense Breakdown by Category";
-				   chartForm->ClientSize = System::Drawing::Size(600, 400);
+				   //// Add chart to the form in a new form or panel
+				   //Form^ chartForm = gcnew Form();
+				   //chartForm->Text = "Expense Breakdown by Category";
+				   //chartForm->ClientSize = System::Drawing::Size(600, 400);
 
-				   chart1->Dock = DockStyle::Fill;
-				   chartForm->Controls->Add(chart1);
-				   chartForm->Show();
+				   //chart1->Dock = DockStyle::Fill;
+				   //chartForm->Controls->Add(chart1);
+				   //chartForm->Show();
 			   }
 			   conn->Close();
 		   }

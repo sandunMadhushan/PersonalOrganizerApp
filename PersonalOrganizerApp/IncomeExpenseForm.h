@@ -233,6 +233,10 @@ namespace PersonalOrganizerApp {
 			// 
 			// incomeDataGridView
 			// 
+			this->incomeDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->incomeDataGridView->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
+			this->incomeDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->incomeDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->incomeDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->incomeDataGridView->Enabled = false;
 			this->incomeDataGridView->Location = System::Drawing::Point(29, 583);
@@ -394,6 +398,10 @@ namespace PersonalOrganizerApp {
 			// 
 			// expenseDataGridView
 			// 
+			this->expenseDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->expenseDataGridView->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
+			this->expenseDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->expenseDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->expenseDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->expenseDataGridView->Location = System::Drawing::Point(29, 583);
 			this->expenseDataGridView->Name = L"expenseDataGridView";
