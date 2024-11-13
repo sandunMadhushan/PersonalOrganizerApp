@@ -50,6 +50,8 @@ namespace PersonalOrganizerApp {
 
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::Button^ addBtn;
+	private: System::Windows::Forms::DateTimePicker^ timePicker;
+	private: System::Windows::Forms::Label^ label6;
 	protected:
 
 	private:
@@ -76,6 +78,8 @@ namespace PersonalOrganizerApp {
 			this->descriptionTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->addBtn = (gcnew System::Windows::Forms::Button());
+			this->timePicker = (gcnew System::Windows::Forms::DateTimePicker());
+			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -100,7 +104,7 @@ namespace PersonalOrganizerApp {
 			// 
 			this->typeComboBox->FormattingEnabled = true;
 			this->typeComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Lecture", L"Deadline" });
-			this->typeComboBox->Location = System::Drawing::Point(305, 335);
+			this->typeComboBox->Location = System::Drawing::Point(305, 378);
 			this->typeComboBox->Name = L"typeComboBox";
 			this->typeComboBox->Size = System::Drawing::Size(190, 24);
 			this->typeComboBox->TabIndex = 2;
@@ -131,7 +135,7 @@ namespace PersonalOrganizerApp {
 			// 
 			this->datePicker->Location = System::Drawing::Point(305, 222);
 			this->datePicker->Name = L"datePicker";
-			this->datePicker->Size = System::Drawing::Size(190, 22);
+			this->datePicker->Size = System::Drawing::Size(243, 22);
 			this->datePicker->TabIndex = 3;
 			// 
 			// label4
@@ -139,7 +143,7 @@ namespace PersonalOrganizerApp {
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(197, 277);
+			this->label4->Location = System::Drawing::Point(197, 320);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(95, 20);
 			this->label4->TabIndex = 0;
@@ -147,7 +151,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// descriptionTextBox
 			// 
-			this->descriptionTextBox->Location = System::Drawing::Point(305, 277);
+			this->descriptionTextBox->Location = System::Drawing::Point(305, 320);
 			this->descriptionTextBox->Name = L"descriptionTextBox";
 			this->descriptionTextBox->Size = System::Drawing::Size(190, 22);
 			this->descriptionTextBox->TabIndex = 1;
@@ -157,7 +161,7 @@ namespace PersonalOrganizerApp {
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(197, 335);
+			this->label5->Location = System::Drawing::Point(197, 378);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(45, 20);
 			this->label5->TabIndex = 0;
@@ -165,7 +169,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// addBtn
 			// 
-			this->addBtn->Location = System::Drawing::Point(305, 409);
+			this->addBtn->Location = System::Drawing::Point(305, 428);
 			this->addBtn->Name = L"addBtn";
 			this->addBtn->Size = System::Drawing::Size(75, 23);
 			this->addBtn->TabIndex = 4;
@@ -173,11 +177,33 @@ namespace PersonalOrganizerApp {
 			this->addBtn->UseVisualStyleBackColor = true;
 			this->addBtn->Click += gcnew System::EventHandler(this, &AddEventForm::addBtn_Click);
 			// 
+			// timePicker
+			// 
+			this->timePicker->Location = System::Drawing::Point(305, 266);
+			this->timePicker->Name = L"timePicker";
+			this->timePicker->Size = System::Drawing::Size(243, 22);
+			this->timePicker->TabIndex = 5;
+			this->timePicker->ShowUpDown = true;
+			this->timePicker->CustomFormat = "HH:mm tt";
+			this->timePicker->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label6->Location = System::Drawing::Point(197, 268);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(46, 20);
+			this->label6->TabIndex = 0;
+			this->label6->Text = L"Time";
+			// 
 			// AddEventForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(691, 515);
+			this->Controls->Add(this->timePicker);
 			this->Controls->Add(this->addBtn);
 			this->Controls->Add(this->datePicker);
 			this->Controls->Add(this->typeComboBox);
@@ -185,11 +211,13 @@ namespace PersonalOrganizerApp {
 			this->Controls->Add(this->titleTextBox);
 			this->Controls->Add(this->label5);
 			this->Controls->Add(this->label4);
+			this->Controls->Add(this->label6);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
+			this->Location = System::Drawing::Point(305, 250);
 			this->MaximizeBox = false;
 			this->Name = L"AddEventForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -210,8 +238,8 @@ namespace PersonalOrganizerApp {
 				if (dbHelper->OpenConnection())
 				{
 					// Define the SQL query
-					String^ query = "INSERT INTO AcademicSchedule (Title, Date, Type, Description) "
-						"VALUES (@Title, @Date, @Type, @Description)";
+					String^ query = "INSERT INTO AcademicSchedule (Title, Date, Time, Type, Description) "
+						"VALUES (@Title, @Date, @Time, @Type, @Description)";
 
 					// Create SqlCommand with the query and connection
 					SqlCommand^ cmd = gcnew SqlCommand(query, dbHelper->GetConnection());
@@ -219,6 +247,7 @@ namespace PersonalOrganizerApp {
 					// Add parameters
 					cmd->Parameters->AddWithValue("@Title", titleTextBox->Text);
 					cmd->Parameters->AddWithValue("@Date", datePicker->Value);
+					cmd->Parameters->AddWithValue("@Time", timePicker->Value);
 					cmd->Parameters->AddWithValue("@Type", typeComboBox->SelectedItem->ToString());
 					cmd->Parameters->AddWithValue("@Description", descriptionTextBox->Text);
 
