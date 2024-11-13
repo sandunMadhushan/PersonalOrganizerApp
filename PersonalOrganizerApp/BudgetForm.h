@@ -260,9 +260,28 @@ namespace PersonalOrganizerApp {
 		SqlCommand^ command = gcnew SqlCommand(query, DatabaseHelper::GetInstance()->GetConnection());
 		command->Parameters->AddWithValue("@Category", category);
 		command->Parameters->AddWithValue("@BudgetAmount", budgetAmount);
-		command->Parameters->AddWithValue("@Month", DateTime::Now.ToString("MMMM yyyy"));  // Store the current month
+		command->Parameters->AddWithValue("@Month", DateTime::Now.ToString("MMMM yyyy"));  // Store the current months
 		
 		try {
+			if (String::IsNullOrWhiteSpace(budgetAmountTextBox->Text))
+			{
+				MessageBox::Show("Amount cannot be empty.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			
+            Decimal amount;
+            if (!Decimal::TryParse(budgetAmountTextBox->Text, amount))
+            {
+                MessageBox::Show("Invalid amount entered.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+                return;
+            }
+
+            if (String::IsNullOrWhiteSpace(categoryComboBox->Text))
+            {
+            MessageBox::Show("Category cannot be empty.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+            return;
+            }
+
 			if (DatabaseHelper::GetInstance()->OpenConnection()) {
 	
 				command->ExecuteNonQuery();
