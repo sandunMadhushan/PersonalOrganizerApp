@@ -13,6 +13,7 @@ namespace PersonalOrganizerApp {
 	using namespace System::Data::SqlClient;
 	using namespace System::Windows::Forms::DataVisualization::Charting;
 	using namespace System::Globalization;
+	using namespace System::Drawing::Printing;
 
 	/// <summary>
 	/// Summary for FinancialReportForm
@@ -49,6 +50,9 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Label^ lblSavings;
 	private: System::Windows::Forms::DataGridView^ dataGridViewReport;
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
+	private: System::Drawing::Printing::PrintDocument^ printDocument;
+	private: System::Windows::Forms::PrintPreviewDialog^ printPreviewDialog;
+	private: System::Windows::Forms::Button^ btnPrint;
 
 
 	private:
@@ -58,9 +62,9 @@ namespace PersonalOrganizerApp {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FinancialReportForm::typeid));
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea5 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -72,6 +76,9 @@ namespace PersonalOrganizerApp {
 			this->lblSavings = (gcnew System::Windows::Forms::Label());
 			this->dataGridViewReport = (gcnew System::Windows::Forms::DataGridView());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
+			this->printDocument = (gcnew System::Drawing::Printing::PrintDocument());
+			this->printPreviewDialog = (gcnew System::Windows::Forms::PrintPreviewDialog());
+			this->btnPrint = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewReport))->BeginInit();
@@ -180,28 +187,60 @@ namespace PersonalOrganizerApp {
 			// 
 			// chart1
 			// 
-			chartArea1->AxisX->Title = L"Caregory";
-			chartArea1->AxisY->Title = L"Amount";
-			chartArea1->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea1);
-			legend1->Name = L"Legend1";
-			this->chart1->Legends->Add(legend1);
-			this->chart1->Location = System::Drawing::Point(314, 578);
+			chartArea5->AxisX->Title = L"Caregory";
+			chartArea5->AxisY->Title = L"Amount";
+			chartArea5->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea5);
+			legend5->Name = L"Legend1";
+			this->chart1->Legends->Add(legend5);
+			this->chart1->Location = System::Drawing::Point(315, 611);
 			this->chart1->Name = L"chart1";
-			series1->ChartArea = L"ChartArea1";
-			series1->IsValueShownAsLabel = true;
-			series1->IsVisibleInLegend = false;
-			series1->Legend = L"Legend1";
-			series1->Name = L"series1";
-			this->chart1->Series->Add(series1);
+			series5->ChartArea = L"ChartArea1";
+			series5->IsValueShownAsLabel = true;
+			series5->IsVisibleInLegend = false;
+			series5->Legend = L"Legend1";
+			series5->Name = L"series1";
+			this->chart1->Series->Add(series5);
 			this->chart1->Size = System::Drawing::Size(500, 300);
 			this->chart1->TabIndex = 10;
+			// 
+			// printDocument
+			// 
+			this->printDocument->PrintPage += gcnew System::Drawing::Printing::PrintPageEventHandler(this, &FinancialReportForm::printDocument_PrintPage);
+			// 
+			// printPreviewDialog
+			// 
+			this->printPreviewDialog->AutoScrollMargin = System::Drawing::Size(0, 0);
+			this->printPreviewDialog->AutoScrollMinSize = System::Drawing::Size(0, 0);
+			this->printPreviewDialog->ClientSize = System::Drawing::Size(400, 300);
+			this->printPreviewDialog->Document = this->printDocument;
+			this->printPreviewDialog->Enabled = true;
+			this->printPreviewDialog->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"printPreviewDialog.Icon")));
+			this->printPreviewDialog->Name = L"printPreviewDialog";
+			this->printPreviewDialog->Visible = false;
+			// 
+			// btnPrint
+			// 
+			this->btnPrint->BackColor = System::Drawing::Color::DodgerBlue;
+			this->btnPrint->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btnPrint->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->btnPrint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnPrint.Image")));
+			this->btnPrint->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->btnPrint->Location = System::Drawing::Point(493, 552);
+			this->btnPrint->Name = L"btnPrint";
+			this->btnPrint->Size = System::Drawing::Size(113, 40);
+			this->btnPrint->TabIndex = 11;
+			this->btnPrint->Text = L"Print";
+			this->btnPrint->UseVisualStyleBackColor = false;
+			this->btnPrint->Click += gcnew System::EventHandler(this, &FinancialReportForm::btnPrint_Click);
 			// 
 			// FinancialReportForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1148, 920);
+			this->ClientSize = System::Drawing::Size(1148, 933);
+			this->Controls->Add(this->btnPrint);
 			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label1);
@@ -355,6 +394,31 @@ namespace PersonalOrganizerApp {
 		int currentYear = DateTime::Now.Year;
 		GenerateMonthlyReport(currentMonth, currentYear);
 	}
+private: System::Void btnPrint_Click(System::Object^ sender, System::EventArgs^ e) {
+	PrintDialog^ printDialog = gcnew PrintDialog();
+	printDialog->Document = printDocument;
+	if (printDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+		printDocument->Print();
+	}
+}
+private: System::Void printDocument_PrintPage(System::Object^ sender, System::Drawing::Printing::PrintPageEventArgs^ e) {
+	System::Drawing::Font^ font = gcnew System::Drawing::Font("Arial", 10);
+	float yPos = 100; // Starting Y position
+	int leftMargin = e->MarginBounds.Left;
+
+	// Example: Print Report Title
+	e->Graphics->DrawString("Financial Report", gcnew System::Drawing::Font("Arial", 16, FontStyle::Bold), Brushes::Black, leftMargin, yPos);
+	yPos += 40; // Move down
+
+    // Print each line of data
+    e->Graphics->DrawString("Total Income: " + lblTotalIncome->Text, font, Brushes::Black, leftMargin, yPos);
+    yPos += 20;
+    e->Graphics->DrawString("Total Expenses: " + lblTotalExpenses->Text, font, Brushes::Black, leftMargin, yPos);
+    yPos += 20;
+    e->Graphics->DrawString("Savings: " + lblSavings->Text, font, Brushes::Black, leftMargin, yPos);
+    yPos += 20;
+            
+}
 };
 
 	
