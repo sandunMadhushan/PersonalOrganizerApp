@@ -25,6 +25,9 @@ namespace PersonalOrganizerApp {
 		FinancialReportForm(void)
 		{
 			InitializeComponent();
+			int currentMonth = DateTime::Now.Month;
+			int currentYear = DateTime::Now.Year;
+			GenerateMonthlyReport(currentMonth, currentYear);
 		}
 
 	protected:
@@ -46,7 +49,7 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Label^ lblSavings;
 	private: System::Windows::Forms::DataGridView^ dataGridViewReport;
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
-	private: System::Windows::Forms::Button^ loadData;
+
 
 	private:
 		System::ComponentModel::Container^ components;
@@ -69,7 +72,6 @@ namespace PersonalOrganizerApp {
 			this->lblSavings = (gcnew System::Windows::Forms::Label());
 			this->dataGridViewReport = (gcnew System::Windows::Forms::DataGridView());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
-			this->loadData = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewReport))->BeginInit();
@@ -165,45 +167,41 @@ namespace PersonalOrganizerApp {
 			// 
 			// dataGridViewReport
 			// 
+			this->dataGridViewReport->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dataGridViewReport->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
+			this->dataGridViewReport->BackgroundColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->dataGridViewReport->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->dataGridViewReport->ColumnHeadersHeight = 29;
-			this->dataGridViewReport->Location = System::Drawing::Point(58, 400);
+			this->dataGridViewReport->Location = System::Drawing::Point(229, 374);
 			this->dataGridViewReport->Name = L"dataGridViewReport";
 			this->dataGridViewReport->RowHeadersWidth = 51;
-			this->dataGridViewReport->Size = System::Drawing::Size(900, 250);
+			this->dataGridViewReport->Size = System::Drawing::Size(641, 158);
 			this->dataGridViewReport->TabIndex = 9;
 			// 
 			// chart1
 			// 
+			chartArea1->AxisX->Title = L"Caregory";
+			chartArea1->AxisY->Title = L"Amount";
 			chartArea1->Name = L"ChartArea1";
 			this->chart1->ChartAreas->Add(chartArea1);
 			legend1->Name = L"Legend1";
 			this->chart1->Legends->Add(legend1);
-			this->chart1->Location = System::Drawing::Point(343, 669);
+			this->chart1->Location = System::Drawing::Point(314, 578);
 			this->chart1->Name = L"chart1";
 			series1->ChartArea = L"ChartArea1";
 			series1->IsValueShownAsLabel = true;
+			series1->IsVisibleInLegend = false;
 			series1->Legend = L"Legend1";
 			series1->Name = L"series1";
 			this->chart1->Series->Add(series1);
 			this->chart1->Size = System::Drawing::Size(500, 300);
 			this->chart1->TabIndex = 10;
 			// 
-			// loadData
-			// 
-			this->loadData->Location = System::Drawing::Point(989, 254);
-			this->loadData->Name = L"loadData";
-			this->loadData->Size = System::Drawing::Size(75, 23);
-			this->loadData->TabIndex = 11;
-			this->loadData->Text = L"Load";
-			this->loadData->UseVisualStyleBackColor = true;
-			this->loadData->Click += gcnew System::EventHandler(this, &FinancialReportForm::loadData_Click);
-			// 
 			// FinancialReportForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1148, 981);
-			this->Controls->Add(this->loadData);
+			this->ClientSize = System::Drawing::Size(1148, 920);
 			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label1);
@@ -333,20 +331,20 @@ namespace PersonalOrganizerApp {
 				   String^ category = reader["Category"]->ToString();
 				   Decimal totalAmount = Convert::ToDecimal(reader["TotalAmount"]);
 
-				   chart1->Series["series1"]->Points->Clear(); // Clear previous data
+				   //chart1->Series["series1"]->Points->Clear(); // Clear previous data
 
 				   chart1->Series[0]->Points->AddXY(category, totalAmount);
 
-				   
+				   chart1->Text = "Expense Breakdown by Category";
 
-				   // Add chart to the form in a new form or panel
-				   Form^ chartForm = gcnew Form();
-				   chartForm->Text = "Expense Breakdown by Category";
-				   chartForm->ClientSize = System::Drawing::Size(600, 400);
+				   //// Add chart to the form in a new form or panel
+				   //Form^ chartForm = gcnew Form();
+				   //chartForm->Text = "Expense Breakdown by Category";
+				   //chartForm->ClientSize = System::Drawing::Size(600, 400);
 
-				   chart1->Dock = DockStyle::Fill;
-				   chartForm->Controls->Add(chart1);
-				   chartForm->Show();
+				   //chart1->Dock = DockStyle::Fill;
+				   //chartForm->Controls->Add(chart1);
+				   //chartForm->Show();
 			   }
 			   conn->Close();
 		   }
