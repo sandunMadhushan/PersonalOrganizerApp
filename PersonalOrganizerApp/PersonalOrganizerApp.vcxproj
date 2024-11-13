@@ -124,6 +124,7 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +132,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="DatabaseHelper.h" />
+    <ClInclude Include="FinancialReportForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="IncomeExpenseForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -147,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BudgetForm.cpp" />
+    <ClCompile Include="FinancialReportForm.cpp" />
     <ClCompile Include="IncomeExpenseForm.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
@@ -156,6 +161,9 @@
   <ItemGroup>
     <EmbeddedResource Include="BudgetForm.resx">
       <DependentUpon>BudgetForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinancialReportForm.resx">
+      <DependentUpon>FinancialReportForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IncomeExpenseForm.resx">
       <DependentUpon>IncomeExpenseForm.h</DependentUpon>

@@ -1,9 +1,13 @@
 #include "IncomeExpenseForm.h"
 #include "MainForm.h"
+#include "DatabaseHelper.h"
 
 using namespace PersonalOrganizerApp;
 
 System::Void IncomeExpenseForm::backArrow_Click(System::Object^ sender, System::EventArgs^ e) {
+    // Close the connection to the database
+    DatabaseHelper::GetInstance()->CloseConnection();
+
     // Hide the current form (IncomeExpenseForm)
     this->Hide();
 
