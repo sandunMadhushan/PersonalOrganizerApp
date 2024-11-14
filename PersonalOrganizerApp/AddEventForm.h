@@ -181,6 +181,7 @@ namespace PersonalOrganizerApp {
 			// addBtn
 			// 
 			this->addBtn->BackColor = System::Drawing::Color::DodgerBlue;
+			this->addBtn->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->addBtn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->addBtn->ForeColor = System::Drawing::Color::White;

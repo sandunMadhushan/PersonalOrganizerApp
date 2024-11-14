@@ -124,6 +124,7 @@ namespace PersonalOrganizerApp {
 			// lectureBtn
 			// 
 			this->lectureBtn->BackColor = System::Drawing::Color::DodgerBlue;
+			this->lectureBtn->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->lectureBtn->ForeColor = System::Drawing::Color::White;
 			this->lectureBtn->Location = System::Drawing::Point(786, 711);
 			this->lectureBtn->Name = L"lectureBtn";
