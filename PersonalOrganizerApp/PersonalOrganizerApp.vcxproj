@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\address.png" />
+    <Image Include="Resources\budget-management.jpg" />
     <Image Include="Resources\budget.png" />
     <Image Include="Resources\contract.png" />
     <Image Include="Resources\Dashboard_design.jpg" />

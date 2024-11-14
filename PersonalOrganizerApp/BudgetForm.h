@@ -28,6 +28,7 @@ namespace PersonalOrganizerApp {
 			//
 			this->user = currentUser;
 			budgetDataGridView->Visible = false;
+			usernameLbl->Text = currentUser->name;
 		}
 
 	protected:
@@ -57,6 +58,9 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::PictureBox^ backArrow;
 	private: System::Windows::Forms::Button^ showDataBtn;
 	private: System::Windows::Forms::GroupBox^ groupBox1;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::Label^ usernameLbl;
+	private: System::Windows::Forms::PictureBox^ pictureBox2;
 
 	private:
 		/// <summary>
@@ -82,14 +86,19 @@ namespace PersonalOrganizerApp {
 			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
 			this->showDataBtn = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->usernameLbl = (gcnew System::Windows::Forms::Label());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->budgetDataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			this->groupBox1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// budgetAmountTextBox
 			// 
-			this->budgetAmountTextBox->Location = System::Drawing::Point(449, 196);
+			this->budgetAmountTextBox->Location = System::Drawing::Point(762, 252);
 			this->budgetAmountTextBox->Name = L"budgetAmountTextBox";
 			this->budgetAmountTextBox->Size = System::Drawing::Size(200, 22);
 			this->budgetAmountTextBox->TabIndex = 1;
@@ -112,7 +121,7 @@ namespace PersonalOrganizerApp {
 				L"food", L"entertainment", L"traveling",
 					L"clothing", L"education equipment", L"university fees"
 			});
-			this->categoryComboBox->Location = System::Drawing::Point(449, 264);
+			this->categoryComboBox->Location = System::Drawing::Point(762, 320);
 			this->categoryComboBox->Name = L"categoryComboBox";
 			this->categoryComboBox->Size = System::Drawing::Size(200, 24);
 			this->categoryComboBox->TabIndex = 6;
@@ -120,8 +129,8 @@ namespace PersonalOrganizerApp {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->BackColor = System::Drawing::Color::White;
-			this->label2->Location = System::Drawing::Point(333, 267);
+			this->label2->BackColor = System::Drawing::SystemColors::Control;
+			this->label2->Location = System::Drawing::Point(646, 323);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(62, 16);
 			this->label2->TabIndex = 5;
@@ -130,8 +139,8 @@ namespace PersonalOrganizerApp {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->BackColor = System::Drawing::Color::White;
-			this->label3->Location = System::Drawing::Point(333, 199);
+			this->label3->BackColor = System::Drawing::SystemColors::Control;
+			this->label3->Location = System::Drawing::Point(646, 255);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(98, 16);
 			this->label3->TabIndex = 5;
@@ -139,6 +148,8 @@ namespace PersonalOrganizerApp {
 			// 
 			// budgetDataGridView
 			// 
+			this->budgetDataGridView->BackgroundColor = System::Drawing::SystemColors::Control;
+			this->budgetDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->budgetDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->budgetDataGridView->Location = System::Drawing::Point(48, 321);
 			this->budgetDataGridView->Name = L"budgetDataGridView";
@@ -151,7 +162,7 @@ namespace PersonalOrganizerApp {
 			// AddButton
 			// 
 			this->AddButton->BackColor = System::Drawing::Color::SkyBlue;
-			this->AddButton->Location = System::Drawing::Point(500, 332);
+			this->AddButton->Location = System::Drawing::Point(813, 388);
 			this->AddButton->Name = L"AddButton";
 			this->AddButton->Padding = System::Windows::Forms::Padding(5);
 			this->AddButton->Size = System::Drawing::Size(90, 34);
@@ -162,6 +173,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// backArrow
 			// 
+			this->backArrow->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->backArrow->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"backArrow.Image")));
 			this->backArrow->Location = System::Drawing::Point(52, 56);
 			this->backArrow->Name = L"backArrow";
@@ -174,7 +186,7 @@ namespace PersonalOrganizerApp {
 			// showDataBtn
 			// 
 			this->showDataBtn->BackColor = System::Drawing::Color::SkyBlue;
-			this->showDataBtn->Location = System::Drawing::Point(477, 388);
+			this->showDataBtn->Location = System::Drawing::Point(790, 444);
 			this->showDataBtn->Name = L"showDataBtn";
 			this->showDataBtn->Padding = System::Windows::Forms::Padding(5);
 			this->showDataBtn->Size = System::Drawing::Size(139, 34);
@@ -185,19 +197,51 @@ namespace PersonalOrganizerApp {
 			// 
 			// groupBox1
 			// 
-			this->groupBox1->BackColor = System::Drawing::Color::White;
+			this->groupBox1->BackColor = System::Drawing::SystemColors::Control;
 			this->groupBox1->Controls->Add(this->budgetDataGridView);
-			this->groupBox1->Location = System::Drawing::Point(140, 136);
+			this->groupBox1->Location = System::Drawing::Point(453, 192);
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->Size = System::Drawing::Size(833, 547);
 			this->groupBox1->TabIndex = 11;
 			this->groupBox1->TabStop = false;
 			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Location = System::Drawing::Point(-23, 284);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(499, 384);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox1->TabIndex = 12;
+			this->pictureBox1->TabStop = false;
+			// 
+			// usernameLbl
+			// 
+			this->usernameLbl->AutoSize = true;
+			this->usernameLbl->Location = System::Drawing::Point(1161, 71);
+			this->usernameLbl->Name = L"usernameLbl";
+			this->usernameLbl->Size = System::Drawing::Size(85, 16);
+			this->usernameLbl->TabIndex = 14;
+			this->usernameLbl->Text = L"usernameLbl";
+			// 
+			// pictureBox2
+			// 
+			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			this->pictureBox2->Location = System::Drawing::Point(1062, 56);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(100, 50);
+			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox2->TabIndex = 13;
+			this->pictureBox2->TabStop = false;
+			// 
 			// BudgetForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1146, 708);
+			this->BackColor = System::Drawing::Color::White;
+			this->ClientSize = System::Drawing::Size(1298, 801);
+			this->Controls->Add(this->usernameLbl);
+			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->showDataBtn);
 			this->Controls->Add(this->AddButton);
@@ -207,14 +251,17 @@ namespace PersonalOrganizerApp {
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->budgetAmountTextBox);
 			this->Controls->Add(this->groupBox1);
+			this->Controls->Add(this->pictureBox1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->Name = L"BudgetForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Budget";
+			this->Text = L"Budget  |  Personal Organizer";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->budgetDataGridView))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->EndInit();
 			this->groupBox1->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
