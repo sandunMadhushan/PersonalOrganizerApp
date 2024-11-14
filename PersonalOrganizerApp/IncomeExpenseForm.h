@@ -127,22 +127,6 @@ namespace PersonalOrganizerApp {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(IncomeExpenseForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
-			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
-			this->HideDatabtn1 = (gcnew System::Windows::Forms::Button());
-			this->expenseDataGridView = (gcnew System::Windows::Forms::DataGridView());
-			this->ShowDatabtn1 = (gcnew System::Windows::Forms::Button());
-			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
-			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->AddButton2 = (gcnew System::Windows::Forms::Button());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->label9 = (gcnew System::Windows::Forms::Label());
-			this->label10 = (gcnew System::Windows::Forms::Label());
-			this->dateTimePicker2 = (gcnew System::Windows::Forms::DateTimePicker());
-			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
 			this->HideDatabtn2 = (gcnew System::Windows::Forms::Button());
 			this->ShowDatabtn2 = (gcnew System::Windows::Forms::Button());
@@ -159,17 +143,33 @@ namespace PersonalOrganizerApp {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
 			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+			this->HideDatabtn1 = (gcnew System::Windows::Forms::Button());
+			this->expenseDataGridView = (gcnew System::Windows::Forms::DataGridView());
+			this->ShowDatabtn1 = (gcnew System::Windows::Forms::Button());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->AddButton2 = (gcnew System::Windows::Forms::Button());
+			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->label10 = (gcnew System::Windows::Forms::Label());
+			this->dateTimePicker2 = (gcnew System::Windows::Forms::DateTimePicker());
+			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->usernameLbl = (gcnew System::Windows::Forms::Label());
 			this->tabControl1->SuspendLayout();
-			this->tabPage2->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->expenseDataGridView))->BeginInit();
-			this->groupBox1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incomeDataGridView))->BeginInit();
 			this->groupBox2->SuspendLayout();
+			this->tabPage2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->expenseDataGridView))->BeginInit();
+			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
@@ -199,182 +199,6 @@ namespace PersonalOrganizerApp {
 			this->tabControl1->Size = System::Drawing::Size(788, 801);
 			this->tabControl1->TabIndex = 2;
 			this->tabControl1->SelectedIndexChanged += gcnew System::EventHandler(this, &IncomeExpenseForm::tabControl1_SelectedIndexChanged);
-			// 
-			// tabPage2
-			// 
-			this->tabPage2->BackColor = System::Drawing::SystemColors::Control;
-			this->tabPage2->Controls->Add(this->HideDatabtn1);
-			this->tabPage2->Controls->Add(this->expenseDataGridView);
-			this->tabPage2->Controls->Add(this->ShowDatabtn1);
-			this->tabPage2->Controls->Add(this->groupBox1);
-			this->tabPage2->Cursor = System::Windows::Forms::Cursors::Default;
-			this->tabPage2->Location = System::Drawing::Point(4, 25);
-			this->tabPage2->Name = L"tabPage2";
-			this->tabPage2->Padding = System::Windows::Forms::Padding(6);
-			this->tabPage2->Size = System::Drawing::Size(780, 772);
-			this->tabPage2->TabIndex = 0;
-			this->tabPage2->Text = L"Expenses";
-			// 
-			// HideDatabtn1
-			// 
-			this->HideDatabtn1->BackColor = System::Drawing::Color::SkyBlue;
-			this->HideDatabtn1->Location = System::Drawing::Point(186, 527);
-			this->HideDatabtn1->Name = L"HideDatabtn1";
-			this->HideDatabtn1->Padding = System::Windows::Forms::Padding(5);
-			this->HideDatabtn1->Size = System::Drawing::Size(120, 34);
-			this->HideDatabtn1->TabIndex = 9;
-			this->HideDatabtn1->Text = L"HIDE DATA";
-			this->HideDatabtn1->UseVisualStyleBackColor = false;
-			this->HideDatabtn1->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::HideDatabtn1_Click);
-			// 
-			// expenseDataGridView
-			// 
-			this->expenseDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
-			this->expenseDataGridView->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
-			this->expenseDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->expenseDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->expenseDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->expenseDataGridView->Location = System::Drawing::Point(29, 583);
-			this->expenseDataGridView->Name = L"expenseDataGridView";
-			this->expenseDataGridView->ReadOnly = true;
-			this->expenseDataGridView->RowHeadersWidth = 51;
-			this->expenseDataGridView->RowTemplate->Height = 24;
-			this->expenseDataGridView->Size = System::Drawing::Size(734, 174);
-			this->expenseDataGridView->TabIndex = 4;
-			// 
-			// ShowDatabtn1
-			// 
-			this->ShowDatabtn1->BackColor = System::Drawing::Color::SkyBlue;
-			this->ShowDatabtn1->Location = System::Drawing::Point(29, 527);
-			this->ShowDatabtn1->Name = L"ShowDatabtn1";
-			this->ShowDatabtn1->Padding = System::Windows::Forms::Padding(5);
-			this->ShowDatabtn1->Size = System::Drawing::Size(120, 34);
-			this->ShowDatabtn1->TabIndex = 7;
-			this->ShowDatabtn1->Text = L"SHOW DATA";
-			this->ShowDatabtn1->UseVisualStyleBackColor = false;
-			this->ShowDatabtn1->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::ShowDatabtn1_Click);
-			// 
-			// groupBox1
-			// 
-			this->groupBox1->Controls->Add(this->button4);
-			this->groupBox1->Controls->Add(this->AddButton2);
-			this->groupBox1->Controls->Add(this->textBox3);
-			this->groupBox1->Controls->Add(this->comboBox2);
-			this->groupBox1->Controls->Add(this->textBox4);
-			this->groupBox1->Controls->Add(this->label2);
-			this->groupBox1->Controls->Add(this->label8);
-			this->groupBox1->Controls->Add(this->label9);
-			this->groupBox1->Controls->Add(this->label10);
-			this->groupBox1->Controls->Add(this->dateTimePicker2);
-			this->groupBox1->Controls->Add(this->label11);
-			this->groupBox1->Location = System::Drawing::Point(175, 87);
-			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(431, 412);
-			this->groupBox1->TabIndex = 3;
-			this->groupBox1->TabStop = false;
-			// 
-			// button4
-			// 
-			this->button4->BackColor = System::Drawing::Color::SkyBlue;
-			this->button4->Location = System::Drawing::Point(88, 344);
-			this->button4->Name = L"button4";
-			this->button4->Padding = System::Windows::Forms::Padding(5);
-			this->button4->Size = System::Drawing::Size(90, 34);
-			this->button4->TabIndex = 8;
-			this->button4->Text = L"CLEAR";
-			this->button4->UseVisualStyleBackColor = false;
-			// 
-			// AddButton2
-			// 
-			this->AddButton2->BackColor = System::Drawing::Color::SkyBlue;
-			this->AddButton2->Location = System::Drawing::Point(240, 344);
-			this->AddButton2->Name = L"AddButton2";
-			this->AddButton2->Padding = System::Windows::Forms::Padding(5);
-			this->AddButton2->Size = System::Drawing::Size(90, 34);
-			this->AddButton2->TabIndex = 7;
-			this->AddButton2->Text = L"ADD";
-			this->AddButton2->UseVisualStyleBackColor = false;
-			this->AddButton2->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::AddButton2_Click);
-			// 
-			// textBox3
-			// 
-			this->textBox3->Location = System::Drawing::Point(165, 281);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(200, 22);
-			this->textBox3->TabIndex = 5;
-			// 
-			// comboBox2
-			// 
-			this->comboBox2->FormattingEnabled = true;
-			this->comboBox2->Items->AddRange(gcnew cli::array< System::Object^  >(6) {
-				L"food", L"entertainment", L"traveling", L"clothing",
-					L"education equipment", L"university fees"
-			});
-			this->comboBox2->Location = System::Drawing::Point(165, 226);
-			this->comboBox2->Name = L"comboBox2";
-			this->comboBox2->Size = System::Drawing::Size(200, 24);
-			this->comboBox2->TabIndex = 4;
-			// 
-			// textBox4
-			// 
-			this->textBox4->Location = System::Drawing::Point(165, 168);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(200, 22);
-			this->textBox4->TabIndex = 3;
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(49, 288);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(52, 16);
-			this->label2->TabIndex = 2;
-			this->label2->Text = L"Amount";
-			// 
-			// label8
-			// 
-			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(49, 229);
-			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(62, 16);
-			this->label8->TabIndex = 2;
-			this->label8->Text = L"Category";
-			// 
-			// label9
-			// 
-			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(49, 171);
-			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(75, 16);
-			this->label9->TabIndex = 2;
-			this->label9->Text = L"Description";
-			// 
-			// label10
-			// 
-			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(49, 109);
-			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(36, 16);
-			this->label10->TabIndex = 2;
-			this->label10->Text = L"Date";
-			// 
-			// dateTimePicker2
-			// 
-			this->dateTimePicker2->Location = System::Drawing::Point(165, 109);
-			this->dateTimePicker2->Name = L"dateTimePicker2";
-			this->dateTimePicker2->Size = System::Drawing::Size(200, 22);
-			this->dateTimePicker2->TabIndex = 1;
-			// 
-			// label11
-			// 
-			this->label11->AutoSize = true;
-			this->label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label11->Location = System::Drawing::Point(162, 45);
-			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(107, 25);
-			this->label11->TabIndex = 0;
-			this->label11->Text = L"Expenses";
 			// 
 			// tabPage1
 			// 
@@ -554,8 +378,185 @@ namespace PersonalOrganizerApp {
 			this->label3->TabIndex = 0;
 			this->label3->Text = L"Income";
 			// 
+			// tabPage2
+			// 
+			this->tabPage2->BackColor = System::Drawing::SystemColors::Control;
+			this->tabPage2->Controls->Add(this->HideDatabtn1);
+			this->tabPage2->Controls->Add(this->expenseDataGridView);
+			this->tabPage2->Controls->Add(this->ShowDatabtn1);
+			this->tabPage2->Controls->Add(this->groupBox1);
+			this->tabPage2->Cursor = System::Windows::Forms::Cursors::Default;
+			this->tabPage2->Location = System::Drawing::Point(4, 25);
+			this->tabPage2->Name = L"tabPage2";
+			this->tabPage2->Padding = System::Windows::Forms::Padding(6);
+			this->tabPage2->Size = System::Drawing::Size(780, 772);
+			this->tabPage2->TabIndex = 0;
+			this->tabPage2->Text = L"Expenses";
+			// 
+			// HideDatabtn1
+			// 
+			this->HideDatabtn1->BackColor = System::Drawing::Color::SkyBlue;
+			this->HideDatabtn1->Location = System::Drawing::Point(186, 527);
+			this->HideDatabtn1->Name = L"HideDatabtn1";
+			this->HideDatabtn1->Padding = System::Windows::Forms::Padding(5);
+			this->HideDatabtn1->Size = System::Drawing::Size(120, 34);
+			this->HideDatabtn1->TabIndex = 9;
+			this->HideDatabtn1->Text = L"HIDE DATA";
+			this->HideDatabtn1->UseVisualStyleBackColor = false;
+			this->HideDatabtn1->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::HideDatabtn1_Click);
+			// 
+			// expenseDataGridView
+			// 
+			this->expenseDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->expenseDataGridView->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
+			this->expenseDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->expenseDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->expenseDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->expenseDataGridView->Location = System::Drawing::Point(29, 583);
+			this->expenseDataGridView->Name = L"expenseDataGridView";
+			this->expenseDataGridView->ReadOnly = true;
+			this->expenseDataGridView->RowHeadersWidth = 51;
+			this->expenseDataGridView->RowTemplate->Height = 24;
+			this->expenseDataGridView->Size = System::Drawing::Size(734, 174);
+			this->expenseDataGridView->TabIndex = 4;
+			// 
+			// ShowDatabtn1
+			// 
+			this->ShowDatabtn1->BackColor = System::Drawing::Color::SkyBlue;
+			this->ShowDatabtn1->Location = System::Drawing::Point(29, 527);
+			this->ShowDatabtn1->Name = L"ShowDatabtn1";
+			this->ShowDatabtn1->Padding = System::Windows::Forms::Padding(5);
+			this->ShowDatabtn1->Size = System::Drawing::Size(120, 34);
+			this->ShowDatabtn1->TabIndex = 7;
+			this->ShowDatabtn1->Text = L"SHOW DATA";
+			this->ShowDatabtn1->UseVisualStyleBackColor = false;
+			this->ShowDatabtn1->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::ShowDatabtn1_Click);
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Controls->Add(this->button4);
+			this->groupBox1->Controls->Add(this->AddButton2);
+			this->groupBox1->Controls->Add(this->textBox3);
+			this->groupBox1->Controls->Add(this->comboBox2);
+			this->groupBox1->Controls->Add(this->textBox4);
+			this->groupBox1->Controls->Add(this->label2);
+			this->groupBox1->Controls->Add(this->label8);
+			this->groupBox1->Controls->Add(this->label9);
+			this->groupBox1->Controls->Add(this->label10);
+			this->groupBox1->Controls->Add(this->dateTimePicker2);
+			this->groupBox1->Controls->Add(this->label11);
+			this->groupBox1->Location = System::Drawing::Point(175, 87);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(431, 412);
+			this->groupBox1->TabIndex = 3;
+			this->groupBox1->TabStop = false;
+			// 
+			// button4
+			// 
+			this->button4->BackColor = System::Drawing::Color::SkyBlue;
+			this->button4->Location = System::Drawing::Point(88, 344);
+			this->button4->Name = L"button4";
+			this->button4->Padding = System::Windows::Forms::Padding(5);
+			this->button4->Size = System::Drawing::Size(90, 34);
+			this->button4->TabIndex = 8;
+			this->button4->Text = L"CLEAR";
+			this->button4->UseVisualStyleBackColor = false;
+			// 
+			// AddButton2
+			// 
+			this->AddButton2->BackColor = System::Drawing::Color::SkyBlue;
+			this->AddButton2->Location = System::Drawing::Point(240, 344);
+			this->AddButton2->Name = L"AddButton2";
+			this->AddButton2->Padding = System::Windows::Forms::Padding(5);
+			this->AddButton2->Size = System::Drawing::Size(90, 34);
+			this->AddButton2->TabIndex = 7;
+			this->AddButton2->Text = L"ADD";
+			this->AddButton2->UseVisualStyleBackColor = false;
+			this->AddButton2->Click += gcnew System::EventHandler(this, &IncomeExpenseForm::AddButton2_Click);
+			// 
+			// textBox3
+			// 
+			this->textBox3->Location = System::Drawing::Point(165, 281);
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->Size = System::Drawing::Size(200, 22);
+			this->textBox3->TabIndex = 5;
+			// 
+			// comboBox2
+			// 
+			this->comboBox2->FormattingEnabled = true;
+			this->comboBox2->Items->AddRange(gcnew cli::array< System::Object^  >(6) {
+				L"food", L"entertainment", L"traveling", L"clothing",
+					L"education equipment", L"university fees"
+			});
+			this->comboBox2->Location = System::Drawing::Point(165, 226);
+			this->comboBox2->Name = L"comboBox2";
+			this->comboBox2->Size = System::Drawing::Size(200, 24);
+			this->comboBox2->TabIndex = 4;
+			// 
+			// textBox4
+			// 
+			this->textBox4->Location = System::Drawing::Point(165, 168);
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->Size = System::Drawing::Size(200, 22);
+			this->textBox4->TabIndex = 3;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(49, 288);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(52, 16);
+			this->label2->TabIndex = 2;
+			this->label2->Text = L"Amount";
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->Location = System::Drawing::Point(49, 229);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(62, 16);
+			this->label8->TabIndex = 2;
+			this->label8->Text = L"Category";
+			// 
+			// label9
+			// 
+			this->label9->AutoSize = true;
+			this->label9->Location = System::Drawing::Point(49, 171);
+			this->label9->Name = L"label9";
+			this->label9->Size = System::Drawing::Size(75, 16);
+			this->label9->TabIndex = 2;
+			this->label9->Text = L"Description";
+			// 
+			// label10
+			// 
+			this->label10->AutoSize = true;
+			this->label10->Location = System::Drawing::Point(49, 109);
+			this->label10->Name = L"label10";
+			this->label10->Size = System::Drawing::Size(36, 16);
+			this->label10->TabIndex = 2;
+			this->label10->Text = L"Date";
+			// 
+			// dateTimePicker2
+			// 
+			this->dateTimePicker2->Location = System::Drawing::Point(165, 109);
+			this->dateTimePicker2->Name = L"dateTimePicker2";
+			this->dateTimePicker2->Size = System::Drawing::Size(200, 22);
+			this->dateTimePicker2->TabIndex = 1;
+			// 
+			// label11
+			// 
+			this->label11->AutoSize = true;
+			this->label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label11->Location = System::Drawing::Point(162, 45);
+			this->label11->Name = L"label11";
+			this->label11->Size = System::Drawing::Size(107, 25);
+			this->label11->TabIndex = 0;
+			this->label11->Text = L"Expenses";
+			// 
 			// backArrow
 			// 
+			this->backArrow->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->backArrow->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"backArrow.Image")));
 			this->backArrow->Location = System::Drawing::Point(57, 56);
 			this->backArrow->Name = L"backArrow";
@@ -613,14 +614,14 @@ namespace PersonalOrganizerApp {
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Income / Expenses  |  Personal Organizer";
 			this->tabControl1->ResumeLayout(false);
-			this->tabPage2->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->expenseDataGridView))->EndInit();
-			this->groupBox1->ResumeLayout(false);
-			this->groupBox1->PerformLayout();
 			this->tabPage1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incomeDataGridView))->EndInit();
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
+			this->tabPage2->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->expenseDataGridView))->EndInit();
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
