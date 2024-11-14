@@ -1,6 +1,7 @@
 #pragma once
 #include "User.h"
 #include "DatabaseHelper.h"
+#include "ForgotPasswordForm.h"
 
 
 
@@ -13,6 +14,8 @@ namespace PersonalOrganizerApp {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
+	using namespace System::Security::Cryptography;
+	using namespace System::Text;
 
 	/// <summary>
 	/// Summary for LoginForm
@@ -373,26 +376,56 @@ namespace PersonalOrganizerApp {
 
 	public: User^ user = nullptr;
 
+		  // Function to hash the password
+		  System::String^ HashPassword(System::String^ password)
+		  {
+			  // Create an instance of the SHA256 class
+			  System::Security::Cryptography::SHA256^ sha256 = System::Security::Cryptography::SHA256::Create();
 
-		  private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
+			  // Convert the password to a byte array
+			  array<Byte>^ data = sha256->ComputeHash(System::Text::Encoding::UTF8->GetBytes(password));
+
+			  // Convert the byte array back to a string
+			  System::Text::StringBuilder^ sb = gcnew System::Text::StringBuilder();
+			  for (int i = 0; i < data->Length; i++)
+			  {
+				  sb->Append(data[i].ToString("x2"));
+			  }
+
+			  return sb->ToString();
+		  }
+
+
+		  public: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
 			  String^ email = tbEmail->Text;
 			  String^ password = tbPassword->Text;
 
 			  if (email->Length == 0 || password->Length == 0) {
-				  MessageBox::Show("Please enter email and password", "Email or Password Empty", MessageBoxButtons::OK);
+				  MessageBox::Show("Please enter email and password", "Email or Password Empty", MessageBoxButtons::OK,MessageBoxIcon::Error);
 				  return;
-
 			  }
 
-			  try
-			  {
+			  try {
 				  DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
 				  dbHelper->OpenConnection();
 				  SqlConnection^ connection = dbHelper->GetConnection();
 
-				  SqlCommand^ command = gcnew SqlCommand("SELECT * FROM users WHERE email = @email AND password = @password", connection);
+				  // Hash the entered password
+				  String^ hashedEnteredPassword = HashPassword(password);
+
+				  // Retrieve the stored password hash
+				  String^ storedHash = GetStoredPasswordHash(connection, email);
+
+				  // Compare the hashed entered password with the stored hash
+				  if (hashedEnteredPassword != storedHash) {
+					  MessageBox::Show("Email or Password is incorrect", "Email or Password Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					  return;
+				  }
+
+				  // If passwords match, proceed to retrieve user data
+				  SqlCommand^ command = gcnew SqlCommand("SELECT * FROM users WHERE email = @email", connection);
 				  command->Parameters->AddWithValue("@email", email);
-				  command->Parameters->AddWithValue("@password", password);
+				  command->Parameters->AddWithValue("@password", hashedEnteredPassword);
 
 				  SqlDataReader^ reader = command->ExecuteReader();
 				  if (reader->Read()) {
@@ -402,40 +435,36 @@ namespace PersonalOrganizerApp {
 					  user->email = reader->GetString(2);
 					  user->phone = reader->GetString(3);
 					  user->address = reader->GetString(4);
-					  user->password = reader->GetString(5);
-					  this->Close();
-				  }
-				  else
-				  {
-					  MessageBox::Show("Email or Password is incorrect", "Email or Password Error", MessageBoxButtons::OK);
-				  }
-				  
-				  
-				  /*SqlDataReader^ reader = command.ExecuteReader();
-				  if (reader->Read()) {
-					  user = gcnew User;
-					  user->id = reader->GetInt32(0);
-					  user->name = reader->GetString(1);
-					  user->email = reader->GetString(2);
-					  user->phone = reader->GetString(3);
-					  user->address = reader->GetString(4);
-					  user->password = reader->GetString(5);
+					  user->password = reader->GetString(5);  // This is the stored password (which is already hashed)
 					  this->Close();
 				  }
 				  else {
 					  MessageBox::Show("Email or Password is incorrect", "Email or Password Error", MessageBoxButtons::OK);
-				  }*/
+				  }
 
 				  reader->Close();
 				  dbHelper->CloseConnection();
 			  }
-			  catch (Exception^ e) {
+			  catch (Exception^ ex) {
 				  MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				  return;
 			  }
-
-			  
 		  }
+
+				 String^ GetStoredPasswordHash(SqlConnection^ connection, System::String^ email) {
+					 /*DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+					 dbHelper->OpenConnection();
+					 SqlConnection^ connection = dbHelper->GetConnection();*/
+
+					 SqlCommand^ command = gcnew SqlCommand("SELECT password FROM users WHERE email = @email", connection);
+					 command->Parameters->AddWithValue("@email", email);
+
+					 String^ storedHash = safe_cast<String^>(command->ExecuteScalar());  // Get the stored password hash
+					/* dbHelper->CloseConnection();*/
+
+					 return storedHash;
+				 }
+
 
  
 	private: System::Void tbEmail_TextChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -463,7 +492,10 @@ private: System::Void tbEmail_KeyDown(System::Object^ sender, System::Windows::F
 	   }
 
 private: System::Void forgtPwLbl_Click(System::Object^ sender, System::EventArgs^ e) {
-	
+	ForgotPasswordForm^ forgotPasswordForm = gcnew ForgotPasswordForm();
+	forgotPasswordForm->ShowDialog();
+	tbEmail->Text = "";
+	tbPassword->Text = "";
 }
 };  
 }
