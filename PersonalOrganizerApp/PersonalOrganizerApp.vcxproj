@@ -204,11 +204,13 @@
     <Image Include="Resources\address.png" />
     <Image Include="Resources\budget.png" />
     <Image Include="Resources\contract.png" />
+    <Image Include="Resources\Dashboard_design.jpg" />
     <Image Include="Resources\hamburger.png" />
     <Image Include="Resources\id-card.png" />
     <Image Include="Resources\incomeexpense.png" />
     <Image Include="Resources\IncomeExpenses.jpg" />
     <Image Include="Resources\IncomeExpensesIcon.jpg" />
+    <Image Include="Resources\increase.png" />
     <Image Include="Resources\left-arrow.png" />
     <Image Include="Resources\loginCardImage.png" />
     <Image Include="Resources\logo-rounded.png" />
@@ -217,6 +219,7 @@
     <Image Include="Resources\logo.ico" />
     <Image Include="Resources\logo.png" />
     <Image Include="Resources\logout.png" />
+    <Image Include="Resources\menu.png" />
     <Image Include="Resources\padlock.png" />
     <Image Include="Resources\printer.png" />
     <Image Include="Resources\registerFormBG.png" />
