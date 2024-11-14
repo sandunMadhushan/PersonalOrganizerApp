@@ -261,9 +261,9 @@ namespace PersonalOrganizerApp {
 			// 
 			this->btnOK->BackColor = System::Drawing::Color::DodgerBlue;
 			this->btnOK->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnOK->ForeColor = System::Drawing::SystemColors::ControlText;
+			this->btnOK->ForeColor = System::Drawing::Color::White;
 			this->btnOK->Location = System::Drawing::Point(123, 532);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(137, 43);

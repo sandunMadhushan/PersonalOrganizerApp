@@ -52,6 +52,8 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Button^ addBtn;
 	private: System::Windows::Forms::DateTimePicker^ timePicker;
 	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::Panel^ panel1;
 	protected:
 
 	private:
@@ -80,14 +82,19 @@ namespace PersonalOrganizerApp {
 			this->addBtn = (gcnew System::Windows::Forms::Button());
 			this->timePicker = (gcnew System::Windows::Forms::DateTimePicker());
 			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(289, 73);
+			this->label1->Location = System::Drawing::Point(238, 134);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(122, 29);
 			this->label1->TabIndex = 0;
@@ -95,7 +102,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// titleTextBox
 			// 
-			this->titleTextBox->Location = System::Drawing::Point(305, 164);
+			this->titleTextBox->Location = System::Drawing::Point(254, 225);
 			this->titleTextBox->Name = L"titleTextBox";
 			this->titleTextBox->Size = System::Drawing::Size(190, 22);
 			this->titleTextBox->TabIndex = 1;
@@ -104,7 +111,7 @@ namespace PersonalOrganizerApp {
 			// 
 			this->typeComboBox->FormattingEnabled = true;
 			this->typeComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Lecture", L"Deadline" });
-			this->typeComboBox->Location = System::Drawing::Point(305, 378);
+			this->typeComboBox->Location = System::Drawing::Point(254, 439);
 			this->typeComboBox->Name = L"typeComboBox";
 			this->typeComboBox->Size = System::Drawing::Size(190, 24);
 			this->typeComboBox->TabIndex = 2;
@@ -112,9 +119,10 @@ namespace PersonalOrganizerApp {
 			// label2
 			// 
 			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(197, 166);
+			this->label2->Location = System::Drawing::Point(146, 227);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(41, 20);
 			this->label2->TabIndex = 0;
@@ -123,9 +131,10 @@ namespace PersonalOrganizerApp {
 			// label3
 			// 
 			this->label3->AutoSize = true;
+			this->label3->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(197, 222);
+			this->label3->Location = System::Drawing::Point(146, 283);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(45, 20);
 			this->label3->TabIndex = 0;
@@ -133,7 +142,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// datePicker
 			// 
-			this->datePicker->Location = System::Drawing::Point(305, 222);
+			this->datePicker->Location = System::Drawing::Point(254, 283);
 			this->datePicker->Name = L"datePicker";
 			this->datePicker->Size = System::Drawing::Size(243, 22);
 			this->datePicker->TabIndex = 3;
@@ -141,9 +150,10 @@ namespace PersonalOrganizerApp {
 			// label4
 			// 
 			this->label4->AutoSize = true;
+			this->label4->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(197, 320);
+			this->label4->Location = System::Drawing::Point(146, 381);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(95, 20);
 			this->label4->TabIndex = 0;
@@ -151,7 +161,7 @@ namespace PersonalOrganizerApp {
 			// 
 			// descriptionTextBox
 			// 
-			this->descriptionTextBox->Location = System::Drawing::Point(305, 320);
+			this->descriptionTextBox->Location = System::Drawing::Point(254, 381);
 			this->descriptionTextBox->Name = L"descriptionTextBox";
 			this->descriptionTextBox->Size = System::Drawing::Size(190, 22);
 			this->descriptionTextBox->TabIndex = 1;
@@ -159,9 +169,10 @@ namespace PersonalOrganizerApp {
 			// label5
 			// 
 			this->label5->AutoSize = true;
+			this->label5->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(197, 378);
+			this->label5->Location = System::Drawing::Point(146, 439);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(45, 20);
 			this->label5->TabIndex = 0;
@@ -169,42 +180,67 @@ namespace PersonalOrganizerApp {
 			// 
 			// addBtn
 			// 
-			this->addBtn->Location = System::Drawing::Point(305, 428);
+			this->addBtn->BackColor = System::Drawing::Color::DodgerBlue;
+			this->addBtn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->addBtn->ForeColor = System::Drawing::Color::White;
+			this->addBtn->Location = System::Drawing::Point(211, 406);
 			this->addBtn->Name = L"addBtn";
-			this->addBtn->Size = System::Drawing::Size(75, 23);
+			this->addBtn->Size = System::Drawing::Size(89, 32);
 			this->addBtn->TabIndex = 4;
 			this->addBtn->Text = L"ADD";
-			this->addBtn->UseVisualStyleBackColor = true;
+			this->addBtn->UseVisualStyleBackColor = false;
 			this->addBtn->Click += gcnew System::EventHandler(this, &AddEventForm::addBtn_Click);
 			// 
 			// timePicker
 			// 
-			this->timePicker->Location = System::Drawing::Point(305, 266);
+			this->timePicker->CustomFormat = L"HH:mm tt";
+			this->timePicker->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
+			this->timePicker->Location = System::Drawing::Point(254, 327);
 			this->timePicker->Name = L"timePicker";
+			this->timePicker->ShowUpDown = true;
 			this->timePicker->Size = System::Drawing::Size(243, 22);
 			this->timePicker->TabIndex = 5;
-			this->timePicker->ShowUpDown = true;
-			this->timePicker->CustomFormat = "HH:mm tt";
-			this->timePicker->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
 			// 
 			// label6
 			// 
 			this->label6->AutoSize = true;
+			this->label6->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(197, 268);
+			this->label6->Location = System::Drawing::Point(146, 329);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(46, 20);
 			this->label6->TabIndex = 0;
 			this->label6->Text = L"Time";
 			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Location = System::Drawing::Point(637, 146);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(452, 403);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox1->TabIndex = 6;
+			this->pictureBox1->TabStop = false;
+			// 
+			// panel1
+			// 
+			this->panel1->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->panel1->Controls->Add(this->addBtn);
+			this->panel1->Location = System::Drawing::Point(43, 98);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(547, 516);
+			this->panel1->TabIndex = 7;
+			// 
 			// AddEventForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(691, 515);
+			this->BackColor = System::Drawing::Color::White;
+			this->ClientSize = System::Drawing::Size(1146, 719);
+			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->timePicker);
-			this->Controls->Add(this->addBtn);
 			this->Controls->Add(this->datePicker);
 			this->Controls->Add(this->typeComboBox);
 			this->Controls->Add(this->descriptionTextBox);
@@ -215,6 +251,7 @@ namespace PersonalOrganizerApp {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
+			this->Controls->Add(this->panel1);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Location = System::Drawing::Point(305, 250);
@@ -222,6 +259,9 @@ namespace PersonalOrganizerApp {
 			this->Name = L"AddEventForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Add Event";
+			this->Load += gcnew System::EventHandler(this, &AddEventForm::AddEventForm_Load);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			this->panel1->ResumeLayout(false);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

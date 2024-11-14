@@ -21,7 +21,7 @@ namespace PersonalOrganizerApp {
 	/// </summary>
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
-	private: bool isSidebarCollapsed = false;
+	private: bool isSidebarCollapsed = true;
 	private: System::Windows::Forms::PictureBox^ menuIcon;
 	private: System::Windows::Forms::PictureBox^ incomeIcon;
 	private: System::Windows::Forms::PictureBox^ budgetIcon;
@@ -53,6 +53,7 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Label^ label9;
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::Label^ label11;
+	private: System::Windows::Forms::Label^ tagLineLbl;
 
 
 
@@ -70,6 +71,7 @@ namespace PersonalOrganizerApp {
 			isSidebarCollapsed = true;
 			panel1->Width = 85;
 			appNameLbl->Text = "";
+			tagLineLbl->Text = "";
 			toggleButton->Text = "";
 			btnIncomeExpenses->Text = "";
 			btnBudget->Text = "";
@@ -128,6 +130,7 @@ namespace PersonalOrganizerApp {
 			   System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			   this->label1 = (gcnew System::Windows::Forms::Label());
 			   this->panel1 = (gcnew System::Windows::Forms::Panel());
+			   this->tagLineLbl = (gcnew System::Windows::Forms::Label());
 			   this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
 			   this->appNameLbl = (gcnew System::Windows::Forms::Label());
 			   this->logOutIcon = (gcnew System::Windows::Forms::PictureBox());
@@ -146,15 +149,15 @@ namespace PersonalOrganizerApp {
 			   this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			   this->usernameLbl = (gcnew System::Windows::Forms::Label());
 			   this->panel2 = (gcnew System::Windows::Forms::Panel());
-			   this->summaryLbl = (gcnew System::Windows::Forms::Label());
-			   this->lblSavings = (gcnew System::Windows::Forms::Label());
-			   this->lblTotalExpenses = (gcnew System::Windows::Forms::Label());
-			   this->lblTotalIncome = (gcnew System::Windows::Forms::Label());
-			   this->goToReportBtn = (gcnew System::Windows::Forms::PictureBox());
-			   this->label4 = (gcnew System::Windows::Forms::Label());
-			   this->label3 = (gcnew System::Windows::Forms::Label());
-			   this->label2 = (gcnew System::Windows::Forms::Label());
 			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			   this->label2 = (gcnew System::Windows::Forms::Label());
+			   this->label3 = (gcnew System::Windows::Forms::Label());
+			   this->label4 = (gcnew System::Windows::Forms::Label());
+			   this->goToReportBtn = (gcnew System::Windows::Forms::PictureBox());
+			   this->lblTotalIncome = (gcnew System::Windows::Forms::Label());
+			   this->lblTotalExpenses = (gcnew System::Windows::Forms::Label());
+			   this->lblSavings = (gcnew System::Windows::Forms::Label());
+			   this->summaryLbl = (gcnew System::Windows::Forms::Label());
 			   this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
 			   this->panel3 = (gcnew System::Windows::Forms::Panel());
 			   this->pictureBox5 = (gcnew System::Windows::Forms::PictureBox());
@@ -176,8 +179,8 @@ namespace PersonalOrganizerApp {
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->menuIcon))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			   this->panel2->SuspendLayout();
-			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->goToReportBtn))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->goToReportBtn))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->BeginInit();
 			   this->panel3->SuspendLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->BeginInit();
@@ -191,7 +194,7 @@ namespace PersonalOrganizerApp {
 			   this->label1->BackColor = System::Drawing::Color::Transparent;
 			   this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 28.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(0)));
-			   this->label1->Location = System::Drawing::Point(490, 41);
+			   this->label1->Location = System::Drawing::Point(349, 41);
 			   this->label1->Name = L"label1";
 			   this->label1->Size = System::Drawing::Size(249, 59);
 			   this->label1->TabIndex = 0;
@@ -202,6 +205,7 @@ namespace PersonalOrganizerApp {
 			   // 
 			   this->panel1->BackColor = System::Drawing::Color::DodgerBlue;
 			   this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			   this->panel1->Controls->Add(this->tagLineLbl);
 			   this->panel1->Controls->Add(this->pictureBox3);
 			   this->panel1->Controls->Add(this->appNameLbl);
 			   this->panel1->Controls->Add(this->logOutIcon);
@@ -221,6 +225,16 @@ namespace PersonalOrganizerApp {
 			   this->panel1->Name = L"panel1";
 			   this->panel1->Size = System::Drawing::Size(240, 754);
 			   this->panel1->TabIndex = 2;
+			   // 
+			   // tagLineLbl
+			   // 
+			   this->tagLineLbl->AutoSize = true;
+			   this->tagLineLbl->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			   this->tagLineLbl->Location = System::Drawing::Point(36, 143);
+			   this->tagLineLbl->Name = L"tagLineLbl";
+			   this->tagLineLbl->Size = System::Drawing::Size(237, 16);
+			   this->tagLineLbl->TabIndex = 102;
+			   this->tagLineLbl->Text = L"Organize your life, Achieve your goals !";
 			   // 
 			   // pictureBox3
 			   // 
@@ -467,7 +481,7 @@ namespace PersonalOrganizerApp {
 			   this->usernameLbl->BackColor = System::Drawing::Color::Transparent;
 			   this->usernameLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(0)));
-			   this->usernameLbl->Location = System::Drawing::Point(745, 43);
+			   this->usernameLbl->Location = System::Drawing::Point(604, 43);
 			   this->usernameLbl->Name = L"usernameLbl";
 			   this->usernameLbl->Size = System::Drawing::Size(232, 54);
 			   this->usernameLbl->TabIndex = 6;
@@ -491,43 +505,42 @@ namespace PersonalOrganizerApp {
 			   this->panel2->Size = System::Drawing::Size(397, 334);
 			   this->panel2->TabIndex = 4;
 			   // 
-			   // summaryLbl
+			   // pictureBox1
 			   // 
-			   this->summaryLbl->AutoSize = true;
-			   this->summaryLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
-			   this->summaryLbl->Location = System::Drawing::Point(161, 23);
-			   this->summaryLbl->Name = L"summaryLbl";
-			   this->summaryLbl->Size = System::Drawing::Size(85, 22);
-			   this->summaryLbl->TabIndex = 0;
-			   this->summaryLbl->Text = L"Summary";
+			   this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			   this->pictureBox1->Location = System::Drawing::Point(26, 14);
+			   this->pictureBox1->Name = L"pictureBox1";
+			   this->pictureBox1->Size = System::Drawing::Size(100, 50);
+			   this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			   this->pictureBox1->TabIndex = 15;
+			   this->pictureBox1->TabStop = false;
 			   // 
-			   // lblSavings
+			   // label2
 			   // 
-			   this->lblSavings->AutoSize = true;
-			   this->lblSavings->Location = System::Drawing::Point(231, 207);
-			   this->lblSavings->Name = L"lblSavings";
-			   this->lblSavings->Size = System::Drawing::Size(70, 16);
-			   this->lblSavings->TabIndex = 14;
-			   this->lblSavings->Text = L"lblSavings";
+			   this->label2->AutoSize = true;
+			   this->label2->Location = System::Drawing::Point(85, 102);
+			   this->label2->Name = L"label2";
+			   this->label2->Size = System::Drawing::Size(85, 16);
+			   this->label2->TabIndex = 9;
+			   this->label2->Text = L"Total Income";
 			   // 
-			   // lblTotalExpenses
+			   // label3
 			   // 
-			   this->lblTotalExpenses->AutoSize = true;
-			   this->lblTotalExpenses->Location = System::Drawing::Point(231, 158);
-			   this->lblTotalExpenses->Name = L"lblTotalExpenses";
-			   this->lblTotalExpenses->Size = System::Drawing::Size(112, 16);
-			   this->lblTotalExpenses->TabIndex = 13;
-			   this->lblTotalExpenses->Text = L"lblTotalExpenses";
+			   this->label3->AutoSize = true;
+			   this->label3->Location = System::Drawing::Point(85, 158);
+			   this->label3->Name = L"label3";
+			   this->label3->Size = System::Drawing::Size(101, 16);
+			   this->label3->TabIndex = 10;
+			   this->label3->Text = L"Total Expenses";
 			   // 
-			   // lblTotalIncome
+			   // label4
 			   // 
-			   this->lblTotalIncome->AutoSize = true;
-			   this->lblTotalIncome->Location = System::Drawing::Point(231, 102);
-			   this->lblTotalIncome->Name = L"lblTotalIncome";
-			   this->lblTotalIncome->Size = System::Drawing::Size(96, 16);
-			   this->lblTotalIncome->TabIndex = 12;
-			   this->lblTotalIncome->Text = L"lblTotalIncome";
+			   this->label4->AutoSize = true;
+			   this->label4->Location = System::Drawing::Point(85, 207);
+			   this->label4->Name = L"label4";
+			   this->label4->Size = System::Drawing::Size(56, 16);
+			   this->label4->TabIndex = 11;
+			   this->label4->Text = L"Savings";
 			   // 
 			   // goToReportBtn
 			   // 
@@ -542,42 +555,43 @@ namespace PersonalOrganizerApp {
 			   this->goToReportBtn->TabStop = false;
 			   this->goToReportBtn->Click += gcnew System::EventHandler(this, &MainForm::goToReportBtnClick);
 			   // 
-			   // label4
+			   // lblTotalIncome
 			   // 
-			   this->label4->AutoSize = true;
-			   this->label4->Location = System::Drawing::Point(85, 207);
-			   this->label4->Name = L"label4";
-			   this->label4->Size = System::Drawing::Size(56, 16);
-			   this->label4->TabIndex = 11;
-			   this->label4->Text = L"Savings";
+			   this->lblTotalIncome->AutoSize = true;
+			   this->lblTotalIncome->Location = System::Drawing::Point(231, 102);
+			   this->lblTotalIncome->Name = L"lblTotalIncome";
+			   this->lblTotalIncome->Size = System::Drawing::Size(96, 16);
+			   this->lblTotalIncome->TabIndex = 12;
+			   this->lblTotalIncome->Text = L"lblTotalIncome";
 			   // 
-			   // label3
+			   // lblTotalExpenses
 			   // 
-			   this->label3->AutoSize = true;
-			   this->label3->Location = System::Drawing::Point(85, 158);
-			   this->label3->Name = L"label3";
-			   this->label3->Size = System::Drawing::Size(101, 16);
-			   this->label3->TabIndex = 10;
-			   this->label3->Text = L"Total Expenses";
+			   this->lblTotalExpenses->AutoSize = true;
+			   this->lblTotalExpenses->Location = System::Drawing::Point(231, 158);
+			   this->lblTotalExpenses->Name = L"lblTotalExpenses";
+			   this->lblTotalExpenses->Size = System::Drawing::Size(112, 16);
+			   this->lblTotalExpenses->TabIndex = 13;
+			   this->lblTotalExpenses->Text = L"lblTotalExpenses";
 			   // 
-			   // label2
+			   // lblSavings
 			   // 
-			   this->label2->AutoSize = true;
-			   this->label2->Location = System::Drawing::Point(85, 102);
-			   this->label2->Name = L"label2";
-			   this->label2->Size = System::Drawing::Size(85, 16);
-			   this->label2->TabIndex = 9;
-			   this->label2->Text = L"Total Income";
+			   this->lblSavings->AutoSize = true;
+			   this->lblSavings->Location = System::Drawing::Point(231, 207);
+			   this->lblSavings->Name = L"lblSavings";
+			   this->lblSavings->Size = System::Drawing::Size(70, 16);
+			   this->lblSavings->TabIndex = 14;
+			   this->lblSavings->Text = L"lblSavings";
 			   // 
-			   // pictureBox1
+			   // summaryLbl
 			   // 
-			   this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			   this->pictureBox1->Location = System::Drawing::Point(26, 14);
-			   this->pictureBox1->Name = L"pictureBox1";
-			   this->pictureBox1->Size = System::Drawing::Size(100, 50);
-			   this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			   this->pictureBox1->TabIndex = 15;
-			   this->pictureBox1->TabStop = false;
+			   this->summaryLbl->AutoSize = true;
+			   this->summaryLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->summaryLbl->Location = System::Drawing::Point(161, 23);
+			   this->summaryLbl->Name = L"summaryLbl";
+			   this->summaryLbl->Size = System::Drawing::Size(85, 22);
+			   this->summaryLbl->TabIndex = 0;
+			   this->summaryLbl->Text = L"Summary";
 			   // 
 			   // pictureBox4
 			   // 
@@ -727,8 +741,8 @@ namespace PersonalOrganizerApp {
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			   this->panel2->ResumeLayout(false);
 			   this->panel2->PerformLayout();
-			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->goToReportBtn))->EndInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->goToReportBtn))->EndInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->EndInit();
 			   this->panel3->ResumeLayout(false);
 			   this->panel3->PerformLayout();
@@ -771,6 +785,7 @@ namespace PersonalOrganizerApp {
 					   sidebarTimer->Stop();
 					   panel1->Width = collapsedWidth;
 					   appNameLbl->Text = "";
+					   tagLineLbl->Text = "";
 					   toggleButton->Text = "";
 					   btnIncomeExpenses->Text = "";
 					   btnBudget->Text = "";
@@ -787,6 +802,7 @@ namespace PersonalOrganizerApp {
 					   sidebarTimer->Stop();
 					   panel1->Width = expandedWidth;
 					   appNameLbl->Text = "Personal Organizer";
+					   tagLineLbl->Text = "Organize your life, Achieve your goals !";
 					   toggleButton->Text = "Menu";
 					   btnIncomeExpenses->Text = "Income / Expenses";
 					   btnBudget->Text = "Budget";
