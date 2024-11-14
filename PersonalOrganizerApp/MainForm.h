@@ -27,10 +27,15 @@ namespace PersonalOrganizerApp {
 		{
 			InitializeComponent();
 			isSidebarCollapsed = true;
-			panel1->Width = 60;
+			panel1->Width = 65;
 			toggleButton->Text = "";
 			btnIncomeExpenses->Text = "";
+			btnBudget->Text = "";
+			btnReport->Text = "";
+			btnSchedule->Text = "";
+			btnLgOut->Text = "";
 			currentUser = user;
+            usernameLbl->Text = currentUser->name;
 			MainForm_Load(this, gcnew EventArgs());
 		}
 
@@ -63,6 +68,10 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Label^ lblTotalExpenses;
 	private: System::Windows::Forms::Label^ lblSavings;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::PictureBox^ pictureBox2;
+	private: System::Windows::Forms::Label^ usernameLbl;
+
+
 
 
 
@@ -85,17 +94,20 @@ namespace PersonalOrganizerApp {
 			   this->toggleButton = (gcnew System::Windows::Forms::Button());
 			   this->sidebarTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->panel2 = (gcnew System::Windows::Forms::Panel());
-			   this->summaryLbl = (gcnew System::Windows::Forms::Label());
+			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			   this->label2 = (gcnew System::Windows::Forms::Label());
 			   this->label3 = (gcnew System::Windows::Forms::Label());
 			   this->label4 = (gcnew System::Windows::Forms::Label());
 			   this->lblTotalIncome = (gcnew System::Windows::Forms::Label());
 			   this->lblTotalExpenses = (gcnew System::Windows::Forms::Label());
 			   this->lblSavings = (gcnew System::Windows::Forms::Label());
-			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			   this->summaryLbl = (gcnew System::Windows::Forms::Label());
+			   this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			   this->usernameLbl = (gcnew System::Windows::Forms::Label());
 			   this->panel1->SuspendLayout();
 			   this->panel2->SuspendLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			   this->SuspendLayout();
 			   // 
 			   // label1
@@ -104,9 +116,9 @@ namespace PersonalOrganizerApp {
 				   | System::Windows::Forms::AnchorStyles::Right));
 			   this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 28.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(0)));
-			   this->label1->Location = System::Drawing::Point(22, 13);
+			   this->label1->Location = System::Drawing::Point(502, 42);
 			   this->label1->Name = L"label1";
-			   this->label1->Size = System::Drawing::Size(965, 59);
+			   this->label1->Size = System::Drawing::Size(317, 59);
 			   this->label1->TabIndex = 0;
 			   this->label1->Text = L"Welcome";
 			   this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -124,7 +136,7 @@ namespace PersonalOrganizerApp {
 			   this->panel1->Dock = System::Windows::Forms::DockStyle::Left;
 			   this->panel1->Location = System::Drawing::Point(0, 0);
 			   this->panel1->Name = L"panel1";
-			   this->panel1->Size = System::Drawing::Size(232, 750);
+			   this->panel1->Size = System::Drawing::Size(232, 783);
 			   this->panel1->TabIndex = 2;
 			   // 
 			   // btnLgOut
@@ -221,21 +233,20 @@ namespace PersonalOrganizerApp {
 			   this->panel2->Controls->Add(this->lblTotalExpenses);
 			   this->panel2->Controls->Add(this->lblSavings);
 			   this->panel2->Controls->Add(this->summaryLbl);
-			   this->panel2->Location = System::Drawing::Point(454, 128);
+			   this->panel2->Location = System::Drawing::Point(692, 246);
 			   this->panel2->Name = L"panel2";
 			   this->panel2->Size = System::Drawing::Size(401, 290);
 			   this->panel2->TabIndex = 4;
 			   // 
-			   // summaryLbl
+			   // pictureBox1
 			   // 
-			   this->summaryLbl->AutoSize = true;
-			   this->summaryLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
-			   this->summaryLbl->Location = System::Drawing::Point(161, 23);
-			   this->summaryLbl->Name = L"summaryLbl";
-			   this->summaryLbl->Size = System::Drawing::Size(85, 22);
-			   this->summaryLbl->TabIndex = 0;
-			   this->summaryLbl->Text = L"Summary";
+			   this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			   this->pictureBox1->Location = System::Drawing::Point(26, 14);
+			   this->pictureBox1->Name = L"pictureBox1";
+			   this->pictureBox1->Size = System::Drawing::Size(100, 50);
+			   this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			   this->pictureBox1->TabIndex = 15;
+			   this->pictureBox1->TabStop = false;
 			   // 
 			   // label2
 			   // 
@@ -291,21 +302,45 @@ namespace PersonalOrganizerApp {
 			   this->lblSavings->TabIndex = 14;
 			   this->lblSavings->Text = L"lblSavings";
 			   // 
-			   // pictureBox1
+			   // summaryLbl
 			   // 
-			   this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			   this->pictureBox1->Location = System::Drawing::Point(26, 14);
-			   this->pictureBox1->Name = L"pictureBox1";
-			   this->pictureBox1->Size = System::Drawing::Size(100, 50);
-			   this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			   this->pictureBox1->TabIndex = 15;
-			   this->pictureBox1->TabStop = false;
+			   this->summaryLbl->AutoSize = true;
+			   this->summaryLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->summaryLbl->Location = System::Drawing::Point(161, 23);
+			   this->summaryLbl->Name = L"summaryLbl";
+			   this->summaryLbl->Size = System::Drawing::Size(85, 22);
+			   this->summaryLbl->TabIndex = 0;
+			   this->summaryLbl->Text = L"Summary";
+			   // 
+			   // pictureBox2
+			   // 
+			   this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			   this->pictureBox2->Location = System::Drawing::Point(978, 50);
+			   this->pictureBox2->Name = L"pictureBox2";
+			   this->pictureBox2->Size = System::Drawing::Size(100, 50);
+			   this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			   this->pictureBox2->TabIndex = 5;
+			   this->pictureBox2->TabStop = false;
+			   // 
+			   // usernameLbl
+			   // 
+			   this->usernameLbl->AutoSize = true;
+			   this->usernameLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->usernameLbl->Location = System::Drawing::Point(1084, 66);
+			   this->usernameLbl->Name = L"usernameLbl";
+			   this->usernameLbl->Size = System::Drawing::Size(74, 18);
+			   this->usernameLbl->TabIndex = 6;
+			   this->usernameLbl->Text = L"username";
 			   // 
 			   // MainForm
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->ClientSize = System::Drawing::Size(999, 750);
+			   this->ClientSize = System::Drawing::Size(1190, 783);
+			   this->Controls->Add(this->pictureBox2);
+			   this->Controls->Add(this->usernameLbl);
 			   this->Controls->Add(this->panel2);
 			   this->Controls->Add(this->panel1);
 			   this->Controls->Add(this->label1);
@@ -314,12 +349,14 @@ namespace PersonalOrganizerApp {
 			   this->MaximizeBox = false;
 			   this->Name = L"MainForm";
 			   this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			   this->Text = L"Dashboard";
+			   this->Text = L"Dashboard | Personal Organizer";
 			   this->panel1->ResumeLayout(false);
 			   this->panel2->ResumeLayout(false);
 			   this->panel2->PerformLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			   this->ResumeLayout(false);
+			   this->PerformLayout();
 
 		   }
 #pragma endregion
@@ -343,7 +380,7 @@ namespace PersonalOrganizerApp {
 		   }
 
 		   System::Void sidebarTimer_Tick(System::Object^ sender, System::EventArgs^ e) {
-			   int collapsedWidth = 60;
+			   int collapsedWidth = 65;
 			   int expandedWidth = 232;
 			   int step = 20; // Speed of the collapse/expand effect
 
@@ -375,6 +412,12 @@ namespace PersonalOrganizerApp {
 					   btnReport->Text = "Financial Report";
 					   btnSchedule->Text = "Academic Schedule";
 					   btnLgOut->Text = "Log Out";
+					   toggleButton->Width = 185;
+					   btnIncomeExpenses->Width = 185;
+					   btnBudget->Width = 185;
+					   btnReport->Width = 185;
+					   btnSchedule->Width = 185;
+					   btnLgOut->Width = 185;
 				   }
 			   }
 		   }
