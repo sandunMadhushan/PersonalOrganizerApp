@@ -184,7 +184,7 @@ namespace PersonalOrganizerApp {
 			this->addBtn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->addBtn->ForeColor = System::Drawing::Color::White;
-			this->addBtn->Location = System::Drawing::Point(211, 406);
+			this->addBtn->Location = System::Drawing::Point(261, 533);
 			this->addBtn->Name = L"addBtn";
 			this->addBtn->Size = System::Drawing::Size(89, 32);
 			this->addBtn->TabIndex = 4;
@@ -228,9 +228,9 @@ namespace PersonalOrganizerApp {
 			// 
 			this->panel1->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->panel1->Controls->Add(this->addBtn);
-			this->panel1->Location = System::Drawing::Point(43, 98);
+			this->panel1->Location = System::Drawing::Point(-7, -3);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(547, 516);
+			this->panel1->Size = System::Drawing::Size(638, 736);
 			this->panel1->TabIndex = 7;
 			// 
 			// AddEventForm
@@ -259,7 +259,6 @@ namespace PersonalOrganizerApp {
 			this->Name = L"AddEventForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Add Event";
-			this->Load += gcnew System::EventHandler(this, &AddEventForm::AddEventForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->panel1->ResumeLayout(false);
 			this->ResumeLayout(false);
