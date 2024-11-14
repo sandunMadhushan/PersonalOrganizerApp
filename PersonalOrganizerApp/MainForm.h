@@ -433,12 +433,12 @@ namespace PersonalOrganizerApp {
 		this->Hide();
 	}
 private: System::Void btnFinancialReport(System::Object^ sender, System::EventArgs^ e) {
-		FinancialReportForm^ financialReportForm = gcnew FinancialReportForm();
+		FinancialReportForm^ financialReportForm = gcnew FinancialReportForm(currentUser);
 		financialReportForm->Show();
 		this->Hide();
 }
 private: System::Void btnAcademicSchedule(System::Object^ sender, System::EventArgs^ e) {
-		AcademicScheduleForm^ academicScheduleForm = gcnew AcademicScheduleForm();
+		AcademicScheduleForm^ academicScheduleForm = gcnew AcademicScheduleForm(currentUser);
 		academicScheduleForm->Show();
 		this->Hide();
 }

@@ -23,9 +23,10 @@ namespace PersonalOrganizerApp {
 	private:
 		User^ user;
 	public:
-		FinancialReportForm(void)
+		FinancialReportForm(User^ currentUser)
 		{
 			InitializeComponent();
+			this->user = currentUser;
 			int currentMonth = DateTime::Now.Month;
 			int currentYear = DateTime::Now.Year;
 			GenerateMonthlyReport(currentMonth, currentYear);
