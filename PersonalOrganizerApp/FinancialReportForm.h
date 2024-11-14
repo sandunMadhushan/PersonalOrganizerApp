@@ -30,6 +30,7 @@ namespace PersonalOrganizerApp {
 			int currentMonth = DateTime::Now.Month;
 			int currentYear = DateTime::Now.Year;
 			GenerateMonthlyReport(currentMonth, currentYear);
+			usernameLbl->Text = currentUser->name;
 		}
 
 	protected:
@@ -54,6 +55,9 @@ namespace PersonalOrganizerApp {
 	private: System::Drawing::Printing::PrintDocument^ printDocument;
 	private: System::Windows::Forms::PrintPreviewDialog^ printPreviewDialog;
 	private: System::Windows::Forms::Button^ btnPrint;
+	private: System::Windows::Forms::Label^ usernameLbl;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::Panel^ panel1;
 
 
 	private:
@@ -80,10 +84,14 @@ namespace PersonalOrganizerApp {
 			this->printDocument = (gcnew System::Drawing::Printing::PrintDocument());
 			this->printPreviewDialog = (gcnew System::Windows::Forms::PrintPreviewDialog());
 			this->btnPrint = (gcnew System::Windows::Forms::Button());
+			this->usernameLbl = (gcnew System::Windows::Forms::Label());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewReport))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// backArrow
@@ -101,10 +109,10 @@ namespace PersonalOrganizerApp {
 			// pictureBox2
 			// 
 			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
-			this->pictureBox2->Location = System::Drawing::Point(999, 33);
+			this->pictureBox2->Location = System::Drawing::Point(34, 235);
 			this->pictureBox2->Name = L"pictureBox2";
-			this->pictureBox2->Size = System::Drawing::Size(126, 125);
-			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox2->Size = System::Drawing::Size(518, 520);
+			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->pictureBox2->TabIndex = 5;
 			this->pictureBox2->TabStop = false;
 			// 
@@ -122,7 +130,8 @@ namespace PersonalOrganizerApp {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(379, 218);
+			this->label2->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->label2->Location = System::Drawing::Point(732, 205);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(85, 16);
 			this->label2->TabIndex = 7;
@@ -131,7 +140,8 @@ namespace PersonalOrganizerApp {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(379, 274);
+			this->label3->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->label3->Location = System::Drawing::Point(732, 261);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(101, 16);
 			this->label3->TabIndex = 7;
@@ -140,7 +150,8 @@ namespace PersonalOrganizerApp {
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(379, 323);
+			this->label4->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->label4->Location = System::Drawing::Point(732, 310);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(56, 16);
 			this->label4->TabIndex = 7;
@@ -149,7 +160,8 @@ namespace PersonalOrganizerApp {
 			// lblTotalIncome
 			// 
 			this->lblTotalIncome->AutoSize = true;
-			this->lblTotalIncome->Location = System::Drawing::Point(578, 218);
+			this->lblTotalIncome->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->lblTotalIncome->Location = System::Drawing::Point(931, 205);
 			this->lblTotalIncome->Name = L"lblTotalIncome";
 			this->lblTotalIncome->Size = System::Drawing::Size(96, 16);
 			this->lblTotalIncome->TabIndex = 8;
@@ -158,7 +170,8 @@ namespace PersonalOrganizerApp {
 			// lblTotalExpenses
 			// 
 			this->lblTotalExpenses->AutoSize = true;
-			this->lblTotalExpenses->Location = System::Drawing::Point(578, 274);
+			this->lblTotalExpenses->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->lblTotalExpenses->Location = System::Drawing::Point(931, 261);
 			this->lblTotalExpenses->Name = L"lblTotalExpenses";
 			this->lblTotalExpenses->Size = System::Drawing::Size(112, 16);
 			this->lblTotalExpenses->TabIndex = 8;
@@ -167,7 +180,8 @@ namespace PersonalOrganizerApp {
 			// lblSavings
 			// 
 			this->lblSavings->AutoSize = true;
-			this->lblSavings->Location = System::Drawing::Point(578, 323);
+			this->lblSavings->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->lblSavings->Location = System::Drawing::Point(931, 310);
 			this->lblSavings->Name = L"lblSavings";
 			this->lblSavings->Size = System::Drawing::Size(70, 16);
 			this->lblSavings->TabIndex = 8;
@@ -180,7 +194,7 @@ namespace PersonalOrganizerApp {
 			this->dataGridViewReport->BackgroundColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->dataGridViewReport->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->dataGridViewReport->ColumnHeadersHeight = 29;
-			this->dataGridViewReport->Location = System::Drawing::Point(229, 374);
+			this->dataGridViewReport->Location = System::Drawing::Point(582, 361);
 			this->dataGridViewReport->Name = L"dataGridViewReport";
 			this->dataGridViewReport->RowHeadersWidth = 51;
 			this->dataGridViewReport->Size = System::Drawing::Size(641, 158);
@@ -194,7 +208,7 @@ namespace PersonalOrganizerApp {
 			this->chart1->ChartAreas->Add(chartArea1);
 			legend1->Name = L"Legend1";
 			this->chart1->Legends->Add(legend1);
-			this->chart1->Location = System::Drawing::Point(315, 611);
+			this->chart1->Location = System::Drawing::Point(668, 598);
 			this->chart1->Name = L"chart1";
 			series1->ChartArea = L"ChartArea1";
 			series1->IsValueShownAsLabel = true;
@@ -228,7 +242,7 @@ namespace PersonalOrganizerApp {
 			this->btnPrint->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->btnPrint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnPrint.Image")));
 			this->btnPrint->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->btnPrint->Location = System::Drawing::Point(493, 552);
+			this->btnPrint->Location = System::Drawing::Point(846, 539);
 			this->btnPrint->Name = L"btnPrint";
 			this->btnPrint->Size = System::Drawing::Size(113, 40);
 			this->btnPrint->TabIndex = 11;
@@ -236,11 +250,41 @@ namespace PersonalOrganizerApp {
 			this->btnPrint->UseVisualStyleBackColor = false;
 			this->btnPrint->Click += gcnew System::EventHandler(this, &FinancialReportForm::btnPrint_Click);
 			// 
+			// usernameLbl
+			// 
+			this->usernameLbl->AutoSize = true;
+			this->usernameLbl->Location = System::Drawing::Point(1147, 54);
+			this->usernameLbl->Name = L"usernameLbl";
+			this->usernameLbl->Size = System::Drawing::Size(85, 16);
+			this->usernameLbl->TabIndex = 13;
+			this->usernameLbl->Text = L"usernameLbl";
+			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Location = System::Drawing::Point(1048, 39);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(100, 50);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox1->TabIndex = 12;
+			this->pictureBox1->TabStop = false;
+			// 
+			// panel1
+			// 
+			this->panel1->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->panel1->Location = System::Drawing::Point(565, 179);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(714, 743);
+			this->panel1->TabIndex = 14;
+			// 
 			// FinancialReportForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1148, 933);
+			this->BackColor = System::Drawing::Color::White;
+			this->ClientSize = System::Drawing::Size(1291, 934);
+			this->Controls->Add(this->usernameLbl);
+			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->btnPrint);
 			this->Controls->Add(this->backArrow);
 			this->Controls->Add(this->pictureBox2);
@@ -253,6 +297,7 @@ namespace PersonalOrganizerApp {
 			this->Controls->Add(this->lblSavings);
 			this->Controls->Add(this->dataGridViewReport);
 			this->Controls->Add(this->chart1);
+			this->Controls->Add(this->panel1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->Name = L"FinancialReportForm";
@@ -262,6 +307,7 @@ namespace PersonalOrganizerApp {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewReport))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
