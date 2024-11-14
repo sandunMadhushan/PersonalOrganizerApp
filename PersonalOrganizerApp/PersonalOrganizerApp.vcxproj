@@ -141,6 +141,9 @@
     <ClInclude Include="FinancialReportForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ForgotPasswordForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="IncomeExpenseForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -160,6 +163,7 @@
     <ClCompile Include="AddEventForm.cpp" />
     <ClCompile Include="BudgetForm.cpp" />
     <ClCompile Include="FinancialReportForm.cpp" />
+    <ClCompile Include="ForgotPasswordForm.cpp" />
     <ClCompile Include="IncomeExpenseForm.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
@@ -178,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FinancialReportForm.resx">
       <DependentUpon>FinancialReportForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForgotPasswordForm.resx">
+      <DependentUpon>ForgotPasswordForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IncomeExpenseForm.resx">
       <DependentUpon>IncomeExpenseForm.h</DependentUpon>
@@ -214,6 +221,7 @@
     <Image Include="Resources\printer.png" />
     <Image Include="Resources\registerFormBG.png" />
     <Image Include="Resources\report.png" />
+    <Image Include="Resources\Reset password.png" />
     <Image Include="Resources\schedule.png" />
     <Image Include="Resources\telephone.png" />
   </ItemGroup>
