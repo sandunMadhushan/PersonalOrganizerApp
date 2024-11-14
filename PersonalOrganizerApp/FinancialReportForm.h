@@ -23,9 +23,10 @@ namespace PersonalOrganizerApp {
 	private:
 		User^ user;
 	public:
-		FinancialReportForm(void)
+		FinancialReportForm(User^ currentUser)
 		{
 			InitializeComponent();
+			this->user = currentUser;
 			int currentMonth = DateTime::Now.Month;
 			int currentYear = DateTime::Now.Year;
 			GenerateMonthlyReport(currentMonth, currentYear);
@@ -62,9 +63,9 @@ namespace PersonalOrganizerApp {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FinancialReportForm::typeid));
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea5 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -187,20 +188,20 @@ namespace PersonalOrganizerApp {
 			// 
 			// chart1
 			// 
-			chartArea5->AxisX->Title = L"Caregory";
-			chartArea5->AxisY->Title = L"Amount";
-			chartArea5->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea5);
-			legend5->Name = L"Legend1";
-			this->chart1->Legends->Add(legend5);
+			chartArea1->AxisX->Title = L"Caregory";
+			chartArea1->AxisY->Title = L"Amount";
+			chartArea1->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chart1->Legends->Add(legend1);
 			this->chart1->Location = System::Drawing::Point(315, 611);
 			this->chart1->Name = L"chart1";
-			series5->ChartArea = L"ChartArea1";
-			series5->IsValueShownAsLabel = true;
-			series5->IsVisibleInLegend = false;
-			series5->Legend = L"Legend1";
-			series5->Name = L"series1";
-			this->chart1->Series->Add(series5);
+			series1->ChartArea = L"ChartArea1";
+			series1->IsValueShownAsLabel = true;
+			series1->IsVisibleInLegend = false;
+			series1->Legend = L"Legend1";
+			series1->Name = L"series1";
+			this->chart1->Series->Add(series1);
 			this->chart1->Size = System::Drawing::Size(500, 300);
 			this->chart1->TabIndex = 10;
 			// 

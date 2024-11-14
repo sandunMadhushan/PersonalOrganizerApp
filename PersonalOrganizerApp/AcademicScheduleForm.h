@@ -21,12 +21,13 @@ namespace PersonalOrganizerApp {
 	private:
 		User^ user;
 	public:
-		AcademicScheduleForm(void)
+		AcademicScheduleForm(User^ currentUser)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
+			this->user = currentUser;
 			DateTime currentDate = DateTime::Now;
 			DisplaySchedule();
 
