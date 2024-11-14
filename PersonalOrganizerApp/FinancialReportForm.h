@@ -302,7 +302,7 @@ namespace PersonalOrganizerApp {
 			this->MaximizeBox = false;
 			this->Name = L"FinancialReportForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Financial Report";
+			this->Text = L"Financial Report  |  Personal Organizer";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewReport))->EndInit();

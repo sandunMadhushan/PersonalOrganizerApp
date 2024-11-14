@@ -35,6 +35,7 @@ namespace PersonalOrganizerApp {
 			this->deadlineTimer->Interval = 86400000; // Run once per day
 			this->deadlineTimer->Tick += gcnew System::EventHandler(this, &AcademicScheduleForm::deadlineTimer_Tick);
 			this->deadlineTimer->Start();
+			usernameLbl->Text = currentUser->name;
 		}
 
 	protected:
@@ -58,10 +59,14 @@ namespace PersonalOrganizerApp {
 
 
 	private: System::Windows::Forms::PictureBox^ backArrow;
-	private: System::Windows::Forms::PictureBox^ pictureBox2;
+
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Timer^ deadlineTimer;
+	private: System::Windows::Forms::Panel^ panel1;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::Label^ usernameLbl;
+	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -84,28 +89,32 @@ namespace PersonalOrganizerApp {
 			this->dataGridView = (gcnew System::Windows::Forms::DataGridView());
 			this->lectureBtn = (gcnew System::Windows::Forms::Button());
 			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->deadlineTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->usernameLbl = (gcnew System::Windows::Forms::Label());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// monthCalendar
 			// 
-			this->monthCalendar->Location = System::Drawing::Point(558, 157);
+			this->monthCalendar->Location = System::Drawing::Point(883, 216);
 			this->monthCalendar->Name = L"monthCalendar";
 			this->monthCalendar->TabIndex = 0;
 			this->monthCalendar->DateSelected += gcnew System::Windows::Forms::DateRangeEventHandler(this, &AcademicScheduleForm::monthCalendar_DateSelected);
 			// 
 			// dataGridView
 			// 
-			this->dataGridView->BackgroundColor = System::Drawing::SystemColors::Control;
+			this->dataGridView->BackgroundColor = System::Drawing::Color::White;
 			this->dataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->dataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView->Location = System::Drawing::Point(189, 399);
+			this->dataGridView->Location = System::Drawing::Point(514, 458);
 			this->dataGridView->Name = L"dataGridView";
 			this->dataGridView->RowHeadersWidth = 51;
 			this->dataGridView->RowTemplate->Height = 24;
@@ -114,12 +123,14 @@ namespace PersonalOrganizerApp {
 			// 
 			// lectureBtn
 			// 
-			this->lectureBtn->Location = System::Drawing::Point(461, 652);
+			this->lectureBtn->BackColor = System::Drawing::Color::DodgerBlue;
+			this->lectureBtn->ForeColor = System::Drawing::Color::White;
+			this->lectureBtn->Location = System::Drawing::Point(786, 711);
 			this->lectureBtn->Name = L"lectureBtn";
 			this->lectureBtn->Size = System::Drawing::Size(297, 41);
 			this->lectureBtn->TabIndex = 2;
 			this->lectureBtn->Text = L"Add Lecture / Deadline";
-			this->lectureBtn->UseVisualStyleBackColor = true;
+			this->lectureBtn->UseVisualStyleBackColor = false;
 			this->lectureBtn->Click += gcnew System::EventHandler(this, &AcademicScheduleForm::lectureBtn_Click);
 			// 
 			// backArrow
@@ -134,16 +145,6 @@ namespace PersonalOrganizerApp {
 			this->backArrow->TabStop = false;
 			this->backArrow->Click += gcnew System::EventHandler(this, &AcademicScheduleForm::backArrow_Click);
 			// 
-			// pictureBox2
-			// 
-			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
-			this->pictureBox2->Location = System::Drawing::Point(1022, 33);
-			this->pictureBox2->Name = L"pictureBox2";
-			this->pictureBox2->Size = System::Drawing::Size(126, 125);
-			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox2->TabIndex = 5;
-			this->pictureBox2->TabStop = false;
-			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
@@ -151,15 +152,16 @@ namespace PersonalOrganizerApp {
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(456, 60);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(217, 29);
+			this->label1->Size = System::Drawing::Size(227, 29);
 			this->label1->TabIndex = 4;
-			this->label1->Text = L"Income / Expenses";
+			this->label1->Text = L"Academic Schedule";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(248, 232);
+			this->label2->BackColor = System::Drawing::SystemColors::Control;
+			this->label2->Location = System::Drawing::Point(639, 300);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(199, 16);
 			this->label2->TabIndex = 7;
@@ -170,26 +172,68 @@ namespace PersonalOrganizerApp {
 			this->deadlineTimer->Enabled = true;
 			this->deadlineTimer->Interval = 5000;
 			// 
+			// panel1
+			// 
+			this->panel1->BackColor = System::Drawing::SystemColors::Control;
+			this->panel1->Location = System::Drawing::Point(491, 170);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(934, 630);
+			this->panel1->TabIndex = 8;
+			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Location = System::Drawing::Point(-26, 250);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(511, 535);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox1->TabIndex = 9;
+			this->pictureBox1->TabStop = false;
+			// 
+			// usernameLbl
+			// 
+			this->usernameLbl->AutoSize = true;
+			this->usernameLbl->Location = System::Drawing::Point(1306, 54);
+			this->usernameLbl->Name = L"usernameLbl";
+			this->usernameLbl->Size = System::Drawing::Size(85, 16);
+			this->usernameLbl->TabIndex = 13;
+			this->usernameLbl->Text = L"usernameLbl";
+			// 
+			// pictureBox2
+			// 
+			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			this->pictureBox2->Location = System::Drawing::Point(1207, 39);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(100, 50);
+			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox2->TabIndex = 12;
+			this->pictureBox2->TabStop = false;
+			// 
 			// AcademicScheduleForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1195, 787);
+			this->BackColor = System::Drawing::Color::White;
+			this->ClientSize = System::Drawing::Size(1453, 875);
+			this->Controls->Add(this->usernameLbl);
+			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->backArrow);
-			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->lectureBtn);
 			this->Controls->Add(this->dataGridView);
 			this->Controls->Add(this->monthCalendar);
+			this->Controls->Add(this->panel1);
+			this->Controls->Add(this->pictureBox1);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->Name = L"AcademicScheduleForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Academic Schedule";
+			this->Text = L"Academic Schedule  |  Personal Organizer";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();

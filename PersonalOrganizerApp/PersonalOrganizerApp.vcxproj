@@ -204,6 +204,7 @@
     <Image Include="Resources\address.png" />
     <Image Include="Resources\budget-management.jpg" />
     <Image Include="Resources\budget.png" />
+    <Image Include="Resources\checking-schedule-.jpg" />
     <Image Include="Resources\contract.png" />
     <Image Include="Resources\Dashboard_design.jpg" />
     <Image Include="Resources\financial-report.jpg" />
