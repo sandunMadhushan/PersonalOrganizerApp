@@ -194,9 +194,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\address.png" />
     <Image Include="Resources\budget.png" />
     <Image Include="Resources\contract.png" />
     <Image Include="Resources\hamburger.png" />
+    <Image Include="Resources\id-card.png" />
     <Image Include="Resources\incomeexpense.png" />
     <Image Include="Resources\IncomeExpenses.jpg" />
     <Image Include="Resources\IncomeExpensesIcon.jpg" />
@@ -208,12 +210,12 @@
     <Image Include="Resources\logo.ico" />
     <Image Include="Resources\logo.png" />
     <Image Include="Resources\logout.png" />
-    <Image Include="Resources\mail.png" />
     <Image Include="Resources\padlock.png" />
     <Image Include="Resources\printer.png" />
     <Image Include="Resources\registerFormBG.png" />
     <Image Include="Resources\report.png" />
     <Image Include="Resources\schedule.png" />
+    <Image Include="Resources\telephone.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
