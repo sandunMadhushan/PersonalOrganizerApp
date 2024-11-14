@@ -74,6 +74,7 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::PictureBox^ pictureBox6;
 	private: System::Windows::Forms::PictureBox^ pictureBox7;
 	private: System::Windows::Forms::PictureBox^ pictureBox8;
+	private: System::Windows::Forms::CheckBox^ cbShowPassword;
 
 
 
@@ -121,6 +122,7 @@ namespace PersonalOrganizerApp {
 			this->pictureBox6 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox7 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox8 = (gcnew System::Windows::Forms::PictureBox());
+			this->cbShowPassword = (gcnew System::Windows::Forms::CheckBox());
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -420,12 +422,28 @@ namespace PersonalOrganizerApp {
 			this->pictureBox8->TabIndex = 15;
 			this->pictureBox8->TabStop = false;
 			// 
+			// cbShowPassword
+			// 
+			this->cbShowPassword->AutoSize = true;
+			this->cbShowPassword->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->cbShowPassword->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->cbShowPassword->ForeColor = System::Drawing::SystemColors::GrayText;
+			this->cbShowPassword->Location = System::Drawing::Point(81, 476);
+			this->cbShowPassword->Name = L"cbShowPassword";
+			this->cbShowPassword->Size = System::Drawing::Size(125, 20);
+			this->cbShowPassword->TabIndex = 17;
+			this->cbShowPassword->Text = L"Show Password";
+			this->cbShowPassword->UseVisualStyleBackColor = true;
+			this->cbShowPassword->CheckedChanged += gcnew System::EventHandler(this, &RegisterForm::cbShowPassword_CheckedChanged);
+			// 
 			// RegisterForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(16, 31);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Lavender;
 			this->ClientSize = System::Drawing::Size(1116, 712);
+			this->Controls->Add(this->cbShowPassword);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->llLogin);
@@ -499,49 +517,82 @@ public: User^ user = nullptr;
 			}
 
 	  private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
-			String^ name = tbName->Text;
-		  	String^ email = tbEmail->Text;
-		  	String^ phone = tbPhone->Text;
-		  	String^ address = tbAddress->Text;
-		  	String^ password = tbPassword->Text;
-		  	String^ confirmPassword = tbConfirmPassword->Text;
+		  String^ name = tbName->Text;
+		  String^ email = tbEmail->Text;
+		  String^ phone = tbPhone->Text;
+		  String^ address = tbAddress->Text;
+		  String^ password = tbPassword->Text;
+		  String^ confirmPassword = tbConfirmPassword->Text;
 
-			if (name->Length == 0 || email->Length == 0 || phone->Length == 0 || address->Length == 0 || password->Length == 0 || confirmPassword->Length == 0) {
-						MessageBox::Show("Please fill all fields", "One or more empty fields", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-						return;	
-			}
-				
-			if (password != confirmPassword) {
-						MessageBox::Show("Password and Confirm Password do not match", "Password mismatch", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-						return;
-			}
+		  // Check for empty fields
+		  if (name->Length == 0 || email->Length == 0 || phone->Length == 0 || address->Length == 0 || password->Length == 0 || confirmPassword->Length == 0) {
+			  MessageBox::Show("Please fill all fields", "One or more empty fields", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			  return;
+		  }
 
+		  // Name validation: Only letters and spaces, min length 2
+		  if (!System::Text::RegularExpressions::Regex::IsMatch(name, "^[a-zA-Z ]{2,}$")) {
+			  MessageBox::Show("Name should contain only letters and spaces, and be at least 2 characters long.", "Invalid Name", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			  return;
+		  }
+
+		  // Email validation
+		  if (!System::Text::RegularExpressions::Regex::IsMatch(email, "^[\\w-.]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
+			  MessageBox::Show("Please enter a valid email address.", "Invalid Email", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			  return;
+		  }
+
+		  // Phone validation: Only numbers, min length 10
+		  if (!System::Text::RegularExpressions::Regex::IsMatch(phone, "^[0-9]{10,}$")) {
+			  MessageBox::Show("Phone number should contain only numbers and be at least 10 digits long.", "Invalid Phone", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			  return;
+		  }
+
+		  // Address validation: Minimum length 5
+		  if (address->Length < 5) {
+			  MessageBox::Show("Address should be at least 5 characters long.", "Invalid Address", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			  return;
+		  }
+
+		  // Password validation: Minimum length 8, at least one uppercase, one lowercase, one digit, and one special character
+		  if (!System::Text::RegularExpressions::Regex::IsMatch(password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")) {
+			  MessageBox::Show("Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one digit, and one special character.", "Invalid Password", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			  return;
+		  }
+
+		  // Confirm Password validation: Match with password
+		  if (password != confirmPassword) {
+			  MessageBox::Show("Password and Confirm Password do not match", "Password mismatch", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			  return;
+		  }
+
+		  // Database operations
 		  DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
 		  dbHelper->OpenConnection();
 		  SqlConnection^ connection = dbHelper->GetConnection();
 
+		  // Password hashing
 		  String^ hashedPassword = HashPassword(password);
 
-		  SqlCommand^ command = gcnew SqlCommand("INSERT INTO users " + " (name, email, phone, address, password) VALUES " + " (@name, @email, @phone, @address, @hashedPassword); ", connection);
-
-				command->Parameters->AddWithValue("@name", name);
-		  		command->Parameters->AddWithValue("@email", email);
-		  		command->Parameters->AddWithValue("@phone", phone);
-		  		command->Parameters->AddWithValue("@address", address);
-		  		command->Parameters->AddWithValue("@hashedPassword", hashedPassword);
+		  SqlCommand^ command = gcnew SqlCommand("INSERT INTO users (name, email, phone, address, password) VALUES (@name, @email, @phone, @address, @hashedPassword);", connection);
+		  command->Parameters->AddWithValue("@name", name);
+		  command->Parameters->AddWithValue("@email", email);
+		  command->Parameters->AddWithValue("@phone", phone);
+		  command->Parameters->AddWithValue("@address", address);
+		  command->Parameters->AddWithValue("@hashedPassword", hashedPassword);
 
 		  int result = command->ExecuteNonQuery();
 		  if (result > 0) {
-			  
-					user = gcnew User;
-			  		user->name = name;
-			  		user->email = email;
-			  		user->phone = phone;
-			  		user->address = address;
-			  		user->password = password;
+			  // User registered successfully
+			  user = gcnew User;
+			  user->name = name;
+			  user->email = email;
+			  user->phone = phone;
+			  user->address = address;
+			  user->password = password;
 
-					MessageBox::Show("User registered successfully", "Register Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			  this->Close(); 
+			  MessageBox::Show("User registered successfully", "Register Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			  this->Close();
 		  }
 		  else {
 			  MessageBox::Show("Error in registration. Please try again.");
@@ -550,5 +601,16 @@ public: User^ user = nullptr;
 		  dbHelper->CloseConnection();
 	  }
 
+
+private: System::Void cbShowPassword_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (cbShowPassword->Checked) {
+		tbPassword->PasswordChar = '\0';
+		tbConfirmPassword->PasswordChar = '\0';
+	}
+	else {
+		tbPassword->PasswordChar = '*';
+		tbConfirmPassword->PasswordChar = '*';
+	}
+}
 };
 }

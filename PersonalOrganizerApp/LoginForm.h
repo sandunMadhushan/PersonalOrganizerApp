@@ -59,6 +59,8 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::PictureBox^ pictureBox3;
 	private: System::Windows::Forms::PictureBox^ pictureBox4;
+	private: System::Windows::Forms::Label^ forgtPwLbl;
+	private: System::Windows::Forms::CheckBox^ cbShowPassword;
 
 
 	protected:
@@ -93,6 +95,8 @@ namespace PersonalOrganizerApp {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
+			this->forgtPwLbl = (gcnew System::Windows::Forms::Label());
+			this->cbShowPassword = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->panel1->SuspendLayout();
@@ -106,7 +110,7 @@ namespace PersonalOrganizerApp {
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label2->ForeColor = System::Drawing::Color::Black;
-			this->label2->Location = System::Drawing::Point(813, 300);
+			this->label2->Location = System::Drawing::Point(801, 295);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(45, 18);
 			this->label2->TabIndex = 1;
@@ -119,7 +123,7 @@ namespace PersonalOrganizerApp {
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label3->ForeColor = System::Drawing::Color::Black;
-			this->label3->Location = System::Drawing::Point(813, 379);
+			this->label3->Location = System::Drawing::Point(801, 374);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(75, 18);
 			this->label3->TabIndex = 2;
@@ -127,19 +131,19 @@ namespace PersonalOrganizerApp {
 			// 
 			// tbEmail
 			// 
-			this->tbEmail->Location = System::Drawing::Point(816, 320);
+			this->tbEmail->Location = System::Drawing::Point(804, 315);
 			this->tbEmail->Name = L"tbEmail";
-			this->tbEmail->Size = System::Drawing::Size(196, 38);
+			this->tbEmail->Size = System::Drawing::Size(266, 38);
 			this->tbEmail->TabIndex = 0;
 			this->tbEmail->TextChanged += gcnew System::EventHandler(this, &LoginForm::tbEmail_TextChanged);
 			this->tbEmail->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &LoginForm::tbEmail_KeyDown);
 			// 
 			// tbPassword
 			// 
-			this->tbPassword->Location = System::Drawing::Point(816, 398);
+			this->tbPassword->Location = System::Drawing::Point(804, 393);
 			this->tbPassword->Name = L"tbPassword";
 			this->tbPassword->PasswordChar = '*';
-			this->tbPassword->Size = System::Drawing::Size(196, 38);
+			this->tbPassword->Size = System::Drawing::Size(266, 38);
 			this->tbPassword->TabIndex = 1;
 			// 
 			// btnOK
@@ -149,7 +153,7 @@ namespace PersonalOrganizerApp {
 			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnOK->ForeColor = System::Drawing::Color::Black;
-			this->btnOK->Location = System::Drawing::Point(816, 475);
+			this->btnOK->Location = System::Drawing::Point(877, 497);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(137, 43);
 			this->btnOK->TabIndex = 4;
@@ -163,7 +167,7 @@ namespace PersonalOrganizerApp {
 			this->llRegister->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->llRegister->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->llRegister->Location = System::Drawing::Point(935, 580);
+			this->llRegister->Location = System::Drawing::Point(995, 582);
 			this->llRegister->Name = L"llRegister";
 			this->llRegister->Size = System::Drawing::Size(72, 20);
 			this->llRegister->TabIndex = 6;
@@ -178,7 +182,7 @@ namespace PersonalOrganizerApp {
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label4->ForeColor = System::Drawing::Color::DimGray;
-			this->label4->Location = System::Drawing::Point(760, 580);
+			this->label4->Location = System::Drawing::Point(820, 582);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(185, 20);
 			this->label4->TabIndex = 7;
@@ -267,7 +271,7 @@ namespace PersonalOrganizerApp {
 			// 
 			this->pictureBox3->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox3.Image")));
-			this->pictureBox3->Location = System::Drawing::Point(741, 318);
+			this->pictureBox3->Location = System::Drawing::Point(729, 313);
 			this->pictureBox3->Name = L"pictureBox3";
 			this->pictureBox3->Size = System::Drawing::Size(53, 31);
 			this->pictureBox3->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -278,25 +282,56 @@ namespace PersonalOrganizerApp {
 			// 
 			this->pictureBox4->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox4.Image")));
-			this->pictureBox4->Location = System::Drawing::Point(741, 390);
+			this->pictureBox4->Location = System::Drawing::Point(729, 385);
 			this->pictureBox4->Name = L"pictureBox4";
 			this->pictureBox4->Size = System::Drawing::Size(53, 31);
 			this->pictureBox4->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->pictureBox4->TabIndex = 15;
 			this->pictureBox4->TabStop = false;
 			// 
+			// forgtPwLbl
+			// 
+			this->forgtPwLbl->AutoSize = true;
+			this->forgtPwLbl->BackColor = System::Drawing::Color::Transparent;
+			this->forgtPwLbl->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->forgtPwLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->forgtPwLbl->ForeColor = System::Drawing::Color::DimGray;
+			this->forgtPwLbl->Location = System::Drawing::Point(951, 438);
+			this->forgtPwLbl->Name = L"forgtPwLbl";
+			this->forgtPwLbl->Size = System::Drawing::Size(119, 16);
+			this->forgtPwLbl->TabIndex = 7;
+			this->forgtPwLbl->Text = L"Forgot Password \?";
+			this->forgtPwLbl->Click += gcnew System::EventHandler(this, &LoginForm::forgtPwLbl_Click);
+			// 
+			// cbShowPassword
+			// 
+			this->cbShowPassword->AutoSize = true;
+			this->cbShowPassword->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->cbShowPassword->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->cbShowPassword->ForeColor = System::Drawing::SystemColors::GrayText;
+			this->cbShowPassword->Location = System::Drawing::Point(804, 437);
+			this->cbShowPassword->Name = L"cbShowPassword";
+			this->cbShowPassword->Size = System::Drawing::Size(125, 20);
+			this->cbShowPassword->TabIndex = 3;
+			this->cbShowPassword->Text = L"Show Password";
+			this->cbShowPassword->UseVisualStyleBackColor = true;
+			this->cbShowPassword->CheckedChanged += gcnew System::EventHandler(this, &LoginForm::cbShowPassword_CheckedChanged);
+			// 
 			// LoginForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(16, 31);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Lavender;
-			this->ClientSize = System::Drawing::Size(1161, 659);
+			this->ClientSize = System::Drawing::Size(1161, 682);
 			this->Controls->Add(this->pictureBox4);
 			this->Controls->Add(this->pictureBox3);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->label5);
+			this->Controls->Add(this->forgtPwLbl);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->llRegister);
 			this->Controls->Add(this->btnOK);
@@ -304,6 +339,7 @@ namespace PersonalOrganizerApp {
 			this->Controls->Add(this->tbEmail);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
+			this->Controls->Add(this->cbShowPassword);
 			this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
@@ -416,5 +452,18 @@ private: System::Void tbEmail_KeyDown(System::Object^ sender, System::Windows::F
 		this->tbPassword->Focus();
 	}
 }
-};
+
+	   private: System::Void cbShowPassword_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+		   if (cbShowPassword->Checked) {
+			   tbPassword->PasswordChar = '\0';
+		   }
+		   else {
+			   tbPassword->PasswordChar = '*';
+		   }
+	   }
+
+private: System::Void forgtPwLbl_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+}
+};  
 }
