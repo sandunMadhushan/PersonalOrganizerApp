@@ -224,6 +224,7 @@
     <Image Include="Resources\Reset password.png" />
     <Image Include="Resources\schedule.png" />
     <Image Include="Resources\telephone.png" />
+    <Image Include="Resources\user.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
