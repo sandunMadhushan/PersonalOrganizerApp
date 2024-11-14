@@ -127,21 +127,19 @@ namespace PersonalOrganizerApp {
 			// 
 			// tbEmail
 			// 
-			this->tbEmail->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->tbEmail->Location = System::Drawing::Point(816, 320);
 			this->tbEmail->Name = L"tbEmail";
-			this->tbEmail->Size = System::Drawing::Size(196, 31);
+			this->tbEmail->Size = System::Drawing::Size(196, 38);
 			this->tbEmail->TabIndex = 0;
 			this->tbEmail->TextChanged += gcnew System::EventHandler(this, &LoginForm::tbEmail_TextChanged);
 			this->tbEmail->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &LoginForm::tbEmail_KeyDown);
 			// 
 			// tbPassword
 			// 
-			this->tbPassword->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->tbPassword->Location = System::Drawing::Point(816, 398);
 			this->tbPassword->Name = L"tbPassword";
 			this->tbPassword->PasswordChar = '*';
-			this->tbPassword->Size = System::Drawing::Size(196, 31);
+			this->tbPassword->Size = System::Drawing::Size(196, 38);
 			this->tbPassword->TabIndex = 1;
 			// 
 			// btnOK
@@ -162,14 +160,15 @@ namespace PersonalOrganizerApp {
 			// llRegister
 			// 
 			this->llRegister->AutoSize = true;
+			this->llRegister->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->llRegister->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->llRegister->Location = System::Drawing::Point(944, 580);
+			this->llRegister->Location = System::Drawing::Point(935, 580);
 			this->llRegister->Name = L"llRegister";
-			this->llRegister->Size = System::Drawing::Size(68, 20);
+			this->llRegister->Size = System::Drawing::Size(72, 20);
 			this->llRegister->TabIndex = 6;
 			this->llRegister->TabStop = true;
-			this->llRegister->Text = L"Sign Up";
+			this->llRegister->Text = L"Register";
 			this->llRegister->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &LoginForm::llRegister_LinkClicked);
 			// 
 			// label4
@@ -179,7 +178,7 @@ namespace PersonalOrganizerApp {
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label4->ForeColor = System::Drawing::Color::DimGray;
-			this->label4->Location = System::Drawing::Point(744, 580);
+			this->label4->Location = System::Drawing::Point(760, 580);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(185, 20);
 			this->label4->TabIndex = 7;
@@ -268,7 +267,7 @@ namespace PersonalOrganizerApp {
 			// 
 			this->pictureBox3->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox3.Image")));
-			this->pictureBox3->Location = System::Drawing::Point(741, 320);
+			this->pictureBox3->Location = System::Drawing::Point(741, 318);
 			this->pictureBox3->Name = L"pictureBox3";
 			this->pictureBox3->Size = System::Drawing::Size(53, 31);
 			this->pictureBox3->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -279,7 +278,7 @@ namespace PersonalOrganizerApp {
 			// 
 			this->pictureBox4->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox4.Image")));
-			this->pictureBox4->Location = System::Drawing::Point(741, 398);
+			this->pictureBox4->Location = System::Drawing::Point(741, 390);
 			this->pictureBox4->Name = L"pictureBox4";
 			this->pictureBox4->Size = System::Drawing::Size(53, 31);
 			this->pictureBox4->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -313,7 +312,7 @@ namespace PersonalOrganizerApp {
 			this->Margin = System::Windows::Forms::Padding(6);
 			this->MaximizeBox = false;
 			this->Name = L"LoginForm";
-			this->Text = L"Login";
+			this->Text = L"Login | Personal Organizer";
 			this->Load += gcnew System::EventHandler(this, &LoginForm::LoginForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
