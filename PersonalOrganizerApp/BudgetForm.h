@@ -292,45 +292,43 @@ namespace PersonalOrganizerApp {
 	private: System::Void AddButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ category = this->categoryComboBox->SelectedItem->ToString();
 		Decimal budgetAmount = Convert::ToDecimal(this->budgetAmountTextBox->Text);
+		String^ userName = user->name; // Assuming `user` has been initialized with the current user’s data
 
 		// Ensure proper handling of the SQL query string
 		String^ query =
 			"MERGE INTO Budget AS target "
-			"USING (SELECT @Category AS Category, @BudgetAmount AS BudgetAmount, @Month AS Month) AS source "
-			"ON target.Category = source.Category AND target.Month = source.Month "
+			"USING (SELECT @Category AS Category, @BudgetAmount AS BudgetAmount, @Month AS Month, @UserName AS UserName) AS source "
+			"ON target.Category = source.Category AND target.Month = source.Month AND target.UserName = source.UserName "
 			"WHEN MATCHED THEN "
 			"UPDATE SET target.BudgetAmount = source.BudgetAmount "
 			"WHEN NOT MATCHED THEN "
-			"INSERT (Category, BudgetAmount, Month) "
-			"VALUES (source.Category, source.BudgetAmount, source.Month);";
+			"INSERT (Category, BudgetAmount, Month, UserName) "
+			"VALUES (source.Category, source.BudgetAmount, source.Month, source.UserName);";
 
 		SqlCommand^ command = gcnew SqlCommand(query, DatabaseHelper::GetInstance()->GetConnection());
 		command->Parameters->AddWithValue("@Category", category);
 		command->Parameters->AddWithValue("@BudgetAmount", budgetAmount);
-		command->Parameters->AddWithValue("@Month", DateTime::Now.ToString("MMMM yyyy"));  // Store the current months
-		
+		command->Parameters->AddWithValue("@Month", DateTime::Now.ToString("MMMM yyyy"));
+		command->Parameters->AddWithValue("@UserName", userName);
+
 		try {
-			if (String::IsNullOrWhiteSpace(budgetAmountTextBox->Text))
-			{
+			if (String::IsNullOrWhiteSpace(budgetAmountTextBox->Text)) {
 				MessageBox::Show("Amount cannot be empty.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
-			
-            Decimal amount;
-            if (!Decimal::TryParse(budgetAmountTextBox->Text, amount))
-            {
-                MessageBox::Show("Invalid amount entered.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-                return;
-            }
 
-            if (String::IsNullOrWhiteSpace(categoryComboBox->Text))
-            {
-            MessageBox::Show("Category cannot be empty.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-            return;
-            }
+			Decimal amount;
+			if (!Decimal::TryParse(budgetAmountTextBox->Text, amount)) {
+				MessageBox::Show("Invalid amount entered.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
+			if (String::IsNullOrWhiteSpace(categoryComboBox->Text)) {
+				MessageBox::Show("Category cannot be empty.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
 
 			if (DatabaseHelper::GetInstance()->OpenConnection()) {
-	
 				command->ExecuteNonQuery();
 				MessageBox::Show("Budget set successfully!");
 			}
@@ -344,9 +342,10 @@ namespace PersonalOrganizerApp {
 		CheckBudgets();
 	}
 		   void LoadBudgets() {
-			   String^ query = "SELECT Category, BudgetAmount FROM Budget WHERE Month = @Month";
+			   String^ query = "SELECT Category, BudgetAmount FROM Budget WHERE Month = @Month AND UserName = @UserName";
 			   SqlCommand^ command = gcnew SqlCommand(query, DatabaseHelper::GetInstance()->GetConnection());
 			   command->Parameters->AddWithValue("@Month", DateTime::Now.ToString("MMMM yyyy"));
+			   command->Parameters->AddWithValue("@UserName", user->name);
 
 			   SqlDataAdapter^ dataAdapter = gcnew SqlDataAdapter(command);
 			   DataTable^ dataTable = gcnew DataTable();
@@ -364,15 +363,18 @@ namespace PersonalOrganizerApp {
 		   public: void CheckBudgets() {
 			   String^ query = "SELECT B.Category, B.BudgetAmount, SUM(E.Amount) AS TotalExpenses "
 				   "FROM Budget B LEFT JOIN Expense E ON B.Category = E.Category "
-				   "WHERE B.Month = @Month GROUP BY B.Category, B.BudgetAmount";
+				   "WHERE B.Month = @Month AND B.UserName = @UserName "
+				   "GROUP BY B.Category, B.BudgetAmount";
+
 			   SqlConnection^ connection = DatabaseHelper::GetInstance()->GetConnection();
 
 			   if (connection->State == ConnectionState::Closed) {
 				   connection->Open();
 			   }
 
-			   SqlCommand^ command = gcnew SqlCommand(query, DatabaseHelper::GetInstance()->GetConnection());
+			   SqlCommand^ command = gcnew SqlCommand(query, connection);
 			   command->Parameters->AddWithValue("@Month", DateTime::Now.ToString("MMMM yyyy"));
+			   command->Parameters->AddWithValue("@UserName", user->name);
 
 			   SqlDataReader^ reader = command->ExecuteReader();
 			   while (reader->Read()) {
@@ -386,7 +388,7 @@ namespace PersonalOrganizerApp {
 				   }
 
 				   if (totalExpenses > budgetAmount) {
-					   MessageBox::Show("Budget exceeded for " + category , "Alert" , MessageBoxButtons::OK, MessageBoxIcon::Error);
+					   MessageBox::Show("Budget exceeded for " + category, "Alert", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				   }
 			   }
 			   reader->Close();
