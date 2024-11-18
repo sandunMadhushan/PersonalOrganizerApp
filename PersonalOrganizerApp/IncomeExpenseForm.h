@@ -651,7 +651,9 @@ private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, S
 }
 	   // Method to load Income data into DataGridView
 	   void LoadIncomeData() {
-		   String^ query = "SELECT * FROM Income";
+
+		   String^ userName = this->user->name;
+		   String^ query = "SELECT * FROM Income WHERE UserName = '"+userName + "'";
 		   DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
 
 		   // Fetch data using DatabaseHelper's ExecuteQuery method
@@ -663,7 +665,9 @@ private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, S
 
 	   // Method to load Expense data into DataGridView
 	   void LoadExpenseData() {
-		   String^ query = "SELECT * FROM Expense";
+
+		   String^ userName = this->user->name;
+		   String^ query = "SELECT * FROM Expense WHERE UserName = '" + userName + "'";
 		   DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
 
 		   // Fetch data using DatabaseHelper's ExecuteQuery method
@@ -696,7 +700,8 @@ private: System::Void AddButton1_Click(System::Object^ sender, System::EventArgs
 			}
 
 			// Create the query
-			String^ query = "INSERT INTO Income (Date, Source, Description, Amount) VALUES ('" + date + "', '" + source + "', '" + description + "', '" + amount + "')";
+			String^ userName = this->user->name;
+            String^ query = "INSERT INTO Income (Date, Source, Description, Amount, UserName) VALUES ('" + date + "', '" + source + "', '" + description + "', '" + amount + "', '" + userName + "')";
 			DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
 
 			// Execute the query
@@ -725,7 +730,8 @@ private: System::Void AddButton2_Click(System::Object^ sender, System::EventArgs
 			}
 
 			// Create the query
-			String^ query = "INSERT INTO Expense (Date, Category, Description, Amount) VALUES ('" + date + "', '" + category + "', '" + description + "', '" + amount + "')";
+			String^ userName = this->user->name;
+			String^ query = "INSERT INTO Expense (Date, Category, Description, Amount, UserName) VALUES ('" + date + "', '" + category + "', '" + description + "', '" + amount + "', '" + userName + "')";
 			DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
 
 			// Execute the query
