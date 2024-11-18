@@ -14,6 +14,7 @@ namespace PersonalOrganizerApp {
 	using namespace System::Windows::Forms::DataVisualization::Charting;
 	using namespace System::Globalization;
 	using namespace System::Drawing::Printing;
+	using namespace System::Collections::Generic;
 
 	/// <summary>
 	/// Summary for FinancialReportForm
@@ -324,19 +325,21 @@ namespace PersonalOrganizerApp {
 			   // Define queries
 			   String^ incomeQuery = "SELECT ISNULL(SUM(Amount), 0) AS TotalIncome "
 				   "FROM Income "
-				   "WHERE MONTH(Date) = @Month AND YEAR(Date) = @Year";
+				   "WHERE MONTH(Date) = @Month AND YEAR(Date) = @Year AND UserName = @UserName";
 
 			   String^ expenseQuery = "SELECT ISNULL(SUM(Amount), 0) AS TotalExpenses "
 				   "FROM Expense "
-				   "WHERE MONTH(Date) = @Month AND YEAR(Date) = @Year";
+				   "WHERE MONTH(Date) = @Month AND YEAR(Date) = @Year AND UserName = @UserName";
 
 			   SqlCommand^ incomeCmd = gcnew SqlCommand(incomeQuery, conn);
 			   incomeCmd->Parameters->AddWithValue("@Month", month);
 			   incomeCmd->Parameters->AddWithValue("@Year", year);
+			   incomeCmd->Parameters->AddWithValue("@UserName", user->name);
 
 			   SqlCommand^ expenseCmd = gcnew SqlCommand(expenseQuery, conn);
 			   expenseCmd->Parameters->AddWithValue("@Month", month);
 			   expenseCmd->Parameters->AddWithValue("@Year", year);
+			   expenseCmd->Parameters->AddWithValue("@UserName", user->name);
 
 
 			   Decimal totalIncome = 0;
@@ -393,46 +396,90 @@ namespace PersonalOrganizerApp {
 			   lblSavings->Text = savings.ToString("C", culture);
 
 			   // Generate chart
-			   GenerateChartForExpensesByCategory(month, year);
+			   GenerateChartForIncomeAndExpensesByCategory(month, year);
 		   }
 
 
-		   void GenerateChartForExpensesByCategory(int month, int year) {
+		   void GenerateChartForIncomeAndExpensesByCategory(int month, int year) {
 			   SqlConnection^ conn = DatabaseHelper::GetInstance()->GetConnection();
 
-			   // Query for category-based expenses
-			   String^ categoryQuery = "SELECT Category, ISNULL(SUM(Amount), 0) AS TotalAmount "
+			   // Define queries for income and expense
+			   String^ incomeQuery = "SELECT Source AS Label, ISNULL(SUM(Amount), 0) AS TotalAmount "
+				   "FROM Income "
+				   "WHERE MONTH(Date) = @Month AND YEAR(Date) = @Year AND UserName = @UserName "
+				   "GROUP BY Source";
+
+			   String^ expenseQuery = "SELECT Category AS Label, ISNULL(SUM(Amount), 0) AS TotalAmount "
 				   "FROM Expense "
-				   "WHERE MONTH(Date) = @Month AND YEAR(Date) = @Year "
+				   "WHERE MONTH(Date) = @Month AND YEAR(Date) = @Year AND UserName = @UserName "
 				   "GROUP BY Category";
 
-			   SqlCommand^ categoryCmd = gcnew SqlCommand(categoryQuery, conn);
-			   categoryCmd->Parameters->AddWithValue("@Month", month);
-			   categoryCmd->Parameters->AddWithValue("@Year", year);
+			   // Clear previous data in the chart
+			   chart1->Series->Clear();
+
+			   // Create separate series for income and expenses
+			   Series^ incomeSeries = gcnew Series("Income");
+			   incomeSeries->ChartType = SeriesChartType::Column;
+			   incomeSeries->Color = Color::Blue;
+			   incomeSeries->IsValueShownAsLabel = true;
+
+			   Series^ expenseSeries = gcnew Series("Expenses");
+			   expenseSeries->ChartType = SeriesChartType::Column;
+			   expenseSeries->Color = Color::Red;
+			   expenseSeries->IsValueShownAsLabel = true;
+
+			   // Add both series to the chart
+			   chart1->Series->Add(incomeSeries);
+			   chart1->Series->Add(expenseSeries);
 
 			   conn->Open();
-			   SqlDataReader^ reader = categoryCmd->ExecuteReader();
 
-			   while (reader->Read()) {
-				   String^ category = reader["Category"]->ToString();
-				   Decimal totalAmount = Convert::ToDecimal(reader["TotalAmount"]);
+			   // Load Income Data and add to income series
+			   SqlCommand^ incomeCmd = gcnew SqlCommand(incomeQuery, conn);
+			   incomeCmd->Parameters->AddWithValue("@Month", month);
+			   incomeCmd->Parameters->AddWithValue("@Year", year);
+			   incomeCmd->Parameters->AddWithValue("@UserName", user->name);
 
-				   //chart1->Series["series1"]->Points->Clear(); // Clear previous data
+			   SqlDataReader^ incomeReader = incomeCmd->ExecuteReader();
+			   while (incomeReader->Read()) {
+				   String^ label = incomeReader["Label"]->ToString();
+				   Decimal totalAmount = Convert::ToDecimal(incomeReader["TotalAmount"]);
 
-				   chart1->Series[0]->Points->AddXY(category, totalAmount);
-
-				   chart1->Text = "Expense Breakdown by Category";
-
-				   //// Add chart to the form in a new form or panel
-				   //Form^ chartForm = gcnew Form();
-				   //chartForm->Text = "Expense Breakdown by Category";
-				   //chartForm->ClientSize = System::Drawing::Size(600, 400);
-
-				   //chart1->Dock = DockStyle::Fill;
-				   //chartForm->Controls->Add(chart1);
-				   //chartForm->Show();
+				   // Add each income data point to the income series
+				   DataPoint^ point = gcnew DataPoint();
+				   point->AxisLabel = label;  // Set the label for the income source
+				   point->YValues[0] = (double)totalAmount;
+				   incomeSeries->Points->Add(point);
 			   }
+			   incomeReader->Close();
+
+			   // Load Expense Data and add to expense series
+			   SqlCommand^ expenseCmd = gcnew SqlCommand(expenseQuery, conn);
+			   expenseCmd->Parameters->AddWithValue("@Month", month);
+			   expenseCmd->Parameters->AddWithValue("@Year", year);
+			   expenseCmd->Parameters->AddWithValue("@UserName", user->name);
+
+			   SqlDataReader^ expenseReader = expenseCmd->ExecuteReader();
+			   while (expenseReader->Read()) {
+				   String^ label = expenseReader["Label"]->ToString();
+				   Decimal totalAmount = Convert::ToDecimal(expenseReader["TotalAmount"]);
+
+				   // Add each expense data point to the expense series
+				   DataPoint^ point = gcnew DataPoint();
+				   point->AxisLabel = label;  // Set the label for the expense category
+				   point->YValues[0] = (double)totalAmount;
+				   expenseSeries->Points->Add(point);
+			   }
+			   expenseReader->Close();
+
 			   conn->Close();
+
+			   // Set chart title and labels
+			   chart1->ChartAreas[0]->AxisX->Title = "Category/Source";
+			   chart1->ChartAreas[0]->AxisY->Title = "Amount";
+			   chart1->Titles->Clear();
+			   chart1->Titles->Add("Income and Expenses Breakdown");
+			   chart1->Legends[0]->Docking = Docking::Top;
 		   }
 
 	private: System::Void loadData_Click(System::Object^ sender, System::EventArgs^ e) {
