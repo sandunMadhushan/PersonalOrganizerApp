@@ -68,16 +68,22 @@ namespace PersonalOrganizerApp {
 		MainForm(User^ user)
 		{
 			InitializeComponent();
-			isSidebarCollapsed = true;
-			panel1->Width = 85;
-			appNameLbl->Text = "";
-			tagLineLbl->Text = "";
-			toggleButton->Text = "";
-			btnIncomeExpenses->Text = "";
-			btnBudget->Text = "";
-			btnReport->Text = "";
-			btnSchedule->Text = "";
-			btnLgOut->Text = "";
+			isSidebarCollapsed = false;
+			panel1->Width = 240;
+			appNameLbl->Text = "Personal Organizer";
+			tagLineLbl->Text = "Organize your life, Achieve your goals !";
+			toggleButton->Text = "Menu";
+			btnIncomeExpenses->Text = "Income / Expenses";
+			btnBudget->Text = "Budget";
+			btnReport->Text = "Financial Report";
+			btnSchedule->Text = "Academic Schedule";
+			btnLgOut->Text = "Log Out";
+			toggleButton->Width = 185;
+			btnIncomeExpenses->Width = 185;
+			btnBudget->Width = 185;
+			btnReport->Width = 185;
+			btnSchedule->Width = 185;
+			btnLgOut->Width = 185;
 			currentUser = user;
             usernameLbl->Text = currentUser->name;
 			MainForm_Load(this, gcnew EventArgs());
