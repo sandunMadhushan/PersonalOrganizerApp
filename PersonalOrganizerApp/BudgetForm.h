@@ -61,6 +61,7 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Label^ usernameLbl;
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
+	private: System::Windows::Forms::Button^ EditButton;
 
 	private:
 		/// <summary>
@@ -86,6 +87,7 @@ namespace PersonalOrganizerApp {
 			this->backArrow = (gcnew System::Windows::Forms::PictureBox());
 			this->showDataBtn = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->EditButton = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->usernameLbl = (gcnew System::Windows::Forms::Label());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
@@ -158,11 +160,12 @@ namespace PersonalOrganizerApp {
 			this->budgetDataGridView->RowTemplate->Height = 24;
 			this->budgetDataGridView->Size = System::Drawing::Size(734, 174);
 			this->budgetDataGridView->TabIndex = 7;
+			this->budgetDataGridView->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &BudgetForm::budgetDataGridView_CellClick);
 			// 
 			// AddButton
 			// 
 			this->AddButton->BackColor = System::Drawing::Color::SkyBlue;
-			this->AddButton->Location = System::Drawing::Point(813, 388);
+			this->AddButton->Location = System::Drawing::Point(309, 196);
 			this->AddButton->Name = L"AddButton";
 			this->AddButton->Padding = System::Windows::Forms::Padding(5);
 			this->AddButton->Size = System::Drawing::Size(90, 34);
@@ -186,10 +189,10 @@ namespace PersonalOrganizerApp {
 			// showDataBtn
 			// 
 			this->showDataBtn->BackColor = System::Drawing::Color::SkyBlue;
-			this->showDataBtn->Location = System::Drawing::Point(790, 444);
+			this->showDataBtn->Location = System::Drawing::Point(309, 253);
 			this->showDataBtn->Name = L"showDataBtn";
 			this->showDataBtn->Padding = System::Windows::Forms::Padding(5);
-			this->showDataBtn->Size = System::Drawing::Size(139, 34);
+			this->showDataBtn->Size = System::Drawing::Size(200, 34);
 			this->showDataBtn->TabIndex = 8;
 			this->showDataBtn->Text = L"SHOW DATA";
 			this->showDataBtn->UseVisualStyleBackColor = false;
@@ -198,12 +201,27 @@ namespace PersonalOrganizerApp {
 			// groupBox1
 			// 
 			this->groupBox1->BackColor = System::Drawing::SystemColors::Control;
+			this->groupBox1->Controls->Add(this->EditButton);
 			this->groupBox1->Controls->Add(this->budgetDataGridView);
+			this->groupBox1->Controls->Add(this->AddButton);
+			this->groupBox1->Controls->Add(this->showDataBtn);
 			this->groupBox1->Location = System::Drawing::Point(453, 192);
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->Size = System::Drawing::Size(833, 547);
 			this->groupBox1->TabIndex = 11;
 			this->groupBox1->TabStop = false;
+			// 
+			// EditButton
+			// 
+			this->EditButton->BackColor = System::Drawing::Color::LightGreen;
+			this->EditButton->Location = System::Drawing::Point(419, 196);
+			this->EditButton->Name = L"EditButton";
+			this->EditButton->Padding = System::Windows::Forms::Padding(5);
+			this->EditButton->Size = System::Drawing::Size(90, 34);
+			this->EditButton->TabIndex = 9;
+			this->EditButton->Text = L"EDIT";
+			this->EditButton->UseVisualStyleBackColor = false;
+			this->EditButton->Click += gcnew System::EventHandler(this, &BudgetForm::EditButton_Click);
 			// 
 			// pictureBox1
 			// 
@@ -243,8 +261,6 @@ namespace PersonalOrganizerApp {
 			this->Controls->Add(this->usernameLbl);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->backArrow);
-			this->Controls->Add(this->showDataBtn);
-			this->Controls->Add(this->AddButton);
 			this->Controls->Add(this->categoryComboBox);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
@@ -292,15 +308,15 @@ namespace PersonalOrganizerApp {
 	private: System::Void AddButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ category = this->categoryComboBox->SelectedItem->ToString();
 		Decimal budgetAmount = Convert::ToDecimal(this->budgetAmountTextBox->Text);
-		String^ userName = user->name; // Assuming `user` has been initialized with the current user’s data
+		String^ userName = user->name; 
 
-		// Ensure proper handling of the SQL query string
+		
 		String^ query =
 			"MERGE INTO Budget AS target "
 			"USING (SELECT @Category AS Category, @BudgetAmount AS BudgetAmount, @Month AS Month, @UserName AS UserName) AS source "
 			"ON target.Category = source.Category AND target.Month = source.Month AND target.UserName = source.UserName "
 			"WHEN MATCHED THEN "
-			"UPDATE SET target.BudgetAmount = source.BudgetAmount "
+			"UPDATE SET target.BudgetAmount = target.BudgetAmount + source.BudgetAmount "
 			"WHEN NOT MATCHED THEN "
 			"INSERT (Category, BudgetAmount, Month, UserName) "
 			"VALUES (source.Category, source.BudgetAmount, source.Month, source.UserName);";
@@ -361,8 +377,10 @@ namespace PersonalOrganizerApp {
 	}
 
 		   public: void CheckBudgets() {
-			   String^ query = "SELECT B.Category, B.BudgetAmount, SUM(E.Amount) AS TotalExpenses "
-				   "FROM Budget B LEFT JOIN Expense E ON B.Category = E.Category "
+			   String^ query = "SELECT B.Category, B.BudgetAmount, "
+				   "COALESCE(SUM(E.Amount), 0) AS TotalExpenses "
+				   "FROM Budget B "
+				   "LEFT JOIN Expense E ON B.Category = E.Category AND B.UserName = E.UserName "
 				   "WHERE B.Month = @Month AND B.UserName = @UserName "
 				   "GROUP BY B.Category, B.BudgetAmount";
 
@@ -396,5 +414,57 @@ namespace PersonalOrganizerApp {
 		   }
 
 
+		private: System::Void EditButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			String^ category = this->categoryComboBox->SelectedItem->ToString();
+			Decimal budgetAmount = Convert::ToDecimal(this->budgetAmountTextBox->Text);
+			String^ userName = user->name; // Current user's username
+			String^ month = DateTime::Now.ToString("MMMM yyyy");
+
+			// SQL query to update the record
+			String^ query =
+				"UPDATE Budget "
+				"SET BudgetAmount = @BudgetAmount "
+				"WHERE Category = @Category AND Month = @Month AND UserName = @UserName";
+
+			SqlCommand^ command = gcnew SqlCommand(query, DatabaseHelper::GetInstance()->GetConnection());
+			command->Parameters->AddWithValue("@BudgetAmount", budgetAmount);
+			command->Parameters->AddWithValue("@Category", category);
+			command->Parameters->AddWithValue("@Month", month);
+			command->Parameters->AddWithValue("@UserName", userName);
+
+			try {
+				if (DatabaseHelper::GetInstance()->OpenConnection()) {
+					int rowsAffected = command->ExecuteNonQuery();
+					if (rowsAffected > 0) {
+						MessageBox::Show("Record updated successfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					}
+					else {
+						MessageBox::Show("No matching record found to update.", "Warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					}
+				}
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Error updating record: " + ex->Message);
+			}
+
+			// Reload the DataGridView and refresh budgets
+			LoadBudgets();
+			CheckBudgets();
+		}
+
+
+
+private: System::Void budgetDataGridView_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+	if (e->RowIndex >= 0) {
+		// Get the selected row
+		DataGridViewRow^ row = budgetDataGridView->Rows[e->RowIndex];
+
+		// Populate the fields with the selected data
+		this->categoryComboBox->Text = row->Cells["Category"]->Value->ToString();
+		this->budgetAmountTextBox->Text = row->Cells["BudgetAmount"]->Value->ToString();
+	}
+}
+
 };
+
 }
