@@ -436,6 +436,7 @@ namespace PersonalOrganizerApp {
 					  user->phone = reader->GetString(3);
 					  user->address = reader->GetString(4);
 					  user->password = reader->GetString(5);  // This is the stored password (which is already hashed)
+					  this->DialogResult = System::Windows::Forms::DialogResult::OK;
 					  this->Close();
 				  }
 				  else {
@@ -497,5 +498,10 @@ private: System::Void forgtPwLbl_Click(System::Object^ sender, System::EventArgs
 	tbEmail->Text = "";
 	tbPassword->Text = "";
 }
+
+	   public:
+		   User^ GetLoggedInUser() {
+			   return this->user; 
+		   }
 };  
 }

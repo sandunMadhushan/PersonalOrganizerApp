@@ -846,81 +846,91 @@ private: System::Void btnAcademicSchedule(System::Object^ sender, System::EventA
 		this->Hide();
 }
 private: System::Void btnLogout(System::Object^ sender, System::EventArgs^ e) {
-		this->Hide();
-		currentUser = nullptr;
-		DatabaseHelper::GetInstance()->CloseConnection();
-		LoginForm^ loginForm = gcnew LoginForm();
-		loginForm->ShowDialog();
+
+	PerformLogout();
 }
 
 	   //get total income, expenses and savings from database
 	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		System::DateTime currentDate = System::DateTime::Now;
-		int month = currentDate.Month;
-		int year = currentDate.Year;
-		SqlConnection^ conn = DatabaseHelper::GetInstance()->GetConnection();
+		try {
+			if (currentUser == nullptr) {
+				MessageBox::Show("User not logged in.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+			System::DateTime currentDate = System::DateTime::Now;
+			int month = currentDate.Month;
+			int year = currentDate.Year;
+			String^ UserName = currentUser->name;
 
-		conn->Open();
+			SqlConnection^ conn = DatabaseHelper::GetInstance()->GetConnection();
 
-		// Define queries
-		String^ incomeQuery = "SELECT ISNULL(SUM(Amount), 0) AS TotalIncome "
-			"FROM Income "
-			"WHERE MONTH(Date) = @Month AND YEAR(Date) = @Year";
+			conn->Open();
 
-		String^ expenseQuery = "SELECT ISNULL(SUM(Amount), 0) AS TotalExpenses "
-			"FROM Expense "
-			"WHERE MONTH(Date) = @Month AND YEAR(Date) = @Year";
+			String^ incomeQuery = "SELECT ISNULL(SUM(Amount), 0) AS TotalIncome "
+				"FROM Income "
+				"WHERE UserName = @UserName AND MONTH(Date) = @Month AND YEAR(Date) = @Year";
 
-		SqlCommand^ incomeCmd = gcnew SqlCommand(incomeQuery, conn);
-		incomeCmd->Parameters->AddWithValue("@Month", month);
-		incomeCmd->Parameters->AddWithValue("@Year", year);
+			String^ expenseQuery = "SELECT ISNULL(SUM(Amount), 0) AS TotalExpenses "
+				"FROM Expense "
+				"WHERE UserName = @UserName AND MONTH(Date) = @Month AND YEAR(Date) = @Year";
 
-		SqlCommand^ expenseCmd = gcnew SqlCommand(expenseQuery, conn);
-		expenseCmd->Parameters->AddWithValue("@Month", month);
-		expenseCmd->Parameters->AddWithValue("@Year", year);
+			SqlCommand^ incomeCmd = gcnew SqlCommand(incomeQuery, conn);
+			incomeCmd->Parameters->AddWithValue("@UserName", UserName);
+			incomeCmd->Parameters->AddWithValue("@Month", month);
+			incomeCmd->Parameters->AddWithValue("@Year", year);
+
+			SqlCommand^ expenseCmd = gcnew SqlCommand(expenseQuery, conn);
+			expenseCmd->Parameters->AddWithValue("@UserName", UserName);
+			expenseCmd->Parameters->AddWithValue("@Month", month);
+			expenseCmd->Parameters->AddWithValue("@Year", year);
 
 
-		Decimal totalIncome = 0;
-		Decimal totalExpenses = 0;
+			Decimal totalIncome = 0;
+			Decimal totalExpenses = 0;
 
-		// Execute Income Query
-		SqlDataReader^ incomeReader = incomeCmd->ExecuteReader();
-		if (incomeReader->Read()) {
+			// Execute Income Query
+			SqlDataReader^ incomeReader = incomeCmd->ExecuteReader();
+			if (incomeReader->Read()) {
 
-			totalIncome = Convert::ToDecimal(incomeReader["TotalIncome"]);
-			//totalIncome = incomeReader["TotalIncome"]->ToDecimal();
+				totalIncome = Convert::ToDecimal(incomeReader["TotalIncome"]);
+				//totalIncome = incomeReader["TotalIncome"]->ToDecimal();
+			}
+			incomeReader->Close();
+
+			// Execute Expense Query
+			SqlDataReader^ expenseReader = expenseCmd->ExecuteReader();
+			if (expenseReader->Read()) {
+
+				totalExpenses = Convert::ToDecimal(expenseReader["TotalExpenses"]);
+				//totalExpenses = expenseReader["TotalExpenses"]->ToDecimal();
+			}
+			expenseReader->Close();
+
+			conn->Close();
+
+			//Decimal savings = totalIncome - totalExpenses;
+			Decimal savings = Decimal::Subtract(totalIncome, totalExpenses);
+
+			NumberFormatInfo^ lkrFormat = gcnew NumberFormatInfo();
+			lkrFormat->CurrencySymbol = "LKR ";
+			lkrFormat->CurrencyNegativePattern = 1;  // This controls the negative format, e.g., "-LKR 1000"
+			lkrFormat->CurrencyPositivePattern = 0;  // Optional, controls the positive format
+			lkrFormat->NumberNegativePattern = 1;  // Explicitly set negative number format to use the minus symbol
+
+			// For culture settings
+			CultureInfo^ culture = gcnew CultureInfo("en-US");
+			culture->NumberFormat = lkrFormat;
+
+
+			// Display the results
+			lblTotalIncome->Text = totalIncome.ToString("C", culture);
+			lblTotalExpenses->Text = totalExpenses.ToString("C", culture);
+			lblSavings->Text = savings.ToString("C", culture);
 		}
-		incomeReader->Close();
-
-		// Execute Expense Query
-		SqlDataReader^ expenseReader = expenseCmd->ExecuteReader();
-		if (expenseReader->Read()) {
-
-			totalExpenses = Convert::ToDecimal(expenseReader["TotalExpenses"]);
-			//totalExpenses = expenseReader["TotalExpenses"]->ToDecimal();
+		catch (Exception^ ex) {
+			MessageBox::Show("An error occurred: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
-		expenseReader->Close();
-
-		conn->Close();
-
-		//Decimal savings = totalIncome - totalExpenses;
-		Decimal savings = Decimal::Subtract(totalIncome, totalExpenses);
-
-		NumberFormatInfo^ lkrFormat = gcnew NumberFormatInfo();
-		lkrFormat->CurrencySymbol = "LKR ";
-		lkrFormat->CurrencyNegativePattern = 1;  // This controls the negative format, e.g., "-LKR 1000"
-		lkrFormat->CurrencyPositivePattern = 0;  // Optional, controls the positive format
-		lkrFormat->NumberNegativePattern = 1;  // Explicitly set negative number format to use the minus symbol
-
-		// For culture settings
-		CultureInfo^ culture = gcnew CultureInfo("en-US");
-		culture->NumberFormat = lkrFormat;
-
-
-		// Display the results
-		lblTotalIncome->Text = totalIncome.ToString("C", culture);
-		lblTotalExpenses->Text = totalExpenses.ToString("C", culture);
-		lblSavings->Text = savings.ToString("C", culture);
+		
 	}
 
 private: System::Void menuIcon_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -947,16 +957,38 @@ private: System::Void scheduleIcon_Click(System::Object^ sender, System::EventAr
 	this->Hide();
 }
 private: System::Void logOutIcon_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->Hide();
-	currentUser = nullptr;
-	DatabaseHelper::GetInstance()->CloseConnection();
-	LoginForm^ loginForm = gcnew LoginForm();
-	loginForm->ShowDialog();
+
+	PerformLogout();
 }
 private: System::Void goToReportBtnClick(System::Object^ sender, System::EventArgs^ e) {
 	FinancialReportForm^ financialReportForm = gcnew FinancialReportForm(currentUser);
 	financialReportForm->Show();
 	this->Hide();
 }
+	   private: void PerformLogout() {
+    lblTotalIncome->Text = "LKR 0.00";
+    lblTotalExpenses->Text = "LKR 0.00";
+    lblSavings->Text = "LKR 0.00";
+
+    currentUser = nullptr;
+    DatabaseHelper::GetInstance()->CloseConnection();
+
+    this->Hide();
+
+    LoginForm^ loginForm = gcnew LoginForm();
+    if (loginForm->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+        User^ loggedInUser = loginForm->GetLoggedInUser();
+        if (loggedInUser != nullptr) {
+            this->currentUser = loggedInUser;
+            usernameLbl->Text = currentUser->name;
+
+            MainForm_Load(this, gcnew EventArgs());
+
+            this->Show();
+        }
+    } else {
+        Application::Exit();
+    }
+};
 };
 }
