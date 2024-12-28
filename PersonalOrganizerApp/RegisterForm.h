@@ -476,6 +476,7 @@ namespace PersonalOrganizerApp {
 			this->MaximizeBox = false;
 			this->Name = L"RegisterForm";
 			this->Text = L"Register | Personal Organizer";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &RegisterForm::RegisterForm_FormClosing);
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
@@ -495,10 +496,7 @@ namespace PersonalOrganizerApp {
 		this->Close();
 	}
 		public: bool switchToLogin = false;
-private: System::Void llLogin_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
-	this->switchToLogin = true;
-	this->Close();
-}
+private: System::Void llLogin_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 
 public: User^ user = nullptr;
 
@@ -592,7 +590,7 @@ public: User^ user = nullptr;
 			  user->password = password;
 
 			  MessageBox::Show("User registered successfully", "Register Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			  this->Close();
+			  this->Hide();
 		  }
 		  else {
 			  MessageBox::Show("Error in registration. Please try again.");
@@ -610,6 +608,28 @@ private: System::Void cbShowPassword_CheckedChanged(System::Object^ sender, Syst
 	else {
 		tbPassword->PasswordChar = '*';
 		tbConfirmPassword->PasswordChar = '*';
+	}
+}
+	   private:
+		   bool isExiting = false;
+private: System::Void RegisterForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	// Check if the form is being closed by the user
+	if (!isExiting && e->CloseReason == System::Windows::Forms::CloseReason::UserClosing) {
+		// Show confirmation dialog
+		System::Windows::Forms::DialogResult result = MessageBox::Show(
+			"Are you sure you want to exit?",
+			"Exit Confirmation",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question
+		);
+
+		if (result == System::Windows::Forms::DialogResult::Yes) {
+			isExiting = true; // Set the flag to true
+			Application::Exit(); // Fully exit
+		}
+		else {
+			e->Cancel = true; // Cancel the close
+		}
 	}
 }
 };
