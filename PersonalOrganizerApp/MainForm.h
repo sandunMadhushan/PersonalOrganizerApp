@@ -45,15 +45,17 @@ namespace PersonalOrganizerApp {
 	private: System::Windows::Forms::PictureBox^ pictureBox4;
 	private: System::Windows::Forms::Panel^ panel3;
 	private: System::Windows::Forms::PictureBox^ pictureBox5;
-	private: System::Windows::Forms::Label^ label5;
-	private: System::Windows::Forms::Label^ label6;
-	private: System::Windows::Forms::Label^ label7;
+
+
+
 	private: System::Windows::Forms::PictureBox^ pictureBox6;
-	private: System::Windows::Forms::Label^ label8;
-	private: System::Windows::Forms::Label^ label9;
-	private: System::Windows::Forms::Label^ label10;
+	private: System::Windows::Forms::Label^ nextDeadlineLabel;
+
+
+
 	private: System::Windows::Forms::Label^ label11;
 	private: System::Windows::Forms::Label^ tagLineLbl;
+	private: System::Windows::Forms::Timer^ refreshDeadlineTimer;
 
 
 
@@ -87,6 +89,7 @@ namespace PersonalOrganizerApp {
 			currentUser = user;
             usernameLbl->Text = currentUser->name;
 			MainForm_Load(this, gcnew EventArgs());
+			LoadNextDeadline();
 		}
 
 	protected:
@@ -167,14 +170,10 @@ namespace PersonalOrganizerApp {
 			   this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
 			   this->panel3 = (gcnew System::Windows::Forms::Panel());
 			   this->pictureBox5 = (gcnew System::Windows::Forms::PictureBox());
-			   this->label5 = (gcnew System::Windows::Forms::Label());
-			   this->label6 = (gcnew System::Windows::Forms::Label());
-			   this->label7 = (gcnew System::Windows::Forms::Label());
 			   this->pictureBox6 = (gcnew System::Windows::Forms::PictureBox());
-			   this->label8 = (gcnew System::Windows::Forms::Label());
-			   this->label9 = (gcnew System::Windows::Forms::Label());
-			   this->label10 = (gcnew System::Windows::Forms::Label());
+			   this->nextDeadlineLabel = (gcnew System::Windows::Forms::Label());
 			   this->label11 = (gcnew System::Windows::Forms::Label());
+			   this->refreshDeadlineTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->panel1->SuspendLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->logOutIcon))->BeginInit();
@@ -506,7 +505,7 @@ namespace PersonalOrganizerApp {
 			   this->panel2->Controls->Add(this->lblTotalExpenses);
 			   this->panel2->Controls->Add(this->lblSavings);
 			   this->panel2->Controls->Add(this->summaryLbl);
-			   this->panel2->Location = System::Drawing::Point(374, 154);
+			   this->panel2->Location = System::Drawing::Point(358, 154);
 			   this->panel2->Name = L"panel2";
 			   this->panel2->Size = System::Drawing::Size(397, 334);
 			   this->panel2->TabIndex = 4;
@@ -613,16 +612,11 @@ namespace PersonalOrganizerApp {
 			   // 
 			   this->panel3->BackColor = System::Drawing::Color::WhiteSmoke;
 			   this->panel3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
+			   this->panel3->Controls->Add(this->nextDeadlineLabel);
 			   this->panel3->Controls->Add(this->pictureBox5);
-			   this->panel3->Controls->Add(this->label5);
-			   this->panel3->Controls->Add(this->label6);
-			   this->panel3->Controls->Add(this->label7);
 			   this->panel3->Controls->Add(this->pictureBox6);
-			   this->panel3->Controls->Add(this->label8);
-			   this->panel3->Controls->Add(this->label9);
-			   this->panel3->Controls->Add(this->label10);
 			   this->panel3->Controls->Add(this->label11);
-			   this->panel3->Location = System::Drawing::Point(831, 154);
+			   this->panel3->Location = System::Drawing::Point(812, 154);
 			   this->panel3->Name = L"panel3";
 			   this->panel3->Size = System::Drawing::Size(397, 334);
 			   this->panel3->TabIndex = 4;
@@ -637,33 +631,6 @@ namespace PersonalOrganizerApp {
 			   this->pictureBox5->TabIndex = 15;
 			   this->pictureBox5->TabStop = false;
 			   // 
-			   // label5
-			   // 
-			   this->label5->AutoSize = true;
-			   this->label5->Location = System::Drawing::Point(85, 102);
-			   this->label5->Name = L"label5";
-			   this->label5->Size = System::Drawing::Size(85, 16);
-			   this->label5->TabIndex = 9;
-			   this->label5->Text = L"Total Income";
-			   // 
-			   // label6
-			   // 
-			   this->label6->AutoSize = true;
-			   this->label6->Location = System::Drawing::Point(85, 158);
-			   this->label6->Name = L"label6";
-			   this->label6->Size = System::Drawing::Size(101, 16);
-			   this->label6->TabIndex = 10;
-			   this->label6->Text = L"Total Expenses";
-			   // 
-			   // label7
-			   // 
-			   this->label7->AutoSize = true;
-			   this->label7->Location = System::Drawing::Point(85, 207);
-			   this->label7->Name = L"label7";
-			   this->label7->Size = System::Drawing::Size(56, 16);
-			   this->label7->TabIndex = 11;
-			   this->label7->Text = L"Savings";
-			   // 
 			   // pictureBox6
 			   // 
 			   this->pictureBox6->BackColor = System::Drawing::Color::DodgerBlue;
@@ -675,34 +642,19 @@ namespace PersonalOrganizerApp {
 			   this->pictureBox6->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			   this->pictureBox6->TabIndex = 4;
 			   this->pictureBox6->TabStop = false;
-			   this->pictureBox6->Click += gcnew System::EventHandler(this, &MainForm::goToReportBtnClick);
+			   this->pictureBox6->Click += gcnew System::EventHandler(this, &MainForm::goToAcademic);
 			   // 
-			   // label8
+			   // nextDeadlineLabel
 			   // 
-			   this->label8->AutoSize = true;
-			   this->label8->Location = System::Drawing::Point(231, 102);
-			   this->label8->Name = L"label8";
-			   this->label8->Size = System::Drawing::Size(96, 16);
-			   this->label8->TabIndex = 12;
-			   this->label8->Text = L"lblTotalIncome";
-			   // 
-			   // label9
-			   // 
-			   this->label9->AutoSize = true;
-			   this->label9->Location = System::Drawing::Point(231, 158);
-			   this->label9->Name = L"label9";
-			   this->label9->Size = System::Drawing::Size(112, 16);
-			   this->label9->TabIndex = 13;
-			   this->label9->Text = L"lblTotalExpenses";
-			   // 
-			   // label10
-			   // 
-			   this->label10->AutoSize = true;
-			   this->label10->Location = System::Drawing::Point(231, 207);
-			   this->label10->Name = L"label10";
-			   this->label10->Size = System::Drawing::Size(70, 16);
-			   this->label10->TabIndex = 14;
-			   this->label10->Text = L"lblSavings";
+			   this->nextDeadlineLabel->AutoSize = true;
+			   this->nextDeadlineLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular,
+				   System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			   this->nextDeadlineLabel->ForeColor = System::Drawing::Color::Red;
+			   this->nextDeadlineLabel->Location = System::Drawing::Point(23, 144);
+			   this->nextDeadlineLabel->Name = L"nextDeadlineLabel";
+			   this->nextDeadlineLabel->Size = System::Drawing::Size(156, 16);
+			   this->nextDeadlineLabel->TabIndex = 16;
+			   this->nextDeadlineLabel->Text = L"Next Deadline: Loading...";
 			   // 
 			   // label11
 			   // 
@@ -714,6 +666,12 @@ namespace PersonalOrganizerApp {
 			   this->label11->Size = System::Drawing::Size(85, 22);
 			   this->label11->TabIndex = 0;
 			   this->label11->Text = L"Summary";
+			   // 
+			   // refreshDeadlineTimer
+			   // 
+			   this->refreshDeadlineTimer->Enabled = true;
+			   this->refreshDeadlineTimer->Interval = 60000;
+			   this->refreshDeadlineTimer->Tick += gcnew System::EventHandler(this, &MainForm::refreshDeadlineTimer_Tick);
 			   // 
 			   // MainForm
 			   // 
@@ -735,6 +693,7 @@ namespace PersonalOrganizerApp {
 			   this->Name = L"MainForm";
 			   this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			   this->Text = L"Dashboard | Personal Organizer";
+			   this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::MainForm_FormClosing);
 			   this->panel1->ResumeLayout(false);
 			   this->panel1->PerformLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
@@ -990,5 +949,76 @@ private: System::Void goToReportBtnClick(System::Object^ sender, System::EventAr
         Application::Exit();
     }
 };
+private: System::Void goToAcademic(System::Object^ sender, System::EventArgs^ e) {
+	AcademicScheduleForm^ academicScheduleForm = gcnew AcademicScheduleForm(currentUser);
+	academicScheduleForm->Show();
+	this->Hide();
+}
+	   private: System::Void LoadNextDeadline() {
+		   // Initialize variables to hold the next deadline details
+		   String^ nextDeadlineTitle = "No upcoming deadlines.";
+		   TimeSpan remainingTime;
+
+		   // Get the current date and time
+		   DateTime currentDate = DateTime::Now.Date;
+		   TimeSpan currentTime = DateTime::Now.TimeOfDay;
+
+		   // Database query to get the next due deadline
+		   String^ query = "SELECT TOP 1 Title, Date, Time "
+			   "FROM AcademicSchedule "
+			   "WHERE Type = 'Deadline' AND (Date > @Today OR (Date = @Today AND Time > @CurrentTime)) "
+			   "ORDER BY Date ASC, Time ASC;";
+
+		   DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
+
+		   try {
+			   if (dbHelper->OpenConnection()) {
+				   SqlCommand^ command = gcnew SqlCommand(query, dbHelper->GetConnection());
+				   command->Parameters->AddWithValue("@Today", currentDate);
+				   command->Parameters->AddWithValue("@CurrentTime", currentTime);
+
+				   SqlDataReader^ reader = command->ExecuteReader();
+
+				   if (reader->Read()) {
+					   // Read the next deadline details
+					   nextDeadlineTitle = reader["Title"]->ToString();
+					   DateTime deadlineDate = Convert::ToDateTime(reader["Date"]);
+					   TimeSpan deadlineTime = TimeSpan::Parse(reader["Time"]->ToString());
+
+					   // Calculate the remaining time
+					   DateTime deadlineDateTime = deadlineDate + deadlineTime;
+					   remainingTime = deadlineDateTime - DateTime::Now;
+
+					   // Format remaining time
+					   String^ remainingTimeText = String::Format("{0} days, {1} hours, {2} minutes",
+						   remainingTime.Days,
+						   remainingTime.Hours,
+						   remainingTime.Minutes);
+
+					   // Update the label text
+					   nextDeadlineLabel->Text = "Next Deadline: " + nextDeadlineTitle + "\nRemaining Time: " + remainingTimeText;
+				   }
+				   else {
+					   // No upcoming deadlines
+					   nextDeadlineLabel->Text = "Next Deadline: No upcoming deadlines.";
+				   }
+
+				   reader->Close();
+				   dbHelper->CloseConnection();
+			   }
+		   }
+		   catch (Exception^ ex) {
+			   nextDeadlineLabel->Text = "Error loading next deadline.";
+		   }
+	   }
+	private: System::Void refreshDeadlineTimer_Tick(System::Object^ sender, System::EventArgs^ e) {
+				  LoadNextDeadline();
+	}
+
+private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	DatabaseHelper::GetInstance()->CloseConnection();
+	Application::ExitThread();
+	Application::Exit();
+}
 };
 }

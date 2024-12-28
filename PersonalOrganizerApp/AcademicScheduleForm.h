@@ -252,10 +252,11 @@ namespace PersonalOrganizerApp {
 				if (dbHelper->OpenConnection())
 				{
 					DateTime currentDate = DateTime::Now;
-					String^ query = "SELECT * FROM AcademicSchedule WHERE Date = @currentDate";
+					String^ query = "SELECT * FROM AcademicSchedule WHERE Date = @currentDate AND UserName = @UserName";
 
 					SqlCommand^ cmd = gcnew SqlCommand(query, dbHelper->GetConnection());
 					cmd->Parameters->AddWithValue("@currentDate", currentDate);
+					cmd->Parameters->AddWithValue("@UserName", user->name);
 
 					SqlDataAdapter^ adapter = gcnew SqlDataAdapter(cmd);
 					DataTable^ dataTable = gcnew DataTable();
@@ -280,7 +281,7 @@ namespace PersonalOrganizerApp {
 
 	private: System::Void backArrow_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void lectureBtn_Click(System::Object^ sender, System::EventArgs^ e) {
-	AddEventForm^ addEventForm = gcnew AddEventForm();
+	AddEventForm^ addEventForm = gcnew AddEventForm(user);
 	addEventForm->ShowDialog();
 }
 private: System::Void monthCalendar_DateSelected(System::Object^ sender, System::Windows::Forms::DateRangeEventArgs^ e) {
@@ -292,10 +293,11 @@ private: System::Void monthCalendar_DateSelected(System::Object^ sender, System:
 	{
 		if (dbHelper->OpenConnection())
 		{
-			String^ query = "SELECT * FROM AcademicSchedule WHERE Date = @selectedDate";
+			String^ query = "SELECT * FROM AcademicSchedule WHERE Date = @selectedDate AND UserName = @UserName";
 
 			SqlCommand^ cmd = gcnew SqlCommand(query, dbHelper->GetConnection());
 			cmd->Parameters->AddWithValue("@selectedDate", selectedDate);
+			cmd->Parameters->AddWithValue("@UserName", user->name);
 
 			// Execute the query and get the data
 			SqlDataAdapter^ adapter = gcnew SqlDataAdapter(cmd);
@@ -329,10 +331,11 @@ private: System::Void deadlineTimer_Tick(System::Object^ sender, System::EventAr
 	try {
 		if (dbHelper->OpenConnection()) {
 			String^ alertQuery = "SELECT Title FROM AcademicSchedule WHERE Type = 'Deadline' "
-				"AND Date <= @AlertDate AND Date >= @Today";
+				"AND Date <= @AlertDate AND Date >= @Today AND UserName = @UserName";
 			SqlCommand^ cmd = gcnew SqlCommand(alertQuery, dbHelper->GetConnection());
 			cmd->Parameters->AddWithValue("@AlertDate", alertDate);
 			cmd->Parameters->AddWithValue("@Today", today);
+			cmd->Parameters->AddWithValue("@UserName", user->name);
 
 			SqlDataReader^ reader = cmd->ExecuteReader();
 			while (reader->Read()) {
