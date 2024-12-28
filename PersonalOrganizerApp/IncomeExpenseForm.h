@@ -613,6 +613,7 @@ namespace PersonalOrganizerApp {
 			this->Name = L"IncomeExpenseForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Income / Expenses  |  Personal Organizer";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &IncomeExpenseForm::IncomeExpenseForm_FormClosing);
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incomeDataGridView))->EndInit();
@@ -758,5 +759,28 @@ private: System::Void AddButton2_Click(System::Object^ sender, System::EventArgs
 			incomeDataGridView->Visible = false;
 	}
 	private: System::Void backArrow_Click(System::Object^ sender, System::EventArgs^ e);
+
+private:
+	 bool isExiting = false;
+private: System::Void IncomeExpenseForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	if (!isExiting && e->CloseReason == System::Windows::Forms::CloseReason::UserClosing) {
+		// Show confirmation dialog
+		System::Windows::Forms::DialogResult result = MessageBox::Show(
+			"Are you sure you want to exit?",
+			"Exit Confirmation",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question
+		);
+
+		if (result == System::Windows::Forms::DialogResult::Yes) {
+			isExiting = true; // Set the flag to true
+			Application::Exit(); // Fully exit
+		}
+		else {
+			e->Cancel = true; // Cancel the close
+		}
+	}
+}
+
 };
 };

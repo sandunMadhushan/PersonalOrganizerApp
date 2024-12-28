@@ -6,6 +6,7 @@
 #include "AcademicScheduleForm.h"
 #include "LoginForm.h"
 #include "DatabaseHelper.h"
+#include "RegisterForm.h"
 
 namespace PersonalOrganizerApp {
 
@@ -169,9 +170,9 @@ namespace PersonalOrganizerApp {
 			   this->summaryLbl = (gcnew System::Windows::Forms::Label());
 			   this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
 			   this->panel3 = (gcnew System::Windows::Forms::Panel());
+			   this->nextDeadlineLabel = (gcnew System::Windows::Forms::Label());
 			   this->pictureBox5 = (gcnew System::Windows::Forms::PictureBox());
 			   this->pictureBox6 = (gcnew System::Windows::Forms::PictureBox());
-			   this->nextDeadlineLabel = (gcnew System::Windows::Forms::Label());
 			   this->label11 = (gcnew System::Windows::Forms::Label());
 			   this->refreshDeadlineTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->panel1->SuspendLayout();
@@ -621,6 +622,18 @@ namespace PersonalOrganizerApp {
 			   this->panel3->Size = System::Drawing::Size(397, 334);
 			   this->panel3->TabIndex = 4;
 			   // 
+			   // nextDeadlineLabel
+			   // 
+			   this->nextDeadlineLabel->AutoSize = true;
+			   this->nextDeadlineLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular,
+				   System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			   this->nextDeadlineLabel->ForeColor = System::Drawing::Color::Red;
+			   this->nextDeadlineLabel->Location = System::Drawing::Point(23, 144);
+			   this->nextDeadlineLabel->Name = L"nextDeadlineLabel";
+			   this->nextDeadlineLabel->Size = System::Drawing::Size(156, 16);
+			   this->nextDeadlineLabel->TabIndex = 16;
+			   this->nextDeadlineLabel->Text = L"Next Deadline: Loading...";
+			   // 
 			   // pictureBox5
 			   // 
 			   this->pictureBox5->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox5.Image")));
@@ -643,18 +656,6 @@ namespace PersonalOrganizerApp {
 			   this->pictureBox6->TabIndex = 4;
 			   this->pictureBox6->TabStop = false;
 			   this->pictureBox6->Click += gcnew System::EventHandler(this, &MainForm::goToAcademic);
-			   // 
-			   // nextDeadlineLabel
-			   // 
-			   this->nextDeadlineLabel->AutoSize = true;
-			   this->nextDeadlineLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular,
-				   System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			   this->nextDeadlineLabel->ForeColor = System::Drawing::Color::Red;
-			   this->nextDeadlineLabel->Location = System::Drawing::Point(23, 144);
-			   this->nextDeadlineLabel->Name = L"nextDeadlineLabel";
-			   this->nextDeadlineLabel->Size = System::Drawing::Size(156, 16);
-			   this->nextDeadlineLabel->TabIndex = 16;
-			   this->nextDeadlineLabel->Text = L"Next Deadline: Loading...";
 			   // 
 			   // label11
 			   // 
@@ -897,8 +898,7 @@ private: System::Void menuIcon_Click(System::Object^ sender, System::EventArgs^ 
 }
 private: System::Void incomeIcon_Click(System::Object^ sender, System::EventArgs^ e) {
 	IncomeExpenseForm^ incomeExpenseForm = gcnew IncomeExpenseForm(currentUser);
-	incomeExpenseForm->Show();
-	this->Hide();
+	SwitchToForm(incomeExpenseForm);
 }
 private: System::Void budgetIcon_Click(System::Object^ sender, System::EventArgs^ e) {
 	BudgetForm^ budgetForm = gcnew BudgetForm(currentUser);
@@ -924,31 +924,56 @@ private: System::Void goToReportBtnClick(System::Object^ sender, System::EventAr
 	financialReportForm->Show();
 	this->Hide();
 }
-	   private: void PerformLogout() {
-    lblTotalIncome->Text = "LKR 0.00";
-    lblTotalExpenses->Text = "LKR 0.00";
-    lblSavings->Text = "LKR 0.00";
+private: void PerformLogout() {
+	lblTotalIncome->Text = "LKR 0.00";
+	lblTotalExpenses->Text = "LKR 0.00";
+	lblSavings->Text = "LKR 0.00";
 
-    currentUser = nullptr;
-    DatabaseHelper::GetInstance()->CloseConnection();
+	currentUser = nullptr;
+	DatabaseHelper::GetInstance()->CloseConnection();
 
-    this->Hide();
+	this->Hide();
 
-    LoginForm^ loginForm = gcnew LoginForm();
-    if (loginForm->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-        User^ loggedInUser = loginForm->GetLoggedInUser();
-        if (loggedInUser != nullptr) {
-            this->currentUser = loggedInUser;
-            usernameLbl->Text = currentUser->name;
+	while (true) {
+		LoginForm^ loginForm = gcnew LoginForm();
+		System::Windows::Forms::DialogResult loginResult = loginForm->ShowDialog();
 
-            MainForm_Load(this, gcnew EventArgs());
+		if (loginResult == System::Windows::Forms::DialogResult::OK) {
+			// Login successful, reload MainForm
+			User^ loggedInUser = loginForm->GetLoggedInUser();
+			if (loggedInUser != nullptr) {
+				this->currentUser = loggedInUser;
+				usernameLbl->Text = currentUser->name;
 
-            this->Show();
-        }
-    } else {
-        Application::Exit();
-    }
-};
+				MainForm_Load(this, gcnew EventArgs());
+				this->Show();
+				break; // Exit the loop
+			}
+		}
+		else if (loginResult == System::Windows::Forms::DialogResult::Abort) {
+			// Open RegisterForm
+			RegisterForm^ registerForm = gcnew RegisterForm();
+			System::Windows::Forms::DialogResult registerResult = registerForm->ShowDialog();
+
+			if (registerResult == System::Windows::Forms::DialogResult::Cancel) {
+				// Return to LoginForm
+				continue;
+			}
+			else {
+				// Exit if RegisterForm closes unexpectedly
+				Application::Exit();
+				break;
+			}
+		}
+		else {
+			// Exit application if LoginForm is canceled
+			Application::Exit();
+			break;
+		}
+	}
+}
+
+
 private: System::Void goToAcademic(System::Object^ sender, System::EventArgs^ e) {
 	AcademicScheduleForm^ academicScheduleForm = gcnew AcademicScheduleForm(currentUser);
 	academicScheduleForm->Show();
@@ -1014,11 +1039,34 @@ private: System::Void goToAcademic(System::Object^ sender, System::EventArgs^ e)
 	private: System::Void refreshDeadlineTimer_Tick(System::Object^ sender, System::EventArgs^ e) {
 				  LoadNextDeadline();
 	}
-
+private:
+	bool isExiting = false;
 private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-	DatabaseHelper::GetInstance()->CloseConnection();
-	Application::ExitThread();
-	Application::Exit();
+	// Check if the form is being closed by the user
+	if (!isExiting && e->CloseReason == System::Windows::Forms::CloseReason::UserClosing) {
+		// Show confirmation dialog
+		System::Windows::Forms::DialogResult result = MessageBox::Show(
+			"Are you sure you want to exit?",
+			"Exit Confirmation",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question
+		);
+
+		if (result == System::Windows::Forms::DialogResult::Yes) {
+			isExiting = true; // Set the flag to true
+			Application::Exit(); // Fully exit
+		}
+		else {
+			e->Cancel = true; // Cancel the close
+		}
+	}
 }
+	   // Method to switch forms without triggering the exit confirmation
+	   void SwitchToForm(System::Windows::Forms::Form^ nextForm) {
+		   isExiting = true;  // Prevent triggering the exit confirmation
+		   this->Hide();      // Hide the current form
+		   nextForm->ShowDialog(); // Show the next form as a dialog
+		   this->Close();     // Close the current form cleanly
+	   }
 };
 }

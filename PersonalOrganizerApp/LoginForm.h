@@ -30,6 +30,7 @@ namespace PersonalOrganizerApp {
 			//TODO: Add the constructor code here
 			//
 			this->CenterToScreen();
+			isExiting = false;
 		}
 
 	protected:
@@ -352,6 +353,7 @@ namespace PersonalOrganizerApp {
 			this->MaximizeBox = false;
 			this->Name = L"LoginForm";
 			this->Text = L"Login | Personal Organizer";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &LoginForm::LoginForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &LoginForm::LoginForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
@@ -437,7 +439,7 @@ namespace PersonalOrganizerApp {
 					  user->address = reader->GetString(4);
 					  user->password = reader->GetString(5);  // This is the stored password (which is already hashed)
 					  this->DialogResult = System::Windows::Forms::DialogResult::OK;
-					  this->Close();
+					  this->Hide();
 				  }
 				  else {
 					  MessageBox::Show("Email or Password is incorrect", "Email or Password Error", MessageBoxButtons::OK);
@@ -473,10 +475,7 @@ namespace PersonalOrganizerApp {
 	}
 
 public: bool switchToRegister = false;
-private: System::Void llRegister_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
-	switchToRegister = true;
-	this->Close();
-}
+private: System::Void llRegister_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 private: System::Void tbEmail_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 	if (e->KeyCode == Keys::Enter) {
 		this->tbPassword->Focus();
@@ -503,5 +502,27 @@ private: System::Void forgtPwLbl_Click(System::Object^ sender, System::EventArgs
 		   User^ GetLoggedInUser() {
 			   return this->user; 
 		   }
-};  
+private:
+	bool isExiting = false;
+private: System::Void LoginForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	// Check if the form is being closed by the user
+	if (!isExiting && e->CloseReason == System::Windows::Forms::CloseReason::UserClosing) {
+		// Show confirmation dialog
+		System::Windows::Forms::DialogResult result = MessageBox::Show(
+			"Are you sure you want to exit?",
+			"Exit Confirmation",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question
+		);
+
+		if (result == System::Windows::Forms::DialogResult::Yes) {
+			isExiting = true; // Set the flag to true
+			Application::Exit(); // Fully exit
+		}
+		else {
+			e->Cancel = true; // Cancel the close
+		}
+	}
+}
+};
 }

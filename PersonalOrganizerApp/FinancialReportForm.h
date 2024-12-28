@@ -304,6 +304,7 @@ namespace PersonalOrganizerApp {
 			this->Name = L"FinancialReportForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Financial Report  |  Personal Organizer";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &FinancialReportForm::FinancialReportForm_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewReport))->EndInit();
@@ -513,7 +514,28 @@ private: System::Void printDocument_PrintPage(System::Object^ sender, System::Dr
     yPos += 20;
             
 }
-};
+	   private:
+		   bool isExiting = false;
+private: System::Void FinancialReportForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	// Check if the form is being closed by the user
+	if (!isExiting && e->CloseReason == System::Windows::Forms::CloseReason::UserClosing) {
+		// Show confirmation dialog
+		System::Windows::Forms::DialogResult result = MessageBox::Show(
+			"Are you sure you want to exit?",
+			"Exit Confirmation",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question
+		);
 
-	
+		if (result == System::Windows::Forms::DialogResult::Yes) {
+			isExiting = true; // Set the flag to true
+			Application::Exit(); // Fully exit
+		}
+		else {
+			e->Cancel = true; // Cancel the close
+		}
+	}
+
+}
+};	
 }

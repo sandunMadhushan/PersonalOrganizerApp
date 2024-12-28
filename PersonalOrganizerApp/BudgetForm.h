@@ -273,6 +273,7 @@ namespace PersonalOrganizerApp {
 			this->Name = L"BudgetForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Budget  |  Personal Organizer";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &BudgetForm::BudgetForm_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->budgetDataGridView))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->backArrow))->EndInit();
 			this->groupBox1->ResumeLayout(false);
@@ -464,7 +465,28 @@ private: System::Void budgetDataGridView_CellClick(System::Object^ sender, Syste
 		this->budgetAmountTextBox->Text = row->Cells["BudgetAmount"]->Value->ToString();
 	}
 }
+private:
+	bool isExiting = false;
+private: System::Void BudgetForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	// Check if the form is being closed by the user
+	if (!isExiting && e->CloseReason == System::Windows::Forms::CloseReason::UserClosing) {
+		// Show confirmation dialog
+		System::Windows::Forms::DialogResult result = MessageBox::Show(
+			"Are you sure you want to exit?",
+			"Exit Confirmation",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question
+		);
 
+		if (result == System::Windows::Forms::DialogResult::Yes) {
+			isExiting = true; // Set the flag to true
+			Application::Exit(); // Fully exit
+		}
+		else {
+			e->Cancel = true; // Cancel the close
+		}
+	}
+}
 };
 
 }

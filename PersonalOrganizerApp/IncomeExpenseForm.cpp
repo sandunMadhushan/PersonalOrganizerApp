@@ -5,6 +5,7 @@
 using namespace PersonalOrganizerApp;
 
 System::Void IncomeExpenseForm::backArrow_Click(System::Object^ sender, System::EventArgs^ e) {
+    isExiting = true;
     // Close the connection to the database
     DatabaseHelper::GetInstance()->CloseConnection();
 

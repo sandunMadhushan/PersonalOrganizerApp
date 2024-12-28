@@ -4,6 +4,7 @@
 using namespace PersonalOrganizerApp;
 
 System::Void BudgetForm::backArrow_Click(System::Object^ sender, System::EventArgs^ e) {
+    isExiting = true;
     // Hide the current form (IncomeExpenseForm)
     this->Hide();
 
