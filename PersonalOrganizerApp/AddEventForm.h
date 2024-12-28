@@ -1,5 +1,6 @@
 #pragma once
 #include "DatabaseHelper.h"
+#include "User.h"
 
 namespace PersonalOrganizerApp {
 
@@ -16,13 +17,16 @@ namespace PersonalOrganizerApp {
 	/// </summary>
 	public ref class AddEventForm : public System::Windows::Forms::Form
 	{
+	private:
+		User^ user;
 	public:
-		AddEventForm(void)
+		AddEventForm(User^ currentUser)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
+			this->user = currentUser;
 		}
 
 	protected:
@@ -278,24 +282,35 @@ namespace PersonalOrganizerApp {
 				if (dbHelper->OpenConnection())
 				{
 					// Define the SQL query
-					String^ query = "INSERT INTO AcademicSchedule (Title, Date, Time, Type, Description) "
-						"VALUES (@Title, @Date, @Time, @Type, @Description)";
+					String^ query = "INSERT INTO AcademicSchedule (Title, Date, Time, Type, Description,UserName) "
+						"VALUES (@Title, @Date, @Time, @Type, @Description,@UserName)";
 
 					// Create SqlCommand with the query and connection
 					SqlCommand^ cmd = gcnew SqlCommand(query, dbHelper->GetConnection());
 
 					// Add parameters
 					cmd->Parameters->AddWithValue("@Title", titleTextBox->Text);
-					cmd->Parameters->AddWithValue("@Date", datePicker->Value);
-					cmd->Parameters->AddWithValue("@Time", timePicker->Value);
-					cmd->Parameters->AddWithValue("@Type", typeComboBox->SelectedItem->ToString());
-					cmd->Parameters->AddWithValue("@Description", descriptionTextBox->Text);
+					cmd->Parameters->AddWithValue("@Date", datePicker->Value.Date);
+					cmd->Parameters->AddWithValue("@Time", timePicker->Value.TimeOfDay);
+					cmd->Parameters->AddWithValue("@Type", typeComboBox->SelectedItem != nullptr ? typeComboBox->SelectedItem->ToString() : "");
+					// Use explicit if condition to handle nullable description
+					if (String::IsNullOrWhiteSpace(descriptionTextBox->Text))
+					{
+						cmd->Parameters->AddWithValue("@Description", DBNull::Value);
+					}
+					else
+					{
+						cmd->Parameters->AddWithValue("@Description", descriptionTextBox->Text);
+					}
+					cmd->Parameters->AddWithValue("@UserName", user->name);
 
 					// Execute the command
 					cmd->ExecuteNonQuery();
 
 					// Inform the user of success
 					MessageBox::Show("Event added successfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	
+					this->Close();
 				}
 				else
 				{
