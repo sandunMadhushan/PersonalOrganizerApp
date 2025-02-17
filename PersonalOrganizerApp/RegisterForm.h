@@ -628,7 +628,7 @@ private: System::Void RegisterForm_FormClosing(System::Object^ sender, System::W
 			Application::Exit(); // Fully exit
 		}
 		else {
-			e->Cancel = true; // Cancel the close
+			e->Cancel = true; 
 		}
 	}
 }

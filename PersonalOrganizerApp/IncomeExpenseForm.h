@@ -730,15 +730,12 @@ private: System::Void AddButton2_Click(System::Object^ sender, System::EventArgs
 				return;
 			}
 
-			// Create the query
 			String^ userName = this->user->name;
 			String^ query = "INSERT INTO Expense (Date, Category, Description, Amount, UserName) VALUES ('" + date + "', '" + category + "', '" + description + "', '" + amount + "', '" + userName + "')";
 			DatabaseHelper^ dbHelper = DatabaseHelper::GetInstance();
 
-			// Execute the query
 			dbHelper->ExecuteQuery(query);
 
-			// Show success message
 			MessageBox::Show("Expense added successfully", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 			// Check if budget is exceeded
@@ -764,7 +761,7 @@ private:
 	 bool isExiting = false;
 private: System::Void IncomeExpenseForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 	if (!isExiting && e->CloseReason == System::Windows::Forms::CloseReason::UserClosing) {
-		// Show confirmation dialog
+		
 		System::Windows::Forms::DialogResult result = MessageBox::Show(
 			"Are you sure you want to exit?",
 			"Exit Confirmation",

@@ -1063,10 +1063,10 @@ private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windo
 }
 	   // Method to switch forms without triggering the exit confirmation
 	   void SwitchToForm(System::Windows::Forms::Form^ nextForm) {
-		   isExiting = true;  // Prevent triggering the exit confirmation
-		   this->Hide();      // Hide the current form
-		   nextForm->ShowDialog(); // Show the next form as a dialog
-		   this->Close();     // Close the current form cleanly
+		   isExiting = true;  
+		   this->Hide();     
+		   nextForm->ShowDialog(); 
+		   this->Close();     
 	   }
 };
 }

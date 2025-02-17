@@ -11,7 +11,7 @@ private:
     static DatabaseHelper^ instance = nullptr;
     SqlConnection^ connection;
 
-    // Private constructor to prevent instantiation from outside
+    
     DatabaseHelper() {
         String^ connectionString = "Data Source=DESKTOP-MDO4CSL\\sqlexpress;Initial Catalog=personalOrganizerDB;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
         connection = gcnew SqlConnection(connectionString);
@@ -25,7 +25,7 @@ public:
         return instance;
     }
 
-    // Open a connection to the database
+    
     bool OpenConnection() {
         if (connection->State != System::Data::ConnectionState::Open) {
             connection->Open();
@@ -33,30 +33,30 @@ public:
         return connection->State == System::Data::ConnectionState::Open;
     }
 
-    // Close the connection to the database
+    
     void CloseConnection() {
         if (connection->State != System::Data::ConnectionState::Closed) {
             connection->Close();
         }
     }
 
-    // Return the SqlConnection object
+    
     SqlConnection^ GetConnection() {
         return connection;
     }
 
-    // Method to execute a query and return a DataTable
+    
     DataTable^ ExecuteQuery(String^ query) {
         SqlDataAdapter^ dataAdapter = gcnew SqlDataAdapter(query, connection);
-        DataTable^ dataTable = gcnew DataTable();  // Ensure that this is correctly declared
+        DataTable^ dataTable = gcnew DataTable();  
         try {
             if (OpenConnection()) {
-                dataAdapter->Fill(dataTable);  // This will fill the DataTable with results
+                dataAdapter->Fill(dataTable);  
             }
         }
         catch (Exception^ e) {
             MessageBox::Show("Error executing query: " + e->Message);
         }
-        return dataTable;  // Return the filled DataTable
+        return dataTable;  
     }
 };
