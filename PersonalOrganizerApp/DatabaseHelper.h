@@ -13,8 +13,13 @@ private:
 
     
     DatabaseHelper() {
-        String^ connectionString = "Data Source=DESKTOP-MDO4CSL\\sqlexpress;Initial Catalog=personalOrganizerDB;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
-        connection = gcnew SqlConnection(connectionString);
+        //Local SQL Server
+        //String^ connectionString = "Data Source=DESKTOP-MDO4CSL\\sqlexpress;Initial Catalog=personalOrganizerDB;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        //connection = gcnew SqlConnection(connectionString);
+
+		//Azure SQL Server
+		String^ connectionString = "Server=tcp:personalorganizer.database.windows.net,1433;Initial Catalog=personalorganizerdb;Persist Security Info=False;User ID=adminpo;Password=PersonalOrg!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+		connection = gcnew SqlConnection(connectionString);
     }
 
 public:
