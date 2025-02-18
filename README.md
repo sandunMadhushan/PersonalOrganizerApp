@@ -81,3 +81,18 @@ This project is open-source under the **MIT License**. See the [LICENSE](LICENSE
 <a href="https://github.com/sandunMadhushan">
 <img src="https://avatars.githubusercontent.com/u/69344147?s=64&v=4" width="64" height="64" alt="sandunMadhushan" style="border-radius: 50%;" />
 </a>
+
+---
+
+<div align="center">
+👨‍💻 Developed by [Sandun Madhushan](https://www.linkedin.com/in/sandunmadhushan)
+</div>
+
+<div align="center">
+<a href="https://github.com/sandunmadhushan/EduConnect-LMS">
+<img src="https://img.shields.io/github/stars/sandunmadhushan/EduConnect-LMS.svg?style=for-the-badge
+alt="GitHub Stars">
+</a>
+</div>
+
+
