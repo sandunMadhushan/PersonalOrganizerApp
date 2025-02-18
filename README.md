@@ -85,7 +85,7 @@ This project is open-source under the **MIT License**. See the [LICENSE](LICENSE
 ---
 
 <div align="center">
-👨‍💻 Developed by [Sandun Madhushan](https://www.linkedin.com/in/sandunmadhushan)
+👨‍💻 Developed by Sandun Madhushan
 </div>
 
 <div align="center">
