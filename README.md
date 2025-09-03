@@ -56,11 +56,12 @@
       git clone https://github.com/sandunMadhushan/PersonalOrganizerApp.git
       cd PersonalOrganizerApp
       ```
-2. **Open the project in Visual Studio.**
-3. **Build and run** the application.
-4. **Choose database configuration:**
-   - Azure SQL Database (default)
-   - Local SQL Server (optional)
+2. **Configure database connection (IMPORTANT):**
+   - See [DATABASE_SETUP.md](DATABASE_SETUP.md) for secure configuration instructions
+   - Set `PERSONAL_ORGANIZER_DB_CONNECTION` environment variable with your database connection string
+   - Never commit database passwords to source control
+3. **Open the project in Visual Studio.**
+4. **Build and run** the application.
 
 ## 📌 Future Enhancements
 -  Enhanced cloud sync capabilities

@@ -3,6 +3,15 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Configuration files with sensitive data
+config.ini
+appsettings.json
+*.config
+connection.txt
+.env
+.env.local
+.env.production
+
 # User-specific files
 *.rsuser
 *.suo

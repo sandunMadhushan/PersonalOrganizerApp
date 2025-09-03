@@ -13,13 +13,27 @@ private:
 
     
     DatabaseHelper() {
-        //Local SQL Server
-        //String^ connectionString = "Data Source=DESKTOP-MDO4CSL\\sqlexpress;Initial Catalog=personalOrganizerDB;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
-        //connection = gcnew SqlConnection(connectionString);
+        String^ connectionString = GetConnectionString();
+        connection = gcnew SqlConnection(connectionString);
+    }
 
-		//Azure SQL Server
-		String^ connectionString = "Server=tcp:personalorganizer.database.windows.net,1433;Initial Catalog=personalorganizerdb;Persist Security Info=False;User ID=adminpo;Password=PersonalOrg!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-		connection = gcnew SqlConnection(connectionString);
+private:
+    String^ GetConnectionString() {
+        // Try to get connection string from environment variable first
+        String^ envConnectionString = System::Environment::GetEnvironmentVariable("PERSONAL_ORGANIZER_DB_CONNECTION");
+        
+        if (!String::IsNullOrEmpty(envConnectionString)) {
+            return envConnectionString;
+        }
+        
+        // Fallback to local SQL Server for development (no hardcoded password)
+        // For production, ensure PERSONAL_ORGANIZER_DB_CONNECTION environment variable is set
+        String^ localConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=personalOrganizerDB;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        
+        MessageBox::Show("Warning: Using local database connection. For production deployment, set PERSONAL_ORGANIZER_DB_CONNECTION environment variable with your secure connection string.", 
+                        "Configuration Notice", MessageBoxButtons::OK, MessageBoxIcon::Information);
+        
+        return localConnectionString;
     }
 
 public:
