@@ -587,7 +587,7 @@ public: User^ user = nullptr;
 			  user->email = email;
 			  user->phone = phone;
 			  user->address = address;
-			  user->password = password;
+			  user->password = hashedPassword; // Store hashed password, never plaintext
 
 			  MessageBox::Show("User registered successfully", "Register Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			  this->Hide();

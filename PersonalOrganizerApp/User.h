@@ -10,5 +10,5 @@ public:
 	String^ email;
 	String^ phone;
 	String^ address;
-	String^ password;
+	String^ password; // WARNING: This field should ONLY contain hashed passwords, never plaintext!
 };
